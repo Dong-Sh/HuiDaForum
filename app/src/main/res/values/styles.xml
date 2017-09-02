@@ -17,4 +17,9 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@drawable/rg_footer_textcolor</item>
     </style>
+    <!--标题栏背景-->
+    <style name="topbar_bg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">#ff3515</item>
+    </style>
 </resources>
