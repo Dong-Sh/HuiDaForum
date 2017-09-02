@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_heightPercent="45%w">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/home_top" />
+            <EditText
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:id="@+id/et_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_et_shape"
+                android:hint=" 搜索你关注的帖子"
+                app:layout_heightPercent="10%w"
+                app:layout_marginLeftPercent="10%w"
+                app:layout_marginTopPercent="10%w"
+                app:layout_widthPercent="70%w" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/et_home"
+                android:background="@mipmap/home_search"
+                app:layout_heightPercent="10%w"
+                app:layout_marginLeftPercent="3%w"
+                app:layout_marginRightPercent="3%w"
+                app:layout_marginTopPercent="10%w"
+                app:layout_widthPercent="10%w" />
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="horizontal"
+            app:layout_heightPercent="12%w">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@mipmap/popular"
+                android:text="最新帖子"
+                android:textColor="#fff"
+                app:layout_marginPercent="1%w"
+                app:layout_textSizePercent="5%w" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@mipmap/infomation"
+                android:text="热门好帖"
+                android:textColor="#fff"
+                app:layout_marginPercent="1%w"
+                app:layout_textSizePercent="5%w" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@mipmap/selection"
+                android:text="精选推荐"
+                android:textColor="#fff"
+                app:layout_marginPercent="1%w"
+                app:layout_textSizePercent="5%w" />
+        </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>
