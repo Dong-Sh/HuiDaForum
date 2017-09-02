@@ -13,6 +13,8 @@ public class MineSettingActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_mine_setting;
+
+
     }
 
     @Override
