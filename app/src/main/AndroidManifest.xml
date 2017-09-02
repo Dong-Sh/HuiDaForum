@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MineSettingActivity"></activity>
+        <activity android:name=".activity.MineFocusActivity"/>
+        <activity android:name=".activity.MineCollectActivity"/>
     </application>
 
 </manifest>

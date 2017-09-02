@@ -7,20 +7,13 @@
     android:layout_height="match_parent"
     android:background="#f9f9f9">
     <RelativeLayout
-
         style="@style/topbar_bg"
         app:layout_heightPercent="14%w">
     <TextView
         style="@style/topbar_textcolor"
         android:text="设置" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:drawableLeft="@mipmap/left"
-            android:background="@android:color/transparent"
-            android:layout_centerVertical="true"
-            android:drawablePadding="5dp"
-            android:layout_marginLeft="15dp"/>
+            style="@style/topbar_back"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

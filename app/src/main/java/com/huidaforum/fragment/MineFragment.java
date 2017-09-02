@@ -1,21 +1,20 @@
 package com.huidaforum.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huidaforum.R;
+import com.huidaforum.activity.MineCollectActivity;
+import com.huidaforum.activity.MineFocusActivity;
 import com.huidaforum.activity.MineSettingActivity;
 import com.huidaforum.base.BaseFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -46,6 +45,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.iv_mine_share)
     ImageView ivMineShare;
     Unbinder unbinder;
+    @BindView(R.id.rl_mine_focus)
+    RelativeLayout rlMineFocus;
+    @BindView(R.id.rl_mine_collect)
+    RelativeLayout rlMineCollect;
+    @BindView(R.id.rl_mine_comment)
+    RelativeLayout rlMineComment;
+    @BindView(R.id.rl_mine_publish)
+    RelativeLayout rlMinePublish;
+    @BindView(R.id.rl_mine_money)
+    RelativeLayout rlMineMoney;
+    @BindView(R.id.rl_mine_draft)
+    RelativeLayout rlMineDraft;
+    @BindView(R.id.rl_mine_share)
+    RelativeLayout rlMineShare;
+    Unbinder unbinder1;
 
     @Override
     public View initView() {
@@ -61,31 +75,25 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initListener() {
         ibMineSetting.setOnClickListener(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+        rlMineFocus.setOnClickListener(this);
+        rlMineCollect.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = null;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ib_mine_setting:
                 intent = new Intent(mActivity, MineSettingActivity.class);
                 break;
-
+            case R.id.rl_mine_focus:
+                intent = new Intent(mActivity, MineFocusActivity.class);
+                break;
+            case R.id.rl_mine_collect:
+                intent = new Intent(mActivity, MineCollectActivity.class);
+                break;
         }
         startActivity(intent);
     }
+
 }
