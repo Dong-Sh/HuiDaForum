@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <TextView
+       android:textColor="#ff3515"
+       android:textSize="30sp"
+       android:text="社区"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" />
+</com.zhy.android.percent.support.PercentLinearLayout>

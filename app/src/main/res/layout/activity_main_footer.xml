@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:background="#e5e5e5"
+        android:id="@+id/rg_main_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_heightPercent="14%w">
+
+        <RadioButton
+            android:id="@+id/rb_main_home"
+            app:layout_textSizePercent="10%w"
+            style="@style/footbar_rb_style"
+            android:text="首页" />
+        <RadioButton
+            android:id="@+id/rb_main_community"
+            app:layout_textSizePercent="10%w"
+            style="@style/footbar_rb_style"
+            android:text="社区" />
+        <ImageView
+            android:id="@+id/iv_main_release"
+            android:layout_gravity="center"
+            android:background="@drawable/release"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+        <RadioButton
+            android:id="@+id/rb_main_news"
+            app:layout_textSizePercent="10%w"
+            style="@style/footbar_rb_style"
+            android:text="消息" />
+        <RadioButton
+            android:id="@+id/rb_main_mine"
+            app:layout_textSizePercent="10%w"
+            style="@style/footbar_rb_style"
+            android:text="我的" />
+    </RadioGroup>
+
+</com.zhy.android.percent.support.PercentLinearLayout>
