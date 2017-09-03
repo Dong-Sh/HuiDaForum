@@ -6,14 +6,14 @@ import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 
 /**
- * Created by xiaojiu on 2017/9/2.
- * 我的收藏页面
+ * Created by xiaojiu on 2017/9/3.
+ * 我的钱包页面
  */
 
-public class MineCollectActivity extends BaseActivity {
+public class MineMoneyActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_mine_collect;
+        return R.layout.activity_mine_money;
     }
 
     @Override

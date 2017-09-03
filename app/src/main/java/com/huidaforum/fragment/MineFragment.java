@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.huidaforum.R;
 import com.huidaforum.activity.MineCollectActivity;
+import com.huidaforum.activity.MineCommentActivity;
+import com.huidaforum.activity.MineDraftActivity;
 import com.huidaforum.activity.MineFocusActivity;
+import com.huidaforum.activity.MineMoneyActivity;
+import com.huidaforum.activity.MinePublishActivity;
 import com.huidaforum.activity.MineSettingActivity;
 import com.huidaforum.base.BaseFragment;
 
@@ -71,12 +75,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     protected void initData() {
 
     }
-
+    //"我的"页面中控件单击事件
     @Override
     protected void initListener() {
         ibMineSetting.setOnClickListener(this);
         rlMineFocus.setOnClickListener(this);
         rlMineCollect.setOnClickListener(this);
+        rlMineComment.setOnClickListener(this);
+        rlMinePublish.setOnClickListener(this);
+        rlMineMoney.setOnClickListener(this);
+        rlMineDraft.setOnClickListener(this);
     }
 
     @Override
@@ -91,6 +99,18 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rl_mine_collect:
                 intent = new Intent(mActivity, MineCollectActivity.class);
+                break;
+            case R.id.rl_mine_comment:
+                intent = new Intent(mActivity, MineCommentActivity.class);
+                break;
+            case R.id.rl_mine_publish:
+                intent = new Intent(mActivity, MinePublishActivity.class);
+                break;
+            case R.id.rl_mine_money:
+                intent = new Intent(mActivity, MineMoneyActivity.class);
+                break;
+            case R.id.rl_mine_draft:
+                intent = new Intent(mActivity, MineDraftActivity.class);
                 break;
         }
         startActivity(intent);

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+    <RelativeLayout
+        style="@style/topbar_bg"
+        app:layout_heightPercent="14%w">
+        <TextView
+            style="@style/topbar_textcolor"
+            android:text="我的钱包" />
+        <Button
+            style="@style/topbar_back"/>
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/my_red_money"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前余额0.00"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提现金额需满50"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:textSize="13sp"
+        android:textColor="#bbbbbb"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tv_money_tixian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="提现"
+            android:background="@drawable/mine_money_button" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="交易记录"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/red"
+            android:layout_toRightOf="@id/tv_money_tixian"
+            android:background="@drawable/mine_money_button" />
+    </RelativeLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

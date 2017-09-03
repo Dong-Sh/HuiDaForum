@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9">
+    <RelativeLayout
+        style="@style/topbar_bg"
+        app:layout_heightPercent="14%w">
+        <TextView
+            style="@style/topbar_textcolor"
+            android:text="我的评论" />
+        <Button
+            style="@style/topbar_back"/>
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@mipmap/my_share_nor"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无评论"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"/>
+</com.zhy.android.percent.support.PercentLinearLayout>

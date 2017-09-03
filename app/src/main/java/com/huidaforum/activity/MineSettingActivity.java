@@ -7,6 +7,7 @@ import com.huidaforum.base.BaseActivity;
 
 /**
  * Created by xiaojiu on 2017/9/2.
+ * 我的——>设置页面
  */
 
 public class MineSettingActivity extends BaseActivity {
