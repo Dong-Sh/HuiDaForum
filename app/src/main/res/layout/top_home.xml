@@ -50,6 +50,7 @@
             android:orientation="horizontal"
             app:layout_heightPercent="12%w">
             <Button
+                android:id="@+id/bt_popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -60,6 +61,7 @@
                 app:layout_textSizePercent="5%w" />
 
             <Button
+                android:id="@+id/bt_infomation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,6 +72,7 @@
                 app:layout_textSizePercent="5%w" />
 
             <Button
+                android:id="@+id/bt_selection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="13%w"
+        android:background="#ff3515">
+      <Button
+          android:layout_centerVertical="true"
+          android:id="@id/back"
+          app:layout_marginLeftPercent="5%w"
+          android:layout_gravity="center"
+          app:layout_heightPercent="6%w"
+          app:layout_widthPercent="5%w"
+          android:background="@mipmap/left"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+        <TextView
+            app:layout_textSizePercent="6%w"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:text="最新帖子"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+</com.zhy.android.percent.support.PercentLinearLayout>
