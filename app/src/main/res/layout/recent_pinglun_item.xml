@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="hello未来的你" />
+
+        <LinearLayout
+            android:paddingRight="20dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="right"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="3" />
+
+                <ImageView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:gravity="center"
+                    android:src="@mipmap/home_fabulous_nor" />
+            </LinearLayout>
+            <LinearLayout
+                android:paddingLeft="15dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="10" />
+
+                <ImageView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:gravity="center"
+                    android:src="@mipmap/home_comment_nor" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        android:text="沪江英语网是免费的英语学习网站,提供近期的英文怎么说信息,包含近期的英文怎么说的相关学习资料、单词测试、评论、学习推荐等信息。"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/ll_pinglun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/dashline" />
+    </LinearLayout>
+</LinearLayout>
