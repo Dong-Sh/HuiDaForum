@@ -23,7 +23,7 @@ public class ReleaseActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        Log.e("1","1");
+        Log.e("11","1");
     }
 
     @Override
