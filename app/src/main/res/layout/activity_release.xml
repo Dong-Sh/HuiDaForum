@@ -22,7 +22,7 @@
             android:id="@+id/release_send"
             android:text="发送"
             android:layout_width="wrap_content"
-            android:layout_height="19sp" />
+            android:layout_height="20sp" />
     </RelativeLayout>
     <LinearLayout
         app:layout_heightPercent="40%w"

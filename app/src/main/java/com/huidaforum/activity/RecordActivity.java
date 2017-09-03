@@ -2,14 +2,12 @@ package com.huidaforum.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 
-
-public class ReleaseActivity extends BaseActivity {
+public class RecordActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +16,12 @@ public class ReleaseActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_release;
+        return R.layout.activity_record;
     }
 
     @Override
     public void initView() {
-        Log.e("1","1");
+
     }
 
     @Override

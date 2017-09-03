@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/linecolor" />
+    <RelativeLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_record_pic"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
+        <TextView
+            android:id="@+id/tv_record_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hello 未来的你"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_record_pic"
+            android:layout_marginLeft="8dp"/>
+        <TextView
+            android:gravity="center_horizontal"
+            android:lines="1"
+            android:id="@+id/tv_record_money"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="2000"
+            android:textSize="20sp"
+            android:textColor="@color/red"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="打赏"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_record_money"
+            android:layout_marginRight="5dp"/>
+    </RelativeLayout>
+    <TextView
+        android:paddingRight="10dp"
+        android:gravity="right"
+        android:textSize="20sp"
+        android:background="#f1f1f1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2017/07/20"/>
+</LinearLayout>
