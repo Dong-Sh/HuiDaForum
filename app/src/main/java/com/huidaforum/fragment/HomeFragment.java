@@ -35,6 +35,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View initView() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home, null);
+
         return view;
     }
 
