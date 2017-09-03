@@ -46,7 +46,7 @@ public class HomeFragment extends BaseFragment {
             Bean bean = new Bean("我是测试文本" + i);
             been.add(bean);
         }
-
+//ftyj
         rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
         MyAdapter adapter = new MyAdapter();
         View view = View.inflate(mActivity, R.layout.top_home, null);
