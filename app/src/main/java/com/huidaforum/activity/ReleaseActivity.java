@@ -2,10 +2,12 @@ package com.huidaforum.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
+
 
 public class ReleaseActivity extends BaseActivity {
 
@@ -21,7 +23,7 @@ public class ReleaseActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        Log.e("1","1");
     }
 
     @Override
