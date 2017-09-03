@@ -16,9 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MineSettingActivity"></activity>
-        <activity android:name=".activity.MineFocusActivity"/>
-        <activity android:name=".activity.MineCollectActivity"/>
+        <activity android:name=".activity.MineSettingActivity" />
+        <activity android:name=".activity.MineFocusActivity" />
+        <activity android:name=".activity.MineCollectActivity" />
+        <activity android:name=".activity.ReleaseActivity"></activity>
     </application>
 
 </manifest>

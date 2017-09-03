@@ -1,6 +1,7 @@
 package com.huidaforum.activity;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -53,7 +54,8 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         ivMainRelease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "aaaa", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,ReleaseActivity.class);
+                startActivity(intent);
             }
         });
     }

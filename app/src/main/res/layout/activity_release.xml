@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        style="@style/topbar_bg"
+        app:layout_heightPercent="14%w">
+        <Button
+            style="@style/topbar_back"/>
+        <TextView
+            style="@style/topbar_textcolor"
+            android:text="发布" />
+        <Button
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/release_send"
+            android:text="发送"
+            android:layout_width="wrap_content"
+            android:layout_height="19sp" />
+    </RelativeLayout>
+    <LinearLayout
+        app:layout_heightPercent="40%w"
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:id="@+id/release_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:text="标题："
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/release_edittext_shape"
+            android:text="标题叫什么呢？"
+            android:lines="5"
+            android:layout_width="match_parent"
+            android:gravity="top"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        app:layout_heightPercent="60%w"
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:id="@+id/release_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:text="正文："
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/release_edittext_shape"
+            android:text="大神写点东西再走吧！"
+            android:lines="8"
+            android:layout_width="match_parent"
+            android:gravity="top"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="15dp"
+        android:layout_marginTop="5dp"
+        app:layout_heightPercent="20%w"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/release_add"/>
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加照片"/>
+    </LinearLayout>
+</com.zhy.android.percent.support.PercentLinearLayout>
