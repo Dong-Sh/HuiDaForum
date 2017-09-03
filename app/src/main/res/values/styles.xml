@@ -17,4 +17,29 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@drawable/rg_footer_textcolor</item>
     </style>
+    <!--标题栏背景-->
+    <style name="topbar_bg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/red</item>
+    </style>
+    <!--标题文字-->
+    <style name="topbar_textcolor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <!--标题返回键-->
+    <style name="topbar_back">
+        <item name="android:id">@id/back</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">19dp</item>
+        <item name="android:drawableLeft">@mipmap/left</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+    </style>
+
 </resources>

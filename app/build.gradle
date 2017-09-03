@@ -34,4 +34,6 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.25'
     compile 'com.zhy:percent-support-extends:1.1.1'
     compile 'com.android.support:design:23.3.0'
+    compile 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
