@@ -17,6 +17,7 @@ import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.Bean;
+import com.huidaforum.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;

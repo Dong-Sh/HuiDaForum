@@ -7,6 +7,10 @@ import android.view.View;
 
 
 import com.huidaforum.R;
+import com.huidaforum.utils.StatusBarUtil;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import butterknife.ButterKnife;
 
@@ -18,11 +22,31 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
+        setStatusBar();
         initView();
         initData();
         initListener();
         registComBtn();
     }
+
+    public void setStatusBar() {
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.red));
+
+        Class clazz = getWindow().getClass();
+        try {
+            int darkModeFlag = 0;
+            Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+
+            extraFlagField.invoke(getWindow(),darkModeFlag,darkModeFlag);//状态栏透明且黑色字体
+
+        }catch (Exception e){
+
+        }
+    }
+
     private  void registComBtn(){
         View view = findViewById(R.id.back);
         if(view!=null){

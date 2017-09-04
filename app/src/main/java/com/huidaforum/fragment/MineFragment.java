@@ -1,8 +1,10 @@
 package com.huidaforum.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,8 +19,10 @@ import com.huidaforum.activity.MineMoneyActivity;
 import com.huidaforum.activity.MinePublishActivity;
 import com.huidaforum.activity.MineSettingActivity;
 import com.huidaforum.base.BaseFragment;
+import com.huidaforum.utils.StatusBarUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -64,6 +68,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.rl_mine_share)
     RelativeLayout rlMineShare;
     Unbinder unbinder1;
+    Unbinder unbinder2;
 
     @Override
     public View initView() {
@@ -75,6 +80,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     protected void initData() {
 
     }
+
     //"我的"页面中控件单击事件
     @Override
     protected void initListener() {
@@ -116,4 +122,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         startActivity(intent);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder2 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder2.unbind();
+    }
 }
