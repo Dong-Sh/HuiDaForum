@@ -16,10 +16,10 @@ import com.huidaforum.activity.MineCommentActivity;
 import com.huidaforum.activity.MineDraftActivity;
 import com.huidaforum.activity.MineFocusActivity;
 import com.huidaforum.activity.MineMoneyActivity;
+import com.huidaforum.activity.MinePersonalActivity;
 import com.huidaforum.activity.MinePublishActivity;
 import com.huidaforum.activity.MineSettingActivity;
 import com.huidaforum.base.BaseFragment;
-import com.huidaforum.utils.StatusBarUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +91,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         rlMinePublish.setOnClickListener(this);
         rlMineMoney.setOnClickListener(this);
         rlMineDraft.setOnClickListener(this);
+        rlMineTop.setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +118,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rl_mine_draft:
                 intent = new Intent(mActivity, MineDraftActivity.class);
+                break;
+            case R.id.rl_mine_top:
+                intent = new Intent(mActivity, MinePersonalActivity.class);
                 break;
         }
         startActivity(intent);
