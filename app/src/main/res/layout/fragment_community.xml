@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-   <TextView
-       android:textColor="#ff3515"
-       android:textSize="30sp"
-       android:text="社区"
+   <include android:layout_height="wrap_content"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content" />
+       layout="@layout/top_community" />
+   <com.jude.rollviewpager.RollPagerView
+       app:layout_heightPercent="45%w"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/rpv_community"
+       app:rollviewpager_play_delay="3000"
+       app:rollviewpager_hint_gravity="center">
+   </com.jude.rollviewpager.RollPagerView>
+    <android.support.v7.widget.RecyclerView
+        app:layout_marginTopPercent="2%w"
+        android:id="@+id/rlv_community"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 </com.zhy.android.percent.support.PercentLinearLayout>

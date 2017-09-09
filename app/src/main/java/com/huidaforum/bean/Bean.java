@@ -7,10 +7,22 @@ package com.huidaforum.bean;
 public class Bean {
     private  String name;
 
+    public int getTupian() {
+        return tupian;
+    }
+
+    public void setTupian(int tupian) {
+        this.tupian = tupian;
+    }
+
+    private int tupian;
     public Bean(String name) {
         this.name = name;
     }
-
+    public Bean(String name,int tupian) {
+        this.name = name;
+        this.tupian=tupian;
+    }
     public String getName() {
         return name;
     }

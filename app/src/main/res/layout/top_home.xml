@@ -47,9 +47,10 @@
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
         <com.zhy.android.percent.support.PercentLinearLayout
+            app:layout_marginTopPercent="3%w"
+            app:layout_marginBottomPercent="3%w"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
             android:orientation="horizontal"
             app:layout_heightPercent="12%w">
             <Button

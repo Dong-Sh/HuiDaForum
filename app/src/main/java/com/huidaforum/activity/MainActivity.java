@@ -249,6 +249,7 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                     ft.add(R.id.fl_main, cf);
                 } else ft.show(cf);
                 StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
+
                 break;
             case R.id.rb_main_news:
                 if (nf == null) {
