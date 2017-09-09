@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--注册页面获取验证码按钮的外边框-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners
+        android:radius="5dp" />
+    <!-- 填充的颜色 -->
+    <solid android:color="#ff3315" />
+    <padding
+        android:bottom="7dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="7dp" />
+</shape>

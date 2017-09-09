@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--登录按钮的外边框-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners
+        android:radius="27dp" />
+    <!-- 填充的颜色 -->
+    <solid android:color="#ff4513" />
+    <padding
+        android:bottom="4dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:top="4dp" />
+</shape>
