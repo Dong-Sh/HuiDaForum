@@ -37,7 +37,7 @@
             android:text="消息" />
         <RadioButton
             android:id="@+id/rb_main_mine"
-            app:layout_textSizePercent="10%w"
+            app:layout_textSizePercent="15%w"
             style="@style/footbar_rb_style"
             android:text="我的" />
     </RadioGroup>
