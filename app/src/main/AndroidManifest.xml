@@ -26,6 +26,7 @@
         <activity android:name=".activity.MineDraftActivity"/>
         <activity android:name=".activity.PostingActivity"/>
         <activity android:name=".activity.MinePersonalActivity"/>
+        <activity android:name=".activity.MineShareActivity"/>
     </application>
 
 </manifest>

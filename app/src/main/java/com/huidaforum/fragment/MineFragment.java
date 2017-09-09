@@ -13,13 +13,13 @@ import android.widget.TextView;
 import com.huidaforum.R;
 import com.huidaforum.activity.MineCollectActivity;
 import com.huidaforum.activity.MineCommentActivity;
+import com.huidaforum.activity.MineDraftActivity;
 import com.huidaforum.activity.MineFocusActivity;
 import com.huidaforum.activity.MineMoneyActivity;
 import com.huidaforum.activity.MinePersonalActivity;
 import com.huidaforum.activity.MinePublishActivity;
 import com.huidaforum.activity.MineSettingActivity;
 import com.huidaforum.activity.MineShareActivity;
-import com.huidaforum.activity.RegisterActivity;
 import com.huidaforum.base.BaseFragment;
 
 import butterknife.BindView;
@@ -119,7 +119,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 intent = new Intent(mActivity, MineMoneyActivity.class);
                 break;
             case R.id.rl_mine_draft:
-                intent = new Intent(mActivity, RegisterActivity.class);
+                intent = new Intent(mActivity, MineDraftActivity.class);
                 break;
             case R.id.rl_mine_top:
                 intent = new Intent(mActivity, MinePersonalActivity.class);
