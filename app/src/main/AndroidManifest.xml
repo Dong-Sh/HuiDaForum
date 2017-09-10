@@ -9,12 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.MineSettingActivity" />
         <activity android:name=".activity.MineFocusActivity" />
         <activity android:name=".activity.MineCollectActivity" />
@@ -27,6 +22,13 @@
         <activity android:name=".activity.PostingActivity"/>
         <activity android:name=".activity.MinePersonalActivity"/>
         <activity android:name=".activity.MineShareActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.WelcomActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
