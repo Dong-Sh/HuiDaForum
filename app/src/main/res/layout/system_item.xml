@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/linecolor" />
+
+    <ImageView
+        android:id="@+id/iv_system_pic"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_below="@id/line1"
+        android:layout_marginLeft="15dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher" />
+
+    <RelativeLayout
+        android:id="@+id/rl_system"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line1"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/iv_system_pic">
+
+        <LinearLayout
+            android:id="@+id/ll_system"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="惠达官方"
+                android:textColor="@color/red"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:background="@mipmap/huidaguanfang" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_system_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_system"
+            android:layout_marginTop="5dp"
+            android:text="08-02" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_system_time"
+            android:layout_marginTop="10dp"
+            android:background="@color/linecolor" />
+
+        <TextView
+            android:id="@+id/tv_system_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2"
+            android:layout_marginTop="10dp"
+            android:text="怎样成为程序员大神"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_system_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_system_title"
+            android:layout_marginTop="5dp"
+            android:lines="3"
+            android:text="啊经十东路看风景阿拉会计法垃圾 啊经十东路看风景阿拉会计法垃圾 啊经十东路看风景阿拉会计法垃圾 啊经十东路看风景阿拉会计法垃圾 " />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/rl_system"
+        android:layout_marginTop="15dp"
+        android:background="@color/linecolor" />
+</RelativeLayout>
