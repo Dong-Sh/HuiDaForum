@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--引导页面“立即开启”按钮的外边框-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners
+        android:radius="50dp" />
+    <!-- 填充的颜色 -->
+    <solid android:color="#FFF" />
+    <stroke android:color="@color/red"
+        android:width="1dp"/>
+    <padding
+        android:bottom="5dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:top="5dp" />
+</shape>

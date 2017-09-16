@@ -1,11 +1,14 @@
 package com.huidaforum.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
@@ -16,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.huidaforum.activity.WelcomActivity.IS_OPENMAIN;
 import static com.squareup.picasso.MemoryPolicy.NO_CACHE;
@@ -32,6 +36,9 @@ public class GuideActivity extends BaseActivity {
     ViewPager vpGuide;
     @BindView(R.id.activity_guide)
     RelativeLayout activityGuide;
+    @BindView(R.id.tv_guide)
+    TextView tvGuide;
+
     private ArrayList<ImageView> imageList;
 
     @Override
@@ -59,6 +66,43 @@ public class GuideActivity extends BaseActivity {
 
         //初始化viewpager数据，通过适配器完成
         vpGuide.setAdapter(new GuideAdapter());
+        //设置viewpager的页面变化的监听
+        vpGuide.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //页面滚动
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            //当页面被选中时调用
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 2) {
+                    //当前选中的是最后一个条目,button可见
+                    tvGuide.setVisibility(View.VISIBLE);
+                    //button的点击事件
+                    tvGuide.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //跳转到主界面
+                            Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                } else {
+                    //其他条目，button不可见
+                    tvGuide.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            //页面状态改变时
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -69,6 +113,13 @@ public class GuideActivity extends BaseActivity {
     @Override
     public void processClick(View v) {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
 
@@ -103,7 +154,7 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void setStatusBar() {
-        StatusBarUtil.setTransparentForImageView(this,null);
+        StatusBarUtil.setTransparentForImageView(this, null);
     }
 }
 
