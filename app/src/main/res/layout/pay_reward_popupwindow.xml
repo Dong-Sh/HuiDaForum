@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pay_a_reward_shape"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_marginTop="10dp"
+    android:id="@+id/ll_one"
+    android:layout_centerHorizontal="true"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_pop_reward"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@mipmap/rawad" />
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:lines="2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="您的支持将鼓励我继续前进!"
+        android:textColor="@color/red"
+        android:textSize="20sp"/>
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_senond"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/pay_pup_shape"
+        android:layout_below="@id/ll_one"
+        android:layout_width="300dp"
+        android:layout_height="100dp">
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金额：2元"
+            android:textSize="20sp"/>
+        <View
+            android:layout_marginTop="10dp"
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/linecolor" />
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付方式：微信支付"
+            android:textSize="20sp"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/lower"/>
+    </LinearLayout>
+    <View
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/ll_senond"
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/linecolor" />
+    <LinearLayout
+        android:layout_below="@id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <Button
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textSize="15sp"
+            android:text="取消"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:background="@color/linecolor" />
+        <Button
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:textColor="@color/red"
+            android:textSize="15sp"
+            android:text="确认支付"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>
