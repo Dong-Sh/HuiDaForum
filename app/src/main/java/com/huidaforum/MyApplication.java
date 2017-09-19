@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
  */
 
 public class MyApplication extends Application {
-    @Override//
+    @Override//123
     public void onCreate() {
         super.onCreate();
         initOkGo();
