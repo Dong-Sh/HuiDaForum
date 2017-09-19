@@ -40,4 +40,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.6.0'
     compile 'com.jude:rollviewpager:1.4.6'
+    compile 'com.lzy.net:okgo:3.0.4'
 }
