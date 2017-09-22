@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
 
 import butterknife.BindView;
@@ -30,7 +32,7 @@ public class WelcomActivity extends BaseActivity {
     ImageView ivWelcome;
     @BindView(R.id.rl_welcom)
     RelativeLayout rlWelcom;
-    public static final String IS_OPENMAIN = "is_openmain";
+
 
     @Override
     public int getLayoutId() {
@@ -43,7 +45,8 @@ public class WelcomActivity extends BaseActivity {
         final Window window = getWindow();
         //属性动画，0.2~1的变化
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0.2f, 1f);
-        valueAnimator.setDuration(4000);
+        //valueAnimator.setDuration(4000);
+        valueAnimator.setDuration(40);
         //差值器  线性，线性均匀改变
         valueAnimator.setInterpolator(new LinearInterpolator());
         //动画过程的监听
@@ -66,16 +69,18 @@ public class WelcomActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                boolean sp = SpUtil.getBoolean(IS_OPENMAIN, WelcomActivity.this);
+                SpUtil.putString(StaticValue.TOKEN,"",WelcomActivity.this);
+                boolean sp = SpUtil.getBoolean(StaticValue.IS_OPENMAIN, WelcomActivity.this);
                 if(sp){
-                    Intent intent = new Intent(WelcomActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Intent intent = new Intent(WelcomActivity.this, GuideActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(!TextUtils.isEmpty(SpUtil.getString(StaticValue.TOKEN,WelcomActivity.this))){//用户已登录
+                        startActivity(new Intent(WelcomActivity.this,MainActivity.class));
+                    }else{
+                        startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                    }
+                }else{//第一次进入
+                    startActivity(new Intent(WelcomActivity.this, GuideActivity.class));
                 }
+                finish();
             }
 
             @Override

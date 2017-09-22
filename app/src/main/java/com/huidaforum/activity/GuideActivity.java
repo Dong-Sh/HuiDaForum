@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.huidaforum.activity.WelcomActivity.IS_OPENMAIN;
 import static com.squareup.picasso.MemoryPolicy.NO_CACHE;
 import static com.squareup.picasso.MemoryPolicy.NO_STORE;
 
@@ -49,7 +49,7 @@ public class GuideActivity extends BaseActivity {
     public void initView() {
         initData();
         //存储已经跳转的mainactivity的标记
-        SpUtil.putBoolean(IS_OPENMAIN, true, GuideActivity.this);
+        SpUtil.putBoolean(StaticValue.IS_OPENMAIN, true, GuideActivity.this);
     }
 
     public void initData() {
@@ -85,7 +85,7 @@ public class GuideActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             //跳转到主界面
-                            Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+                            Intent intent = new Intent(GuideActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
                         }

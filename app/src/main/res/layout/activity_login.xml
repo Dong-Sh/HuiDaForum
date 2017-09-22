@@ -29,19 +29,15 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="40dp"
         app:layout_heightPercent="8%w">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:text="手机号"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"/>
         <EditText
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:id="@+id/et_login_username"
             android:background="@android:color/transparent"
             android:lines="1"
+            android:hint="手机号"
+            android:textSize="16sp"
+            android:textColorHint="@color/red"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
     </RelativeLayout>
@@ -57,16 +53,12 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="40dp"
         app:layout_heightPercent="7%w">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:text="密码"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"/>
         <EditText
             android:layout_width="290dp"
             android:layout_height="wrap_content"
+            android:hint="密码"
+            android:textSize="16sp"
+            android:textColorHint="@color/red"
             android:background="@android:color/transparent"
             android:id="@+id/et_login_password"
             android:lines="1"

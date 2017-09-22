@@ -12,6 +12,7 @@ import com.huidaforum.utils.StatusBarUtil;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import butterknife.BindColor;
 import butterknife.ButterKnife;
 
 /**
@@ -29,8 +30,10 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         registComBtn();
     }
 
+    @BindColor(R.color.red)
+    int red;
     public void setStatusBar() {
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.red));
+        StatusBarUtil.setColor(this,red);
 
         Class clazz = getWindow().getClass();
         try {

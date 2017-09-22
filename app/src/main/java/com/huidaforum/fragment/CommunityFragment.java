@@ -1,8 +1,7 @@
 package com.huidaforum.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import com.huidaforum.bean.Bean;
 import com.jude.rollviewpager.RollPagerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +74,7 @@ public class CommunityFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(mActivity,SchoolDetailsActivity.class));
                 Toast.makeText(mActivity, "第"+position+"个条目", Toast.LENGTH_SHORT).show();
             }
         });
@@ -89,7 +88,7 @@ public class CommunityFragment extends BaseFragment {
 
       @Override
       protected void convert(BaseViewHolder holder, Bean item) {
-             holder.setText(R.id.tv,item.getName());
+          holder.setText(R.id.tv,item.getName());
           ImageView iv = holder.getView(R.id.iv);
           iv.setImageResource(item.getTupian());
       }

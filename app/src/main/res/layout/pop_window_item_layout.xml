@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/phone_back"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:background="@drawable/test"
+        android:layout_height="match_parent" />
     <com.zhy.android.percent.support.PercentRelativeLayout
-        app:layout_heightPercent="50%"
+        app:layout_heightPercent="43%"
         app:layout_widthPercent="50%"
         android:layout_width="0dp"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:id="@+id/percentRelativeLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/percentRelativeLayout">
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="invisible"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:id="@+id/pop_text_ll"
@@ -26,20 +35,22 @@
             <TextView
                 android:layout_margin="5dp"
                 android:text="文字"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout
-        android:layout_alignParentRight="true"
-        app:layout_heightPercent="50%"
+        app:layout_heightPercent="43%"
         app:layout_widthPercent="50%"
         android:layout_width="0dp"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:id="@+id/percentRelativeLayout"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="invisible"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:id="@+id/pop_picture_ll"
@@ -56,21 +67,23 @@
             <TextView
                 android:text="图片"
                 android:layout_margin="5dp"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        app:layout_heightPercent="50%"
+        app:layout_heightPercent="43%"
         app:layout_widthPercent="50%"
+        app:layout_marginBottomPercent="3%"
         android:layout_width="0dp"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:id="@+id/pop_left_bottom_rela"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/percentRelativeLayout2">
         <LinearLayout
-            android:visibility="gone"
-            android:layout_alignParentTop="true"
+            android:visibility="invisible"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:id="@+id/pop_camera_ll"
             android:layout_marginBottom="10dp"
@@ -86,22 +99,25 @@
                 android:layout_height="70dp" />
             <TextView
                 android:text="拍摄"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </com.zhy.android.percent.support.PercentRelativeLayout>
     <com.zhy.android.percent.support.PercentRelativeLayout
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        app:layout_heightPercent="50%"
+        app:layout_heightPercent="43%"
         app:layout_widthPercent="50%"
         android:layout_width="0dp"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        app:layout_marginBottomPercent="3%"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/percentRelativeLayout3"
+        android:layout_below="@+id/percentRelativeLayout2">
         <LinearLayout
-            android:visibility="gone"
-            android:layout_alignParentTop="true"
+            android:visibility="invisible"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:id="@+id/pop_movie_ll"
             android:layout_marginBottom="10dp"
@@ -117,7 +133,7 @@
                 android:layout_height="70dp" />
             <TextView
                 android:text="视频"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

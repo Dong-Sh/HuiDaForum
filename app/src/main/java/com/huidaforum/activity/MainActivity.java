@@ -1,5 +1,6 @@
 package com.huidaforum.activity;
 
+import android.animation.ValueAnimator;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +13,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -59,7 +62,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private NewsFragment nf;
     private MineFragment mf;
     private RenderScriptGaussianBlur blur;
-    private View v;
     private boolean isshow = false;
     private Handler handler = new Handler() {
         @Override
@@ -67,7 +69,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
             super.handleMessage(msg);
         }
     };
-    private ImageView fullscreen_im;
     private ImageButton pMovie;
     private ImageButton pCamera;
     private ImageButton pPicture;
@@ -83,11 +84,9 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fullscreen_im = (ImageView) findViewById(R.id.fullscreen_fm);
         ButterKnife.bind(this);
         initView();
 
-        v = getWindow().getDecorView();
         blur = new RenderScriptGaussianBlur(MainActivity.this);
 
         rgMainFooter.setOnCheckedChangeListener(this);
@@ -110,38 +109,28 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private void setIvMainReleaseRotate() {
         ivMainRelease.setBackgroundResource(R.drawable.put_bottom);
         RotateAnimation animation =
-                new RotateAnimation(0f, 135f, Animation.RELATIVE_TO_SELF,
+                new RotateAnimation(-45f, 0f, Animation.RELATIVE_TO_SELF,
                         0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(1000);
+        animation.setDuration(350);
         animation.setFillAfter(true);
         ivMainRelease.startAnimation(animation);
         //显示popupwindow
         pushpupUpWindwo();
-        fullscreen_im.setVisibility(View.VISIBLE);
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1f);
-        alphaAnimation.setDuration(2000);
-        alphaAnimation.setFillAfter(true);
-        fullscreen_im.startAnimation(alphaAnimation);
+        //fullscreen_im.startAnimation(alphaAnimation);
         isshow = true;
     }
 
     private void pushpupUpWindwo() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         View inflate = getLayoutInflater().inflate(R.layout.pop_window_item_layout, null);
-        window = new PopupWindow(inflate, getWindowManager().getDefaultDisplay().getWidth(),
-                (int) (getWindowManager().getDefaultDisplay().getHeight()*0.5));
+        window = new PopupWindow(inflate, metrics.widthPixels,
+                metrics.heightPixels - rgMainFooter.getHeight());
+
         //设置popupwindow显示动画效果
         window.setAnimationStyle(R.style.mypopwindow_anim_style);
-        //必须添加----
+        //必须添加----sd
         window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
-        //截图
-        v.setDrawingCacheEnabled(true);
-        v.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
-        Bitmap bitmap = v.getDrawingCache();
-        //高斯模糊
-        Bitmap gaussianBlur = blur.gaussianBlur(25, bitmap);
-        Drawable drawable = new BitmapDrawable(gaussianBlur);
-        fullscreen_im.setBackground(drawable);
-
 
         window.setFocusable(true);
         window.setOutsideTouchable(true);
@@ -154,17 +143,14 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
             @Override
             public void onDismiss() {
                 ivMainRelease.setBackgroundResource(R.drawable.release);
-                AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0.0f);
-                alphaAnimation.setDuration(2000);
-                alphaAnimation.setFillAfter(true);
-                fullscreen_im.startAnimation(alphaAnimation);
-                fullscreen_im.setVisibility(View.GONE);
-                isshow=false;
+                //fullscreen_im.startAnimation(alphaAnimation);
+                isshow = false;
             }
         });
 
     }
-       //popupwindow内部点击事件
+
+    //popupwindow内部点击事件
     private void initpopupwindow(View inflate) {
         pText = (ImageButton) inflate.findViewById(R.id.pop_text);
         pPicture = (ImageButton) inflate.findViewById(R.id.pop_picture);
@@ -175,36 +161,37 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         pop_camera_ll = (LinearLayout) inflate.findViewById(R.id.pop_camera_ll);
         pop_movie_ll = (LinearLayout) inflate.findViewById(R.id.pop_movie_ll);
 
+
         //逐个显示动画
         handler.postDelayed(new Runnable() {
             public void run() {
-                setChangeBig(pText,1500, pop_text_ll);
+                setChangeBig(pText, 1500, pop_text_ll);
             }
-        }, 350);
+        }, 900);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                setChangeBig(pPicture, 1500, pop_picture_ll);
+            }
+        }, 1100);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                setChangeBig(pCamera, 1500, pop_camera_ll);
+            }
+        }, 1300);
 
         handler.postDelayed(new Runnable() {
             public void run() {
-                setChangeBig(pPicture,1500, pop_picture_ll);
+                setChangeBig(pMovie, 1500, pop_movie_ll);
             }
-        }, 550);
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                setChangeBig(pCamera,1500, pop_camera_ll);
-            }
-        }, 750);
-
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                setChangeBig(pMovie,1500, pop_movie_ll);
-            }
-        }, 950);
+        }, 1500);
 
     }
-//popupwindow 出现 图片初始化动画
-    public void setChangeBig(ImageButton changeBig, int i,LinearLayout ll) {
+
+    //popupwindow 出现 图片初始化动画
+    public void setChangeBig(ImageButton changeBig, int i, LinearLayout ll) {
         ll.setVisibility(View.VISIBLE);
         Animation animation = new ScaleAnimation(0, 1.2f, 0f, 1.2f,
-                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration(i);
         changeBig.setAnimation(animation);
 
@@ -212,7 +199,7 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(500);
         scaleAnimation.setFillAfter(true);
-        changeBig.setAnimation(scaleAnimation);
+        changeBig.startAnimation(scaleAnimation);
     }
 
     private void initView() {

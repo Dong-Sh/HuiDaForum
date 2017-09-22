@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,13 +23,4 @@
         layout="@layout/activity_main_footer"></include>
     </LinearLayout>
 
-    <ImageView
-        android:visibility="gone"
-        android:src="@mipmap/background"
-        android:scaleType="fitXY"
-        android:id="@+id/fullscreen_fm"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ImageView>
-
-</RelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>
