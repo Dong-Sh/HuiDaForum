@@ -74,7 +74,6 @@ public class CommunityFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(mActivity,SchoolDetailsActivity.class));
                 Toast.makeText(mActivity, "第"+position+"个条目", Toast.LENGTH_SHORT).show();
             }
         });

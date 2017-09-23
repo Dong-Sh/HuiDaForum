@@ -228,33 +228,28 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                     hf = new HomeFragment();
                     ft.add(R.id.fl_main, hf);
                 } else ft.show(hf);
-                StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
                 break;
             case R.id.rb_main_community:
                 if (cf == null) {
                     cf = new CommunityFragment();
                     ft.add(R.id.fl_main, cf);
                 } else ft.show(cf);
-                StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
-
                 break;
             case R.id.rb_main_news:
                 if (nf == null) {
                     nf = new NewsFragment();
                     ft.add(R.id.fl_main, nf);
                 } else ft.show(nf);
-                StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
-                StatusBarUtil.setColor(MainActivity.this, getResources().getColor(R.color.red));
                 break;
             case R.id.rb_main_mine:
                 if (mf == null) {
                     mf = new MineFragment();
                     ft.add(R.id.fl_main, mf);
                 } else ft.show(mf);
-                StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
-                StatusBarUtil.setColor(MainActivity.this, getResources().getColor(R.color.red));
                 break;
         }
+        StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
+        StatusBarUtil.setColor(MainActivity.this, getResources().getColor(R.color.red));
         ft.commit();
     }
 
