@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.bean.BaseBean;

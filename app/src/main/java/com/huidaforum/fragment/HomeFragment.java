@@ -18,6 +18,7 @@ import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.Bean;
 import com.huidaforum.utils.StatusBarUtil;
+import com.huidaforum.utils.WebAddress;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             Bean bean = new Bean("我是测试文本" + i);
             been.add(bean);
         }
+
+
+
         rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
         MyAdapter adapter = new MyAdapter();
         adapter.addHeaderView(view);
@@ -67,11 +71,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
            switch (v.getId()){
                case R.id.bt_popular:
-                  startActivity(new Intent(mActivity, HomePopularActivity.class));
+                   Intent intent = new Intent(mActivity, HomePopularActivity.class);
+                   intent.putExtra("title","最新帖子");
+                   intent.putExtra("url", WebAddress.selectByCountTime);
+                   startActivity(intent);
                    break;
                case R.id.bt_infomation:
+                   Intent intent1 = new Intent(mActivity, HomePopularActivity.class);
+                   intent1.putExtra("title","热门好帖");
+                   intent1.putExtra("url",WebAddress.seleteByContentHot);
+                   startActivity(intent1);
                    break;
                case R.id.bt_selection:
+                   Intent intent2 = new Intent(mActivity, HomePopularActivity.class);
+                   intent2.putExtra("title","精品好帖");
+                   intent2.putExtra("url",WebAddress.seleteByContentJingpin);
+                   startActivity(intent2);
                    break;
            }
     }
