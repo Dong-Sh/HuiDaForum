@@ -74,45 +74,57 @@ public class HomePopularActivity extends AppCompatActivity {
     }
 
     public void initData() {
-        OkGo.<String>post(url).params("devType", "phone").params("token","43df7e6c35bd47d891b491c4f2ef5389").execute(new StringCallback() {
+        OkGo.<String>post(url).params("devType", "phone").params("token",SpUtil.getString(StaticValue.TOKEN,HomePopularActivity.this)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 InvitationBean bean = new Gson().fromJson(response.body().toString(), InvitationBean.class);
                 if (bean.isSuccess()) {
-                    List<InvitationBean.DataBean> data = bean.getData();
-                    rlv_tie.setLayoutManager(new LinearLayoutManager(HomePopularActivity.this));
-                    MyAdapter adapter = new MyAdapter(R.layout.item_tie, data);
-                    rlv_tie.setAdapter(adapter);
-                    adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-                    //每个条目的点击事件
-                    adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            Toast.makeText(HomePopularActivity.this, "点击了当前"+position+"条目", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    //点击子控件的事件
-                    adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                        @Override
-                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                             switch (view.getId()){
-                                 case R.id.tv_zan:
-                             Toast.makeText(HomePopularActivity.this, "单击第"+position+"个赞", Toast.LENGTH_SHORT).show();
-                                     break;
-                                 case R.id.tv_shoucang:
-                                     Toast.makeText(HomePopularActivity.this, "单击第"+position+"个收藏", Toast.LENGTH_SHORT).show();
-                                     break;
-                                 case R.id.tv_pinglun:
-                                     Toast.makeText(HomePopularActivity.this, "单击第"+position+"个评论", Toast.LENGTH_SHORT).show();
-                                     break;
-                             }
-                        }
-                    });
+                    pareDataFormNet(bean);
+                }
+    }
+
+            @Override
+            public void onCacheSuccess(Response<String> response) {
+                super.onCacheSuccess(response);
+                InvitationBean bean = new Gson().fromJson(response.body().toString(), InvitationBean.class);
+                if (bean.isSuccess()) {
+                    pareDataFormNet(bean);
                 }
             }
         });
     }
+    public void pareDataFormNet(InvitationBean bean) {
 
+        List<InvitationBean.DataBean> data = bean.getData();
+        rlv_tie.setLayoutManager(new LinearLayoutManager(HomePopularActivity.this));
+        MyAdapter adapter = new MyAdapter(R.layout.item_tie, data);
+        rlv_tie.setAdapter(adapter);
+        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        //每个条目的点击事件
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(HomePopularActivity.this, "点击了当前"+position+"条目", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //点击子控件的事件
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.tv_zan:
+                        Toast.makeText(HomePopularActivity.this, "单击第"+position+"个赞", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_shoucang:
+                        Toast.makeText(HomePopularActivity.this, "单击第"+position+"个收藏", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_pinglun:
+                        Toast.makeText(HomePopularActivity.this, "单击第"+position+"个评论", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+            }
+        });
+    }
 
     public void initListener() {
 

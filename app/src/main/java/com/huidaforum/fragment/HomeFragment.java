@@ -1,15 +1,11 @@
 package com.huidaforum.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,8 +18,8 @@ import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.AllContentsBean;
 import com.huidaforum.bean.Bean;
-import com.huidaforum.bean.InvitationBean;
-import com.huidaforum.utils.StatusBarUtil;
+import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -34,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
@@ -51,6 +45,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private Button bt_infomation;
     private Button bt_selection;
     private List<AllContentsBean.DataBean> data;
+    private View view;
 
 
     @Override
@@ -61,7 +56,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     protected void initData() {
-        final View view = View.inflate(mActivity, R.layout.top_home, null);
+        view = View.inflate(mActivity, R.layout.top_home, null);
         bt_popular = (Button) view.findViewById(R.id.bt_popular);
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
@@ -72,16 +67,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             been.add(bean);
         }
      OkGo.<String>post(WebAddress.listAllContents).
-             params("devType", "phone").params("token","43df7e6c35bd47d891b491c4f2ef5389").execute(new StringCallback() {
+             params("devType", "phone").params("token", SpUtil.getString(StaticValue.TOKEN,mActivity)).execute(new StringCallback() {
          @Override
          public void onSuccess(Response<String> response) {
              AllContentsBean bean = new Gson().fromJson(response.body().toString(), AllContentsBean.class);
              if(bean.isSuccess()){
-                 data= bean.getData();
-                 MyAdapter adapter = new MyAdapter();
-                 adapter.addHeaderView(view);
-                 rlvHome.setAdapter(adapter);
-                 rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
+                 pareDataFromNet(bean);
+             }
+         }
+
+         @Override
+         public void onCacheSuccess(Response<String> response) {
+             super.onCacheSuccess(response);
+             AllContentsBean bean = new Gson().fromJson(response.body().toString(), AllContentsBean.class);
+             if(bean.isSuccess()){
+                 pareDataFromNet(bean);
              }
          }
      });
@@ -89,6 +89,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
 
     }
+
+    public void pareDataFromNet(AllContentsBean bean) {
+        data= bean.getData();
+        MyAdapter adapter = new MyAdapter();
+        adapter.addHeaderView(view);
+        rlvHome.setAdapter(adapter);
+        rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
+       adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+           @Override
+           public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+               Toast.makeText(mActivity, "点击了当前"+position+"条目", Toast.LENGTH_SHORT).show();
+           }
+       });
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                 switch (view.getId()){
+                     case R.id.tv_zan:
+                         Toast.makeText(mActivity, "单击第"+position+"个赞", Toast.LENGTH_SHORT).show();
+                         break;
+                     case R.id.tv_shoucang:
+                         Toast.makeText(mActivity, "单击第"+position+"个收藏", Toast.LENGTH_SHORT).show();
+                         break;
+                     case R.id.tv_pinglun:
+                         Toast.makeText(mActivity, "单击第"+position+"个评论", Toast.LENGTH_SHORT).show();
+                         break;
+                 }
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
            switch (v.getId()){
@@ -133,7 +164,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         }
         @Override
         protected void convert(BaseViewHolder holder, AllContentsBean.DataBean item) {
-            Log.e("aa","aaaaaaaaaaaa");
             holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
                     .setText(R.id.tv_tie_title, item.getTitle())
                     .setText(R.id.tv_tie_data, item.getContentText() + "")
