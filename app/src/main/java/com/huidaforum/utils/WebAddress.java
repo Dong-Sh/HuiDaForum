@@ -14,6 +14,8 @@ public class WebAddress {
 
     private static String content = "/content";
 
+    private static String shoucang = "/ywshouchang";
+
     public final static String register = http + user + "/reg";//注册
     public final static String login = http + user + "/login";//登录
     public final static String updateYwUserDetailInfo = http + user + "/updateYwUserDetailInfo";//修改个人信息
@@ -34,4 +36,5 @@ public class WebAddress {
     public final static String seleteByContentJingpin = http + content + "/seleteByContentJingpin";//精品好帖显示
     public final static String seleteByContentHot = http + content + "/seleteByContentHot";//热门好帖显示
     public final static String selectByCountTime = http + content + "/selectByCountTime";//最新帖子查看
+    public final static String shoucanglistPages = http + shoucang + "/listPages";//我的收藏
 }

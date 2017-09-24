@@ -2,7 +2,6 @@ package com.huidaforum.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.bean.BaseBean;
 import com.huidaforum.bean.TokenBean;
-import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
@@ -85,6 +83,7 @@ public class RegisterActivity extends BaseActivity {
                             public void onSuccess(Response<String> response) {
 
                                 Gson gson = new Gson();
+
                                 BaseBean<TokenBean> beanBaseBean = gson.fromJson(response.body(),new TypeToken<BaseBean<TokenBean>>(){}.getType());//泛型使用GSON解析
 
                                 if(beanBaseBean.isSuccess()){
