@@ -18,6 +18,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.huidaforum.R;
 import com.huidaforum.bean.InvitationBean;
+import com.huidaforum.bean.TokenBean;
+import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -26,7 +29,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
@@ -72,7 +74,7 @@ public class HomePopularActivity extends AppCompatActivity {
     }
 
     public void initData() {
-        OkGo.<String>post(url).params("devType", "phone").params("token", "bdc27a90659e40c5b128855c22340b4e").execute(new StringCallback() {
+        OkGo.<String>post(url).params("devType", "phone").params("token","43df7e6c35bd47d891b491c4f2ef5389").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 InvitationBean bean = new Gson().fromJson(response.body().toString(), InvitationBean.class);
@@ -145,7 +147,7 @@ public class HomePopularActivity extends AppCompatActivity {
             if (item.getContentType().equals("flv")) {
                 JZVideoPlayerStandard jps = holder.getView(R.id.jps);
                 jps.setVisibility(View.VISIBLE);
-                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_NORMAL, "");
+                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
             } else {
                 JZVideoPlayerStandard jps = holder.getView(R.id.jps);
                 jps.setVisibility(View.GONE);

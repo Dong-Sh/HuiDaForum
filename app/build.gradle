@@ -44,6 +44,6 @@ dependencies {
     compile 'com.lzy.net:okrx:+'
     compile 'com.lzy.net:okserver:+'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'cn.jzvd:jiaozivideoplayer:6.0.0'
+    compile 'cn.jzvd:jiaozivideoplayer:6.0.1'
     compile 'com.lzy.net:okgo:3.0.4'
 }
