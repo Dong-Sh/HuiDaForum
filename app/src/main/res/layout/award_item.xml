@@ -51,6 +51,7 @@
             android:layout_marginRight="5dp"/>
     </RelativeLayout>
     <TextView
+        android:id="@+id/tv_award_time"
         android:paddingRight="10dp"
         android:gravity="right"
         android:textSize="20sp"

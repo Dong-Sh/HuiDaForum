@@ -46,4 +46,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'cn.jzvd:jiaozivideoplayer:6.0.1'
     compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
 }

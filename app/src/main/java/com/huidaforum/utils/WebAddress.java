@@ -7,15 +7,15 @@ package com.huidaforum.utils;
 public class WebAddress {
 
     private static String http = "http://114.115.208.130/yw";
-
     private static String user = "/ywuser";///用户相关
-
     private static String school = "/ywschool";//学校相关
 
-    private static String content = "/content";
 
     private static String shoucang = "/ywshouchang";
 
+    private static String content = "/content";//帖子相关
+    private static String award = "/award";//打赏相关
+    //用户
     public final static String register = http + user + "/reg";//注册
     public final static String login = http + user + "/login";//登录
     public final static String updateYwUserDetailInfo = http + user + "/updateYwUserDetailInfo";//修改个人信息
@@ -36,5 +36,16 @@ public class WebAddress {
     public final static String seleteByContentJingpin = http + content + "/seleteByContentJingpin";//精品好帖显示
     public final static String seleteByContentHot = http + content + "/seleteByContentHot";//热门好帖显示
     public final static String selectByCountTime = http + content + "/selectByCountTime";//最新帖子查看
+    //打赏
+    public final static String createAward = http + award + "/createAward";//创建打赏订单
+    public final static String selectAward = http + award + "/queryAward";//查询我的打赏
+    public final static String selectGetAward = http + award + "/queryGetAward";//查询谁打赏的我
+    //系统消息
+    public final static String systemMsg = http +"/sitemsg/listPage";
+    //评论 、回复
+    public final static String replyMe = http +"/ywreplyme/listPage";//谁回复我的
+    public final static String commentyMe = http +"/ywreplyme/pinglunme";//评论我的
+
+
     public final static String shoucanglistPages = http + shoucang + "/listPages";//我的收藏
 }

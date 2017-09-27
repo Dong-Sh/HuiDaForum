@@ -3,13 +3,12 @@ package com.huidaforum.fragment;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.huidaforum.R;
 import com.huidaforum.activity.CommentActivity;
 import com.huidaforum.activity.ReplyActivity;
-import com.huidaforum.activity.RewardActivity;
+import com.huidaforum.activity.AwardActivity;
 import com.huidaforum.activity.SystemActivity;
 import com.huidaforum.base.BaseFragment;
 
@@ -51,7 +50,7 @@ public class NewsFragment extends BaseFragment {
         ll_news_dashang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RewardActivity.class);
+                Intent intent = new Intent(mActivity, AwardActivity.class);
                 startActivity(intent);
             }
         });

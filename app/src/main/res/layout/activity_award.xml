@@ -8,16 +8,26 @@
     <RelativeLayout
         style="@style/topbar_bg"
         app:layout_heightPercent="14%w">
+
         <Button style="@style/topbar_back" />
+
         <TextView
             style="@style/topbar_textcolor"
             android:text="我打赏过谁" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="15dp"
-        android:id="@+id/rv_reward"
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/sr_award"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:overScrollMode="never"
+            android:id="@+id/rv_award"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"></android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </com.zhy.android.percent.support.PercentLinearLayout>
 

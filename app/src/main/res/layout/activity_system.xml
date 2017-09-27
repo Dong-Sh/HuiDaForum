@@ -16,8 +16,15 @@
         <Button style="@style/topbar_back" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_system"
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/sr_system"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:overScrollMode="never"
+            android:id="@+id/rv_system"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

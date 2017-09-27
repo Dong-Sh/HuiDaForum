@@ -15,9 +15,19 @@
 
         <Button style="@style/topbar_back" />
     </RelativeLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_comment"
+        android:id="@+id/sr_comment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:overScrollMode="never"
+            android:id="@+id/rv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </com.zhy.android.percent.support.PercentLinearLayout>
