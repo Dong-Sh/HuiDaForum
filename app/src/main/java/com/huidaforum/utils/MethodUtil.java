@@ -1,5 +1,8 @@
 package com.huidaforum.utils;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huidaforum.bean.BaseBean;
@@ -14,5 +17,11 @@ public class MethodUtil {
         Gson gson = new Gson();
         BaseBean<T> baseBean = gson.fromJson(json,BaseBean.class);
         return baseBean;
+    }
+
+    public static void sendMainBroadcast(Context context) {
+        Intent intent = new Intent(StaticValue.EXIT_ACTION);
+        intent.putExtra(StaticValue.EXIT,StaticValue.EXIT);
+        context.sendBroadcast(intent);
     }
 }

@@ -9,10 +9,10 @@ public class WebAddress {
     private static String http = "http://114.115.208.130/yw";
     private static String user = "/ywuser";///用户相关
     private static String school = "/ywschool";//学校相关
-
-
     private static String shoucang = "/ywshouchang";
-
+    private static String me = "/ywreplyme";
+    private static String system = "/sitemsg";
+    private static String phonemsg = "/phonemsg";
     private static String content = "/content";//帖子相关
     private static String award = "/award";//打赏相关
     //用户
@@ -41,11 +41,17 @@ public class WebAddress {
     public final static String selectAward = http + award + "/queryAward";//查询我的打赏
     public final static String selectGetAward = http + award + "/queryGetAward";//查询谁打赏的我
     //系统消息
-    public final static String systemMsg = http +"/sitemsg/listPage";
+    public final static String systemMsg = http + system + "/listPage";
     //评论 、回复
-    public final static String replyMe = http +"/ywreplyme/listPage";//谁回复我的
-    public final static String commentyMe = http +"/ywreplyme/pinglunme";//评论我的
-
+    public final static String replyMe = http + me + "/listPage";//谁回复我的
+    public final static String commentyMe = http + me + "/pinglunme";//评论我的
 
     public final static String shoucanglistPages = http + shoucang + "/listPages";//我的收藏
+
+    //短信
+    public final static String sendUpdatePwdCode = http + phonemsg + "/sendUpdatePwdCode";//发送修改密码手机验证码
+    public final static String sendBindNewPhoneCode = http + phonemsg + "/sendBindNewPhoneCode";//发送绑定新手机验证码
+    public final static String sendBindOraPhoneCode = http + phonemsg + "/sendBindOraPhoneCode";//发送绑定原机验证码
+    public final static String sendRegistCode = http + phonemsg + "/sendRegistCode";//发送注册短信验证码
+    public final static String sendFindPwdCode = http + phonemsg + "/sendFindPwdCode";//发送找回密码手机验证码
 }

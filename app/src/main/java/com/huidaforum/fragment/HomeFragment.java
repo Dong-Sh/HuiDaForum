@@ -66,9 +66,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             Bean bean = new Bean("我是测试文本" + i);
             been.add(bean);
         }
-     OkGo.<String>post(WebAddress.listAllContents).
-             params("devType", "phone").params("token", SpUtil.getString(StaticValue.TOKEN,mActivity)).execute(new StringCallback() {
-         @Override
+     OkGo.<String>post(WebAddress.listAllContents)
+             .params("devType", "phone")
+             .params("token", SpUtil.getString(StaticValue.TOKEN,mActivity))
+             .execute(new StringCallback() {
          public void onSuccess(Response<String> response) {
              AllContentsBean bean = new Gson().fromJson(response.body().toString(), AllContentsBean.class);
              if(bean.isSuccess()){

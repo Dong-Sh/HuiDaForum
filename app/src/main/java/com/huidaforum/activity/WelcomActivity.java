@@ -11,12 +11,21 @@ import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
+import com.huidaforum.bean.BaseBean;
+import com.huidaforum.bean.UserBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
+import com.huidaforum.utils.WebAddress;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +54,8 @@ public class WelcomActivity extends BaseActivity {
         final Window window = getWindow();
         //属性动画，0.2~1的变化
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0.2f, 1f);
-        //valueAnimator.setDuration(4000);
         valueAnimator.setDuration(40);
+        valueAnimator.setDuration(4000);
         //差值器  线性，线性均匀改变
         valueAnimator.setInterpolator(new LinearInterpolator());
         //动画过程的监听
@@ -69,11 +78,32 @@ public class WelcomActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                SpUtil.putString(StaticValue.TOKEN,"",WelcomActivity.this);
                 boolean sp = SpUtil.getBoolean(StaticValue.IS_OPENMAIN, WelcomActivity.this);
                 if(sp){
                     if(!TextUtils.isEmpty(SpUtil.getString(StaticValue.TOKEN,WelcomActivity.this))){//用户已登录
-                        startActivity(new Intent(WelcomActivity.this,MainActivity.class));
+                        OkGo.<String>post(WebAddress.login)
+                                .params("devType","phone")
+                                .params("userCode",SpUtil.getString(StaticValue.UserName,WelcomActivity.this))
+                                .params("password",SpUtil.getString(StaticValue.Password,WelcomActivity.this))
+                                .execute(new StringCallback() {
+                                    public void onSuccess(Response<String> response) {
+                                        Gson gson = new Gson();
+                                        BaseBean<UserBean> beanBaseBean = gson.fromJson(response.body(),new TypeToken<BaseBean<UserBean>>(){}.getType());
+
+                                        if(beanBaseBean.isSuccess()){
+                                            UserBean userBean = beanBaseBean.getData();
+
+                                            SpUtil.putString(StaticValue.TOKEN,userBean.getToken(),WelcomActivity.this);
+
+                                            startActivity(new Intent(WelcomActivity.this,MainActivity.class));
+
+                                        }else{
+                                            Toast.makeText(WelcomActivity.this, beanBaseBean.getFieldError().getValue(), Toast.LENGTH_SHORT).show();
+
+                                            startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                                        }
+                                    }
+                                });
                     }else{
                         startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
                     }

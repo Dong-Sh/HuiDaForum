@@ -129,6 +129,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
         startActivity(intent);
+//        startActivityForResult(intent);
     }
 
     @Override

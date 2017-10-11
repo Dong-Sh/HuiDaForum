@@ -32,9 +32,7 @@
             android:theme="@style/VideoTheme"></activity>
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.GuideActivity">
-
-        </activity>
+        <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

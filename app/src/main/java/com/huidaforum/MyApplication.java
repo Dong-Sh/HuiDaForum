@@ -8,6 +8,7 @@ import com.lzy.okgo.cache.CacheMode;
 import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.SPCookieStore;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.lzy.okgo.model.HttpParams;
 
 import java.util.logging.Level;
 
@@ -35,8 +36,11 @@ public class MyApplication extends Application {
             builder.addInterceptor(loggingInterceptor);
             //配置cookie  配置到sp中
             builder.cookieJar(new CookieJarImpl(new SPCookieStore(this)));
+            HttpParams params = new HttpParams();
+            params.put("devType", "phone");
             OkGo.getInstance()
                     .init(this)
+                    .addCommonParams(params)
                     .setOkHttpClient(builder.build())
                     .setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                     .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)

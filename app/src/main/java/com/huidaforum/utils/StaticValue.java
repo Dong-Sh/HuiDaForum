@@ -7,6 +7,11 @@ package com.huidaforum.utils;
 public class StaticValue {
 
     public static final String TOKEN = "TOKEN";
+    public static final String UserName = "UserName";
+    public static final String Password = "Password";
 
     public static final String IS_OPENMAIN = "is_openmain";
+
+    public static final String EXIT = "exit_application";
+    public static final String EXIT_ACTION = "com.example.utils.BaseAvtivity";
 }

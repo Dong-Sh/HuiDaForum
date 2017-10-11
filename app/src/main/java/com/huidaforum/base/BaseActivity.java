@@ -1,12 +1,16 @@
 package com.huidaforum.base;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 
 
 import com.huidaforum.R;
+import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
 
 import java.lang.reflect.Field;
@@ -19,8 +23,12 @@ import butterknife.ButterKnife;
  * Created by gui on 2017/7/26.
  */
 public abstract class BaseActivity extends Activity implements View.OnClickListener  {
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         setStatusBar();
@@ -28,6 +36,9 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         initData();
         initListener();
         registComBtn();
+
+        //注册广播
+
     }
 
     @BindColor(R.color.red)
@@ -78,6 +89,9 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
     public abstract void initData();
     public abstract void initListener();
     public abstract void processClick(View v);
+
+
+
 
 
 }

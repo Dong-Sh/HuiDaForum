@@ -79,32 +79,32 @@ public class BaseBean<T> {
          * ”key2” : ”短信验证码已失效!”
          */
 
-        private String ke1;
+        private String key;
 
-        private String ke2;
-
-        public String getKe1() {
-            return ke1;
-        }
-
-        public void setKe1(String ke1) {
-            this.ke1 = ke1;
-        }
-
-        public String getKe2() {
-            return ke2;
-        }
-
-        public void setKe2(String ke2) {
-            this.ke2 = ke2;
-        }
+        private String value;
 
         @Override
         public String toString() {
             return "FieldErrorBean{" +
-                    "ke1='" + ke1 + '\'' +
-                    ", ke2='" + ke2 + '\'' +
+                    "key='" + key + '\'' +
+                    ", value='" + value + '\'' +
                     '}';
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 }

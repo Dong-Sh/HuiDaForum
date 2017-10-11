@@ -2,7 +2,12 @@ package com.huidaforum.activity;
 
 import android.animation.ValueAnimator;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +21,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -31,17 +37,22 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.huidaforum.R;
+import com.huidaforum.base.BaseActivity;
 import com.huidaforum.fragment.CommunityFragment;
 import com.huidaforum.fragment.HomeFragment;
 import com.huidaforum.fragment.MineFragment;
 import com.huidaforum.fragment.NewsFragment;
 import com.huidaforum.utils.RenderScriptGaussianBlur;
+import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
+    private static final String TAG = "MainActivity";
     @BindView(R.id.fl_main)
     FrameLayout flMain;
     @BindView(R.id.rb_main_home)
@@ -61,7 +72,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private CommunityFragment cf;
     private NewsFragment nf;
     private MineFragment mf;
-    private RenderScriptGaussianBlur blur;
     private boolean isshow = false;
     private Handler handler = new Handler() {
         @Override
@@ -79,15 +89,23 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private LinearLayout pop_movie_ll;
     private ImageButton icon_button;
     private ImageView iv_main_release_top;
+    private BroadcastToExit broadcastToExit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            if(broadcastToExit==null){
+                broadcastToExit = new BroadcastToExit();
+                IntentFilter intentFilter = new IntentFilter(StaticValue.EXIT_ACTION);
+                registerReceiver(broadcastToExit, intentFilter);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-
-        blur = new RenderScriptGaussianBlur(MainActivity.this);
 
         rgMainFooter.setOnCheckedChangeListener(this);
         rbMainHome.setChecked(true);
@@ -258,5 +276,16 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         if (cf != null) ft.hide(cf);
         if (nf != null) ft.hide(nf);
         if (mf != null) ft.hide(mf);
+    }
+
+    public class BroadcastToExit extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getStringExtra(StaticValue.EXIT).equals(StaticValue.EXIT)) {
+                unregisterReceiver(broadcastToExit);
+                broadcastToExit = null;
+                finish();
+            }
+        }
     }
 }

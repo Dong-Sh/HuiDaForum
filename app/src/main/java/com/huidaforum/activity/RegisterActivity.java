@@ -1,7 +1,10 @@
 package com.huidaforum.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.bean.BaseBean;
 import com.huidaforum.bean.TokenBean;
+import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
@@ -44,6 +48,17 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.bt_login_login)
     Button btLoginLogin;
 
+    private Handler handler = new Handler(){
+        public void handleMessage(Message msg) {
+            if(msg.what==0){
+                btRegisterGetcode.setText("重新获取验证码");
+            }else {
+                btRegisterGetcode.setText(msg.what+"");
+                handler.sendEmptyMessageDelayed(msg.what-1,1000);
+            }
+        }
+    };
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_register;
@@ -61,6 +76,33 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initListener() {
+
+        btRegisterGetcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkGo.<String>post(WebAddress.sendRegistCode)
+                        .params("phoneNum",etRegisterUsername.getText().toString().trim())
+                        .execute(new StringCallback() {
+                            public void onSuccess(Response<String> response) {
+                                Gson gson = new Gson();
+
+                                BaseBean beanBaseBean = gson.fromJson(response.body(),BaseBean.class);
+
+                                if(beanBaseBean.isSuccess()){
+                                    handler.sendEmptyMessage(180);
+                                }else {
+                                    Toast.makeText(RegisterActivity.this, beanBaseBean.getFieldError().getValue(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Response<String> response) {
+                                Log.d(TAG, "onError: "+response.body());
+                            }
+                        });
+            }
+        });
+
         btLoginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -69,13 +111,25 @@ public class RegisterActivity extends BaseActivity {
                     Toast.makeText(RegisterActivity.this, "请输入手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (TextUtils.isEmpty(etRegisterCode.getText())) {
+                    Toast.makeText(RegisterActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(etRegisterPassword.getText())) {
+                    Toast.makeText(RegisterActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(etRegisterPasswordAgain.getText())) {
+                    Toast.makeText(RegisterActivity.this, "请确认密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!etRegisterPassword.getText().toString().equals(etRegisterPasswordAgain.getText().toString())) {
                     Toast.makeText(RegisterActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 OkGo.<String>post(WebAddress.register)
                         .params("phoneNum", etRegisterUsername.getText().toString())
-                        .params("phoneValidCode", "phoneValidCode")//验证码功能未实现
+                        .params("phoneValidCode", etRegisterCode.getText().toString())
                         .params("devType", "phone")
                         .params("password", etRegisterPassword.getText().toString())
                         .execute(new StringCallback() {
@@ -90,16 +144,19 @@ public class RegisterActivity extends BaseActivity {
 
                                     TokenBean data = beanBaseBean.getData();
 
-                                    String value = data.getValue();
+                                    SpUtil.putString(StaticValue.TOKEN,data.getValue(),RegisterActivity.this);
+                                    SpUtil.putString(StaticValue.UserName,etRegisterUsername.getText().toString(),RegisterActivity.this);
+                                    SpUtil.putString(StaticValue.Password,etRegisterPassword.getText().toString(),RegisterActivity.this);
 
-                                    SpUtil.putString(StaticValue.TOKEN,value,RegisterActivity.this);
+                                    MethodUtil.sendMainBroadcast(RegisterActivity.this);
 
                                     startActivity(new Intent(RegisterActivity.this,MainActivity.class));
 
                                     finish();
                                 }
                                 else{
-                                    Toast.makeText(RegisterActivity.this, beanBaseBean.getFieldError().getKe2(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, "onSuccess is Error: "+beanBaseBean.getFieldError().getValue());
+                                    Toast.makeText(RegisterActivity.this, beanBaseBean.getFieldError().getValue(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

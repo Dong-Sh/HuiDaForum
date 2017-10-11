@@ -111,6 +111,7 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         app:layout_heightPercent="15%w"
+        android:id="@+id/bt_mine_setting_exit"
         android:layout_height="wrap_content"
         android:text="退出当前账号"
         android:textSize="16sp"/>
