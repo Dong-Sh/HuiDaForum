@@ -2,6 +2,7 @@ package com.huidaforum.base;
 
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -54,8 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                 e.printStackTrace();
             }
             slidingPaneLayout.setPanelSlideListener(this);
-            slidingPaneLayout.setSliderFadeColor(getResources()
-                    .getColor(android.R.color.transparent));
+            slidingPaneLayout.setSliderFadeColor(Color.TRANSPARENT);
 
             // 左侧的透明视图
             View leftView = new View(this);

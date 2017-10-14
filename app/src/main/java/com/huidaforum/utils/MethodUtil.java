@@ -22,26 +22,28 @@ import com.lzy.okgo.model.Response;
 
 public class MethodUtil {
 
-    public static <T>BaseBean getBaseBean(String json){
+    public static <T> BaseBean getBaseBean(String json) {
         Gson gson = new Gson();
-        BaseBean<T> baseBean = gson.fromJson(json,BaseBean.class);
+        BaseBean<T> baseBean = gson.fromJson(json, BaseBean.class);
         return baseBean;
     }
 
     public static void sendMainBroadcast(Context context) {
         Intent intent = new Intent(StaticValue.EXIT_ACTION);
-        intent.putExtra(StaticValue.EXIT,StaticValue.EXIT);
+        intent.putExtra(StaticValue.EXIT, StaticValue.EXIT);
         context.sendBroadcast(intent);
     }
 
-    public static void zanAndshoucang(final Context context, final TextView view, SchoolContentBean schoolContentBean, final ThreeDrawable threeDrawable){
+    public static void zanAndshoucang(final Context context, final TextView view, SchoolContentBean schoolContentBean, final ThreeDrawable threeDrawable) {
 
         switch (view.getId()) {
             case R.id.tv_zan: {
                 Toast.makeText(context, "tv_zan", Toast.LENGTH_SHORT).show();
+                break;
             }
             case R.id.tv_pinglun: {
                 Toast.makeText(context, "tv_pinglun", Toast.LENGTH_SHORT).show();
+                break;
             }
             case R.id.tv_shoucang: {
                 if (schoolContentBean.getShouchang().equals("yes")) {
@@ -56,7 +58,7 @@ public class MethodUtil {
                                 }
                             });
                     schoolContentBean.setShouchang("no");
-                } else{
+                } else {
                     OkGo.<String>post(WebAddress.getshouchang)
                             .params("contentCode", schoolContentBean.getContentCode())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
@@ -69,7 +71,7 @@ public class MethodUtil {
                             });
                     schoolContentBean.setShouchang("yes");
                 }
-
+                break;
             }
         }
     }

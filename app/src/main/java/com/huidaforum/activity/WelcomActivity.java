@@ -4,7 +4,10 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,10 +40,43 @@ import butterknife.ButterKnife;
 
 public class WelcomActivity extends BaseActivity {
 
+    private static final String TAG = "WelcomActivity";
     @BindView(R.id.iv_welcome)
     ImageView ivWelcome;
     @BindView(R.id.rl_welcom)
     RelativeLayout rlWelcom;
+
+    private int flag = 0;
+    private String value;
+
+    private Handler handler = new Handler() {
+
+        public void handleMessage(Message msg) {
+            Log.d(TAG, "handleMessage: "+flag);
+            switch (flag) {
+                case 1:
+                    startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+                    break;
+                case 2: {
+                    Toast.makeText(WelcomActivity.this, value, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                    break;
+                }
+                case 3: {
+                    Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
+                    intent.putExtra("flag", true);
+                    startActivity(intent);
+                    break;
+                }
+                case 4:
+                    startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                    break;
+            }
+            finish();
+
+        }
+    };
 
 
     @Override
@@ -55,7 +91,7 @@ public class WelcomActivity extends BaseActivity {
         //属性动画，0.2~1的变化
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0.2f, 1f);
         valueAnimator.setDuration(40);
-        valueAnimator.setDuration(1);
+        valueAnimator.setDuration(1000);
         //差值器  线性，线性均匀改变
         valueAnimator.setInterpolator(new LinearInterpolator());
         //动画过程的监听
@@ -65,58 +101,83 @@ public class WelcomActivity extends BaseActivity {
                 //获取当前的参数值
                 WindowManager.LayoutParams params = window.getAttributes();
                 //获取当前运动点的值
-                params.alpha= (float) animation.getAnimatedValue();
+                params.alpha = (float) animation.getAnimatedValue();
                 window.setAttributes(params);
             }
         });
-        valueAnimator.start();
+
         valueAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                Log.d(TAG, "onAnimationStart: ");
+                if (!TextUtils.isEmpty(SpUtil.getString(StaticValue.TOKEN, WelcomActivity.this))) {//用户已登录
+                    OkGo.<String>post(WebAddress.login)
+                            .params("devType", "phone")
+                            .params("userCode", SpUtil.getString(StaticValue.UserName, WelcomActivity.this))
+                            .params("password", SpUtil.getString(StaticValue.Password, WelcomActivity.this))
+                            .execute(new StringCallback() {
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new Gson();
+                                    BaseBean<UserBean> beanBaseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<UserBean>>() {
+                                    }.getType());
+
+                                    if (beanBaseBean.isSuccess()) {
+                                        UserBean userBean = beanBaseBean.getData();
+
+                                        SpUtil.putString(StaticValue.TOKEN, userBean.getToken(), WelcomActivity.this);
+
+                                        flag = 1;
+
+                                    } else {
+                                        value = beanBaseBean.getFieldError().getValue();
+
+                                        flag = 2;
+                                    }
+
+                                    handler.sendEmptyMessage(0);
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+                                    flag = 3;
+                                    handler.sendEmptyMessage(0);
+                                }
+                            });
+                } else {
+                    flag = 4;
+                }
 
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 boolean sp = SpUtil.getBoolean(StaticValue.IS_OPENMAIN, WelcomActivity.this);
-                if(sp){
-                    if(!TextUtils.isEmpty(SpUtil.getString(StaticValue.TOKEN,WelcomActivity.this))){//用户已登录
-                        OkGo.<String>post(WebAddress.login)
-                                .params("devType","phone")
-                                .params("userCode",SpUtil.getString(StaticValue.UserName,WelcomActivity.this))
-                                .params("password",SpUtil.getString(StaticValue.Password,WelcomActivity.this))
-                                .execute(new StringCallback() {
-                                    public void onSuccess(Response<String> response) {
-                                        Gson gson = new Gson();
-                                        BaseBean<UserBean> beanBaseBean = gson.fromJson(response.body(),new TypeToken<BaseBean<UserBean>>(){}.getType());
-
-                                        if(beanBaseBean.isSuccess()){
-                                            UserBean userBean = beanBaseBean.getData();
-
-                                            SpUtil.putString(StaticValue.TOKEN,userBean.getToken(),WelcomActivity.this);
-
-                                            startActivity(new Intent(WelcomActivity.this,MainActivity.class));
-
-                                        }else{
-                                            Toast.makeText(WelcomActivity.this, beanBaseBean.getFieldError().getValue(), Toast.LENGTH_SHORT).show();
-
-                                            startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onError(Response<String> response) {
-                                        super.onError(response);
-                                        Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
-                                        intent.putExtra("flag",true);
-                                        startActivity(intent);
-                                    }
-                                });
-                    }else{
-                        startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                if (sp) {
+                    Log.d(TAG, "onAnimationEnd: " + flag);
+                    switch (flag) {
+                        case 0:
+                            return;
+                        case 1:
+                            startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+                            break;
+                        case 2: {
+                            Toast.makeText(WelcomActivity.this, value, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                            break;
+                        }
+                        case 3: {
+                            Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
+                            intent.putExtra("flag", true);
+                            startActivity(intent);
+                            break;
+                        }
+                        case 4:
+                            startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                            break;
                     }
-                }else{//第一次进入
+                } else {//第一次进入
                     startActivity(new Intent(WelcomActivity.this, GuideActivity.class));
                 }
                 finish();
@@ -132,7 +193,7 @@ public class WelcomActivity extends BaseActivity {
 
             }
         });
-
+        valueAnimator.start();
     }
 
     @Override
@@ -156,8 +217,9 @@ public class WelcomActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
     @Override
     public void setStatusBar() {
-        StatusBarUtil.setTransparentForImageView(this,null);
+        StatusBarUtil.setTransparentForImageView(this, null);
     }
 }
