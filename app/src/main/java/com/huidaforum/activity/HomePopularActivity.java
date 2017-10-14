@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.bean.InvitationBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.ThreeDrawable;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -46,6 +49,7 @@ public class HomePopularActivity extends BaseBackActivity {
     private FloatingActionButton fab_popular;
     private SmartRefreshLayout popular_srl;
     private List<InvitationBean.DataBean> data;
+    private ThreeDrawable threeDrawable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class HomePopularActivity extends BaseBackActivity {
         initData();
     }
     public void initView() {
+        threeDrawable = ((MyApplication) HomePopularActivity.this.getApplication()).threeDrawable;
         String title = getIntent().getStringExtra("title");
         url = getIntent().getStringExtra("url");
         toolbar.setTitle(title);
@@ -81,7 +86,7 @@ public class HomePopularActivity extends BaseBackActivity {
     }
 
     public void initData() {
-        OkGo.<String>post(url).params("devType", "phone").params("token", SpUtil.getString(StaticValue.TOKEN, HomePopularActivity.this)).execute(new StringCallback() {
+        OkGo.<String>get(url).params("devType", "phone").params("token", SpUtil.getString(StaticValue.TOKEN, HomePopularActivity.this)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 InvitationBean bean = new Gson().fromJson(response.body().toString(), InvitationBean.class);
@@ -121,10 +126,33 @@ public class HomePopularActivity extends BaseBackActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.tv_zan:
-                        Toast.makeText(HomePopularActivity.this, "单击第" + position + "个赞", Toast.LENGTH_SHORT).show();
+                        Log.e("aaaaaaa","aaaaaaa");
+                        TextView tv_zan = (TextView) adapter.getViewByPosition(rlv_tie,position, R.id.tv_zan);
+                        if(data.get(position).getLaud().equals("yes")){
+                            Log.e("cccccc","cccccc");
+                            Toast.makeText(HomePopularActivity.this, "您已赞过", Toast.LENGTH_SHORT).show();
+                       }else if(data.get(position).getLaud().equals("no")){
+                            Log.e("bbbbbb","bbbbbb");
+                           int count = data.get(position).getZanCount();
+                            count++;
+                            tv_zan.setText(count+"");
+                            tv_zan.setCompoundDrawables(threeDrawable.getZan_yes(),null,null,null);
+                            //访问网络
+                            Toast.makeText(HomePopularActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case R.id.tv_shoucang:
-                        Toast.makeText(HomePopularActivity.this, "单击第" + position + "个收藏", Toast.LENGTH_SHORT).show();
+                        TextView tv_shoucang = (TextView) adapter.getViewByPosition(rlv_tie,position, R.id.tv_shoucang);
+                        if(data.get(position).getShouchang().equals("yes")){
+                            tv_shoucang.setCompoundDrawables(threeDrawable.getShoucang_no(),null,null,null);
+                            //访问网络
+                            Toast.makeText(HomePopularActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                        }else {
+                             tv_shoucang.setCompoundDrawables(threeDrawable.getShoucang_yes(),null,null,null);
+                            //访问网络
+                            Toast.makeText(HomePopularActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     case R.id.tv_pinglun:
                         Toast.makeText(HomePopularActivity.this, "单击第" + position + "个评论", Toast.LENGTH_SHORT).show();
@@ -154,7 +182,15 @@ public class HomePopularActivity extends BaseBackActivity {
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);
-            initchildView(holder);
+
+            TextView tv_zan = holder.getView(R.id.tv_zan);
+            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
+            TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
+            setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
+            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
+            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
+
+
             //是否有图片
             if (item.getContentType().equals("picture")) {
                 ImageView iv_tie = holder.getView(R.id.iv_tie);
@@ -174,14 +210,18 @@ public class HomePopularActivity extends BaseBackActivity {
                 jps.setVisibility(View.GONE);
             }
         }
+
+        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
+            if (flag.equals("yes"))
+                textView.setCompoundDrawables(yes, null, null, null);
+            else {
+                textView.setCompoundDrawables(no, null, null, null);
+            }
+        }
     }
 
-    private void initchildView(BaseViewHolder holder) {
-        TextView tv_zan = holder.getView(R.id.tv_zan);
-        TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
-        TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
 
-    }
+
 
     @Override
     public void onBackPressed() {

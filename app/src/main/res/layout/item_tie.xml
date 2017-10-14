@@ -89,6 +89,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:drawablePadding="5dp"
             android:id="@+id/tv_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,6 +100,7 @@
             app:layout_textSizePercent="4%w" />
 
         <TextView
+            android:drawablePadding="5dp"
             android:id="@+id/tv_shoucang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,6 +111,7 @@
             app:layout_textSizePercent="4%w" />
 
         <TextView
+            android:drawablePadding="5dp"
             android:id="@+id/tv_pinglun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

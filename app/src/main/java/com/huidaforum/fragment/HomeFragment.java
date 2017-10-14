@@ -1,6 +1,7 @@
 package com.huidaforum.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseBean;
@@ -25,6 +28,7 @@ import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.utils.FitStateUI;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -57,7 +61,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Button bt_selection;
     private View view;
     private BaseBean<List<SchoolContentBean>> bean;
-
+    private ThreeDrawable threeDrawable;
 
     @Override
     public View initView() {
@@ -68,6 +72,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
+        threeDrawable = ((MyApplication) mActivity.getApplication()).threeDrawable;
         FitStateUI.setImmersionStateMode(mActivity);
         view = View.inflate(mActivity, R.layout.top_home, null);
         ImageButton ib_home = (ImageButton) view.findViewById(R.id.ib_home);
@@ -217,6 +222,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);
+
+            TextView tv_zan = holder.getView(R.id.tv_zan);
+            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
+            TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
+            setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
+            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
+            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
             //是否有图片
             if (item.getContentType().equals("picture")) {
                 ImageView iv_tie = holder.getView(R.id.iv_tie);
@@ -234,6 +246,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             } else {
                 JZVideoPlayerStandard jps = holder.getView(R.id.jps);
                 jps.setVisibility(View.GONE);
+            }
+        }
+        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
+            if (flag.equals("yes"))
+                textView.setCompoundDrawables(yes, null, null, null);
+            else {
+                textView.setCompoundDrawables(no, null, null, null);
             }
         }
     }

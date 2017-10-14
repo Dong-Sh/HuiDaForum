@@ -11,7 +11,7 @@ public class InvitationBean {
     /**
      * cookieValue :
      * success : true
-     * data : [{"id":"5369b89d423a472eb31052d682e3b608","createTime":"2017-10-13 15:58:35","ywUserId":"50fe35a63fa54180bb7d49dee689bca1","contentCode":"CONTENT201710130000000010","contentState":"publish","publishTime":"2017-10-13 15:58:35","contentType":"picture","title":"aa","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊","videoPictureThumbnail":"","ownerContentId":"ROOT","forwardContentText":"","nickName":"YL","headPhoto":"http://114.115.208.130:80/phone/20170924\\c91c9d471a6f7c4acf43c72e9734d446.jpg","manyTime":"22小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"},{"id":"7ec3426219de44dcae7af8467b229e5f","createTime":"2017-10-13 15:57:30","ywUserId":"073e6b9c098d409aac18702b6ba13164","contentCode":"CONTENT201710130000000009","contentState":"publish","publishTime":"2017-10-13 15:57:30","contentType":"picture","title":"aa","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"有一个人作了一个梦，梦中他来到一间二层楼的屋子。进到第一层楼","videoPictureThumbnail":"","ownerContentId":"ROOT","forwardContentText":"","nickName":"YL","headPhoto":null,"manyTime":"22小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"}]
+     * data : [{"id":"2dc53982878c4323afad1e5912e10749","createTime":"2017-10-14 14:17:36","ywUserId":"50fe35a63fa54180bb7d49dee689bca1","contentCode":"12333","contentState":"publish","publishTime":"2017-10-14 14:17:59","contentType":"picture","title":"sdff","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f","zanCount":0,"collectCount":17,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":1,"contentTextShort":"有一个人作了","videoPictureThumbnail":null,"ownerContentId":"ROOT","forwardContentText":null,"nickName":"YL","headPhoto":"http://114.115.208.130:80/phone/20170924\\c91c9d471a6f7c4acf43c72e9734d446.jpg","manyTime":"1小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"},{"id":"5395b6422a334529b83809c998ebc7c5","createTime":"2017-10-14 14:29:27","ywUserId":"073e6b9c098d409aac18702b6ba13164","contentCode":"21233","contentState":"publish","publishTime":"2017-10-14 14:29:55","contentType":"picture","title":"ewewe","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":6,"contentTextShort":"个人作了","videoPictureThumbnail":null,"ownerContentId":"ROOT","forwardContentText":null,"nickName":"YL","headPhoto":null,"manyTime":"1小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"},{"id":"c6df0d08774e4539b5df8002de66eb15","createTime":"2017-10-14 14:34:12","ywUserId":"27f11dd3fc504d86b697b39f8dd38511","contentCode":"sdfdfs","contentState":"publish","publishTime":"2017-10-14 14:34:51","contentType":"pictue","title":"sddsf","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"进到第一层楼","videoPictureThumbnail":null,"ownerContentId":"ROOT","forwardContentText":null,"nickName":"1111","headPhoto":"http://114.115.208.130:80/phone/20170924\\c91c9d471a6f7c4acf43c72e9734d446.jpg","manyTime":"1小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"},{"id":"5369b89d423a472eb31052d682e3b608","createTime":"2017-10-13 15:58:35","ywUserId":"50fe35a63fa54180bb7d49dee689bca1","contentCode":"CONTENT201710130000000010","contentState":"publish","publishTime":"2017-10-13 15:58:35","contentType":"picture","title":"aa","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608","zanCount":0,"collectCount":2,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊","videoPictureThumbnail":"","ownerContentId":"ROOT","forwardContentText":"","nickName":"YL","headPhoto":"http://114.115.208.130:80/phone/20170924\\c91c9d471a6f7c4acf43c72e9734d446.jpg","manyTime":"昨天","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"},{"id":"7ec3426219de44dcae7af8467b229e5f","createTime":"2017-10-13 15:57:30","ywUserId":"073e6b9c098d409aac18702b6ba13164","contentCode":"CONTENT201710130000000009","contentState":"publish","publishTime":"2017-10-13 15:57:30","contentType":"picture","title":"aa","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"有一个人作了一个梦，梦中他来到一间二层楼的屋子。进到第一层楼","videoPictureThumbnail":"","ownerContentId":"ROOT","forwardContentText":"","nickName":"YL","headPhoto":null,"manyTime":"昨天","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"}]
      * errMsg :
      * fieldError : null
      */
@@ -64,17 +64,17 @@ public class InvitationBean {
 
     public static class DataBean {
         /**
-         * id : 5369b89d423a472eb31052d682e3b608
-         * createTime : 2017-10-13 15:58:35
+         * id : 2dc53982878c4323afad1e5912e10749
+         * createTime : 2017-10-14 14:17:36
          * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
-         * contentCode : CONTENT201710130000000010
+         * contentCode : 12333
          * contentState : publish
-         * publishTime : 2017-10-13 15:58:35
+         * publishTime : 2017-10-14 14:17:59
          * contentType : picture
-         * title : aa
-         * photoFlvPath : http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608
+         * title : sdff
+         * photoFlvPath : http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f
          * zanCount : 0
-         * collectCount : 0
+         * collectCount : 17
          * commentCount : 0
          * officialFlag : no
          * awardCount : 0
@@ -82,14 +82,14 @@ public class InvitationBean {
          * hotContent : yes
          * jingpinContent : yes
          * contentText : null
-         * lookCount : 0
-         * contentTextShort : 有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊
-         * videoPictureThumbnail :
+         * lookCount : 1
+         * contentTextShort : 有一个人作了
+         * videoPictureThumbnail : null
          * ownerContentId : ROOT
-         * forwardContentText :
+         * forwardContentText : null
          * nickName : YL
          * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
-         * manyTime : 22小时前
+         * manyTime : 1小时前
          * ghuanzhu : no
          * laud : no
          * shouchang : no
@@ -116,9 +116,9 @@ public class InvitationBean {
         private Object contentText;
         private int lookCount;
         private String contentTextShort;
-        private String videoPictureThumbnail;
+        private Object videoPictureThumbnail;
         private String ownerContentId;
-        private String forwardContentText;
+        private Object forwardContentText;
         private String nickName;
         private String headPhoto;
         private String manyTime;
@@ -287,11 +287,11 @@ public class InvitationBean {
             this.contentTextShort = contentTextShort;
         }
 
-        public String getVideoPictureThumbnail() {
+        public Object getVideoPictureThumbnail() {
             return videoPictureThumbnail;
         }
 
-        public void setVideoPictureThumbnail(String videoPictureThumbnail) {
+        public void setVideoPictureThumbnail(Object videoPictureThumbnail) {
             this.videoPictureThumbnail = videoPictureThumbnail;
         }
 
@@ -303,11 +303,11 @@ public class InvitationBean {
             this.ownerContentId = ownerContentId;
         }
 
-        public String getForwardContentText() {
+        public Object getForwardContentText() {
             return forwardContentText;
         }
 
-        public void setForwardContentText(String forwardContentText) {
+        public void setForwardContentText(Object forwardContentText) {
             this.forwardContentText = forwardContentText;
         }
 
