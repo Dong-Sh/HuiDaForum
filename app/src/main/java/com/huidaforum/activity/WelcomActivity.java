@@ -133,7 +133,6 @@ public class WelcomActivity extends BaseActivity {
 
                                         flag = 2;
                                     }
-
                                     handler.sendEmptyMessage(0);
                                 }
 
@@ -146,6 +145,7 @@ public class WelcomActivity extends BaseActivity {
                             });
                 } else {
                     flag = 4;
+                    handler.sendEmptyMessage(0);
                 }
 
             }
