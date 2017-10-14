@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
-import com.huidaforum.bean.BaseBean;
+import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.MineCollectBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;

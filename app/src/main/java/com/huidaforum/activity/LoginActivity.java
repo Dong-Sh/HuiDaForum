@@ -14,8 +14,7 @@ import com.google.gson.reflect.TypeToken;
 
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
-import com.huidaforum.bean.BaseBean;
-import com.huidaforum.bean.TokenBean;
+import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.UserBean;
 import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
@@ -23,11 +22,8 @@ import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

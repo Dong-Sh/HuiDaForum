@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.huidaforum.bean.BaseBean;
+import com.huidaforum.base.BaseBean;
 
 /**
  * Created by lenovo on 2017/9/22.

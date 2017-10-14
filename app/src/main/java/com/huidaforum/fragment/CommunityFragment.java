@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,24 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
+import com.huidaforum.activity.SchoolActivity;
 import com.huidaforum.base.BaseFragment;
+import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.Bean;
+import com.huidaforum.bean.SchoolBean;
+import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.WebAddress;
 import com.jude.rollviewpager.RollPagerView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +41,14 @@ import butterknife.Unbinder;
  */
 
 public class CommunityFragment extends BaseFragment {
+    private static final String TAG = "CommunityFragment";
     @BindView(R.id.rpv_community)
     RollPagerView rpvCommunity;
     @BindView(R.id.rlv_community)
     RecyclerView rlvCommunity;
     Unbinder unbinder;
     private ArrayList<Bean> beanList;
+    private BaseBean<List<SchoolBean>> baseBean;
 
     @Override
     public View initView() {
@@ -43,9 +58,21 @@ public class CommunityFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-         initGridView();
+        initNetData();
+        initGridView();
+    }
 
-
+    private void initNetData() {
+        OkGo.<String>post(WebAddress.listSchoolNames)
+                .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
+                .execute(new StringCallback() {
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<SchoolBean>>>() {
+                        }.getType());
+                        Log.d(TAG, "onSuccess: " + baseBean.getData());
+                    }
+                });
     }
 
     private void initGridView() {
@@ -68,30 +95,40 @@ public class CommunityFragment extends BaseFragment {
         beanList.add(环境工程学院);
         beanList.add(华北煤炭);
         beanList.add(建材职业技术学院);
-        rlvCommunity.setLayoutManager(new GridLayoutManager(mActivity,3));
+        rlvCommunity.setLayoutManager(new GridLayoutManager(mActivity, 3));
         Myadapter adapter = new Myadapter();
         rlvCommunity.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(mActivity, "第"+position+"个条目", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "第" + position + "个条目", Toast.LENGTH_SHORT).show();
+
+                if (baseBean.isSuccess()) {
+
+                } else {
+                    initNetData();
+                }
+
+                Intent intent = new Intent(mActivity, SchoolActivity.class);
+                intent.putExtra("id",baseBean.getData().get(position).getId());
+                startActivity(intent);
             }
         });
     }
 
-    class  Myadapter extends BaseQuickAdapter<Bean,BaseViewHolder>{
+    class Myadapter extends BaseQuickAdapter<Bean, BaseViewHolder> {
 
-      public Myadapter() {
-          super(R.layout.item_community, beanList);
-      }
+        public Myadapter() {
+            super(R.layout.item_community, beanList);
+        }
 
-      @Override
-      protected void convert(BaseViewHolder holder, Bean item) {
-          holder.setText(R.id.tv,item.getName());
-          ImageView iv = holder.getView(R.id.iv);
-          iv.setImageResource(item.getTupian());
-      }
-  }
+        @Override
+        protected void convert(BaseViewHolder holder, Bean item) {
+            holder.setText(R.id.tv, item.getName());
+            ImageView iv = holder.getView(R.id.iv);
+            iv.setImageResource(item.getTupian());
+        }
+    }
+
     @Override
     protected void initListener() {
 

@@ -1,15 +1,11 @@
 package com.huidaforum.activity;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
@@ -17,7 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.bean.AwardBean;
-import com.huidaforum.bean.BaseBean;
+import com.huidaforum.base.BaseBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
@@ -27,7 +23,6 @@ import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.squareup.picasso.Picasso;
 

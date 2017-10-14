@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huidaforum">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.MineSettingActivity" />
         <activity android:name=".activity.MineFocusActivity" />
         <activity android:name=".activity.MineCollectActivity" />
@@ -26,19 +27,21 @@
         <activity android:name=".activity.AwardActivity" />
         <activity android:name=".activity.SystemActivity" />
         <activity android:name=".activity.CommentActivity"></activity>
-        <activity android:name=".activity.MinePersonalActivity"/>
-        <activity android:name=".activity.MineShareActivity"/>
-        <activity android:name=".activity.HomePopularActivity"
+        <activity android:name=".activity.MinePersonalActivity" />
+        <activity android:name=".activity.MineShareActivity" />
+        <activity
+            android:name=".activity.HomePopularActivity"
             android:theme="@style/VideoTheme"></activity>
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SchoolActivity" />
     </application>
 
 </manifest>

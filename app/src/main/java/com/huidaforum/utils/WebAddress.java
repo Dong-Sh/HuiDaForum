@@ -26,6 +26,7 @@ public class WebAddress {
 
     public final static String getBySchoolName = http + school + "/getBySchoolName";//根据学校名称进行搜索学校(支持模糊查询)
     public final static String listSchoolNames = http + school + "/listSchoolNames";//显示所有的学校名称信息
+    public final static String bySchoolNameFindContent = http + content + "/bySchoolNameFindContent";//所属学校会员的发文信息
 
     public final static String listAllContents = http + content + "/listAllContents";//显示所有文章信息
     public final static String getContentsById = http + content + "/getContentsById";//通过id获取到当前用户发表过的文章信息

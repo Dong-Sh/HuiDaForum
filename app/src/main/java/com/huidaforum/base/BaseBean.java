@@ -1,4 +1,4 @@
-package com.huidaforum.bean;
+package com.huidaforum.base;
 
 /**
  * Created by lenovo on 2017/9/21.
