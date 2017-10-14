@@ -18,28 +18,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@mipmap/home_top" />
-            <EditText
+            <ImageButton
                 android:paddingLeft="10dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:id="@+id/et_home"
+                android:id="@+id/ib_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/home_et_shape"
+                android:background="@mipmap/home_topbg"
                 android:hint=" 搜索你关注的帖子"
-                app:layout_heightPercent="7.5%w"
-                app:layout_marginLeftPercent="10%w"
+                app:layout_heightPercent="8.5%w"
+                app:layout_marginLeftPercent="15%w"
                 app:layout_marginTopPercent="10%w"
                 app:layout_widthPercent="65%w" />
 
             <Button
+                android:id="@+id/bt_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/et_home"
+                android:layout_toRightOf="@id/ib_home"
                 android:background="@mipmap/home_search"
-                app:layout_heightPercent="7.5%w"
+                app:layout_heightPercent="8.5%w"
                 app:layout_marginLeftPercent="2%w"
                 app:layout_marginRightPercent="3%w"
                 app:layout_marginTopPercent="10%w"
@@ -47,8 +46,8 @@
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
         <com.zhy.android.percent.support.PercentLinearLayout
-            app:layout_marginTopPercent="3%w"
-            app:layout_marginBottomPercent="3%w"
+            app:layout_marginTopPercent="1.5%w"
+            app:layout_marginBottomPercent="1%w"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -61,7 +60,7 @@
                 android:background="@mipmap/popular"
                 android:text="最新帖子"
                 android:textColor="#fff"
-                app:layout_marginPercent="1%w"
+                app:layout_marginPercent="0.5%w"
                 app:layout_textSizePercent="5%w" />
 
             <Button
@@ -72,7 +71,7 @@
                 android:background="@mipmap/infomation"
                 android:text="热门好帖"
                 android:textColor="#fff"
-                app:layout_marginPercent="1%w"
+                app:layout_marginPercent="0.5%w"
                 app:layout_textSizePercent="5%w" />
 
             <Button
@@ -83,7 +82,7 @@
                 android:background="@mipmap/selection"
                 android:text="精选推荐"
                 android:textColor="#fff"
-                app:layout_marginPercent="1%w"
+                app:layout_marginPercent="0.5%w"
                 app:layout_textSizePercent="5%w" />
         </com.zhy.android.percent.support.PercentLinearLayout>
 

@@ -1,12 +1,15 @@
 package com.huidaforum.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,26 +17,26 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
-import com.huidaforum.bean.AllContentsBean;
-import com.huidaforum.bean.Bean;
 import com.huidaforum.bean.SchoolContentBean;
+import com.huidaforum.utils.FitStateUI;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
@@ -44,6 +47,11 @@ import cn.jzvd.JZVideoPlayerStandard;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.rlv_home)
     RecyclerView rlvHome;
+    @BindView(R.id.srl_home)
+    SmartRefreshLayout srlHome;
+    @BindView(R.id.fab_home)
+    FloatingActionButton fabHome;
+    Unbinder unbinder;
     private Button bt_popular;
     private Button bt_infomation;
     private Button bt_selection;
@@ -53,13 +61,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public View initView() {
+        FitStateUI.setImmersionStateMode(mActivity);
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home, null);
         return view;
     }
 
     @Override
     protected void initData() {
+        FitStateUI.setImmersionStateMode(mActivity);
         view = View.inflate(mActivity, R.layout.top_home, null);
+        ImageButton ib_home = (ImageButton) view.findViewById(R.id.ib_home);
+        Button bt_home = (Button) view.findViewById(R.id.bt_home);
+        bt_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mActivity, "跳转到搜索页面", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ib_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mActivity, "跳转到搜索页面", Toast.LENGTH_SHORT).show();
+            }
+        });
+        fabHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlvHome.smoothScrollToPosition(0);
+            }
+        });
         bt_popular = (Button) view.findViewById(R.id.bt_popular);
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
@@ -73,7 +103,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         bean = new Gson().fromJson(response.body().toString(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
 
                         }.getType());
-                        if(bean.isSuccess()){
+                        if (bean.isSuccess()) {
                             pareDataFromNet();
                         }
                     }
@@ -157,6 +187,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
         JZVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolder> {

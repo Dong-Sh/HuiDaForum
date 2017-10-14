@@ -37,11 +37,11 @@
             android:layout_marginBottom="60dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/up"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:id="@+id/fab_popular"
             android:layout_gravity="bottom|end"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

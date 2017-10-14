@@ -45,6 +45,7 @@ public class HomePopularActivity extends BaseBackActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab_popular;
     private SmartRefreshLayout popular_srl;
+    private List<InvitationBean.DataBean> data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class HomePopularActivity extends BaseBackActivity {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-//          actionBar.setHomeAsUpIndicator(R.drawable.home);
+//          actionBar.setHomeAsUpIndicator(R.mipmap.left);
         }
         fab_popular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,9 +103,9 @@ public class HomePopularActivity extends BaseBackActivity {
 
     public void pareDataFormNet(InvitationBean bean) {
 
-        List<InvitationBean.DataBean> data = bean.getData();
+        data = bean.getData();
         rlv_tie.setLayoutManager(new LinearLayoutManager(HomePopularActivity.this));
-        MyAdapter adapter = new MyAdapter(R.layout.item_tie, data);
+        MyAdapter adapter = new MyAdapter();
         rlv_tie.setAdapter(adapter);
         adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         //每个条目的点击事件
@@ -141,7 +142,7 @@ public class HomePopularActivity extends BaseBackActivity {
 
     class MyAdapter extends BaseQuickAdapter<InvitationBean.DataBean, BaseViewHolder> {
 
-        public MyAdapter(@LayoutRes int layoutResId, @Nullable List<InvitationBean.DataBean> data) {
+        public MyAdapter() {
             super(R.layout.item_tie, data);
         }
 
@@ -149,7 +150,7 @@ public class HomePopularActivity extends BaseBackActivity {
         protected void convert(BaseViewHolder holder, InvitationBean.DataBean item) {
             holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
                     .setText(R.id.tv_tie_title, item.getTitle())
-                    .setText(R.id.tv_tie_data, item.getContentText() + "")
+                    .setText(R.id.tv_tie_data, item.getContentTextShort() + "")
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);

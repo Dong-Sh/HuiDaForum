@@ -11,7 +11,7 @@ public class InvitationBean {
     /**
      * cookieValue :
      * success : true
-     * data : [{"id":"3c0d8001cb8644209399c71ad267ab42","createTime":"2017-09-20 17:49:01","ywUserId":"1f93bfc0e7844f19933a2f1e049858c2","contentCode":"CONTENT201709200000000001","contentState":"publish","publishTime":"2017-09-20 17:49:01","contentType":"picture","title":"","photoFlvPath":"D:\\drawcloud_huidaluntan\\WebContent\\phone150590094065644.jpg","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"no","jingpinContent":"no","contentText":null,"lookCount":0,"contentTextShort":"大兔子和小兔子一起吃饭。小兔子捧着饭碗，对大兔子说：\u201c想你。.......","guanzhuUserId":null,"nickName":null,"headPhoto":""}]
+     * data : [{"id":"5369b89d423a472eb31052d682e3b608","createTime":"2017-10-13 15:58:35","ywUserId":"50fe35a63fa54180bb7d49dee689bca1","contentCode":"CONTENT201710130000000010","contentState":"publish","publishTime":"2017-10-13 15:58:35","contentType":"picture","title":"aa","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊","videoPictureThumbnail":"","ownerContentId":"ROOT","forwardContentText":"","nickName":"YL","headPhoto":"http://114.115.208.130:80/phone/20170924\\c91c9d471a6f7c4acf43c72e9734d446.jpg","manyTime":"22小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"},{"id":"7ec3426219de44dcae7af8467b229e5f","createTime":"2017-10-13 15:57:30","ywUserId":"073e6b9c098d409aac18702b6ba13164","contentCode":"CONTENT201710130000000009","contentState":"publish","publishTime":"2017-10-13 15:57:30","contentType":"picture","title":"aa","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f","zanCount":0,"collectCount":0,"commentCount":0,"officialFlag":"no","awardCount":0,"awardTotalMoney":0,"hotContent":"yes","jingpinContent":"yes","contentText":null,"lookCount":0,"contentTextShort":"有一个人作了一个梦，梦中他来到一间二层楼的屋子。进到第一层楼","videoPictureThumbnail":"","ownerContentId":"ROOT","forwardContentText":"","nickName":"YL","headPhoto":null,"manyTime":"22小时前","ghuanzhu":"no","laud":"no","shouchang":"no","answer":"no"}]
      * errMsg :
      * fieldError : null
      */
@@ -64,29 +64,36 @@ public class InvitationBean {
 
     public static class DataBean {
         /**
-         * id : 3c0d8001cb8644209399c71ad267ab42
-         * createTime : 2017-09-20 17:49:01
-         * ywUserId : 1f93bfc0e7844f19933a2f1e049858c2
-         * contentCode : CONTENT201709200000000001
+         * id : 5369b89d423a472eb31052d682e3b608
+         * createTime : 2017-10-13 15:58:35
+         * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
+         * contentCode : CONTENT201710130000000010
          * contentState : publish
-         * publishTime : 2017-09-20 17:49:01
+         * publishTime : 2017-10-13 15:58:35
          * contentType : picture
-         * title :
-         * photoFlvPath : D:\drawcloud_huidaluntan\WebContent\phone150590094065644.jpg
+         * title : aa
+         * photoFlvPath : http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608
          * zanCount : 0
          * collectCount : 0
          * commentCount : 0
          * officialFlag : no
          * awardCount : 0
          * awardTotalMoney : 0.0
-         * hotContent : no
-         * jingpinContent : no
+         * hotContent : yes
+         * jingpinContent : yes
          * contentText : null
          * lookCount : 0
-         * contentTextShort : 大兔子和小兔子一起吃饭。小兔子捧着饭碗，对大兔子说：“想你。.......
-         * guanzhuUserId : null
-         * nickName : null
-         * headPhoto :
+         * contentTextShort : 有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊
+         * videoPictureThumbnail :
+         * ownerContentId : ROOT
+         * forwardContentText :
+         * nickName : YL
+         * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
+         * manyTime : 22小时前
+         * ghuanzhu : no
+         * laud : no
+         * shouchang : no
+         * answer : no
          */
 
         private String id;
@@ -109,9 +116,16 @@ public class InvitationBean {
         private Object contentText;
         private int lookCount;
         private String contentTextShort;
-        private Object guanzhuUserId;
-        private Object nickName;
+        private String videoPictureThumbnail;
+        private String ownerContentId;
+        private String forwardContentText;
+        private String nickName;
         private String headPhoto;
+        private String manyTime;
+        private String ghuanzhu;
+        private String laud;
+        private String shouchang;
+        private String answer;
 
         public String getId() {
             return id;
@@ -273,19 +287,35 @@ public class InvitationBean {
             this.contentTextShort = contentTextShort;
         }
 
-        public Object getGuanzhuUserId() {
-            return guanzhuUserId;
+        public String getVideoPictureThumbnail() {
+            return videoPictureThumbnail;
         }
 
-        public void setGuanzhuUserId(Object guanzhuUserId) {
-            this.guanzhuUserId = guanzhuUserId;
+        public void setVideoPictureThumbnail(String videoPictureThumbnail) {
+            this.videoPictureThumbnail = videoPictureThumbnail;
         }
 
-        public Object getNickName() {
+        public String getOwnerContentId() {
+            return ownerContentId;
+        }
+
+        public void setOwnerContentId(String ownerContentId) {
+            this.ownerContentId = ownerContentId;
+        }
+
+        public String getForwardContentText() {
+            return forwardContentText;
+        }
+
+        public void setForwardContentText(String forwardContentText) {
+            this.forwardContentText = forwardContentText;
+        }
+
+        public String getNickName() {
             return nickName;
         }
 
-        public void setNickName(Object nickName) {
+        public void setNickName(String nickName) {
             this.nickName = nickName;
         }
 
@@ -295,6 +325,46 @@ public class InvitationBean {
 
         public void setHeadPhoto(String headPhoto) {
             this.headPhoto = headPhoto;
+        }
+
+        public String getManyTime() {
+            return manyTime;
+        }
+
+        public void setManyTime(String manyTime) {
+            this.manyTime = manyTime;
+        }
+
+        public String getGhuanzhu() {
+            return ghuanzhu;
+        }
+
+        public void setGhuanzhu(String ghuanzhu) {
+            this.ghuanzhu = ghuanzhu;
+        }
+
+        public String getLaud() {
+            return laud;
+        }
+
+        public void setLaud(String laud) {
+            this.laud = laud;
+        }
+
+        public String getShouchang() {
+            return shouchang;
+        }
+
+        public void setShouchang(String shouchang) {
+            this.shouchang = shouchang;
+        }
+
+        public String getAnswer() {
+            return answer;
+        }
+
+        public void setAnswer(String answer) {
+            this.answer = answer;
         }
     }
 }
