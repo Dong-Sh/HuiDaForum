@@ -13,12 +13,15 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
+import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.AllContentsBean;
 import com.huidaforum.bean.Bean;
+import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
@@ -38,15 +41,14 @@ import cn.jzvd.JZVideoPlayerStandard;
  * 主页中首页页面
  */
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener{
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.rlv_home)
     RecyclerView rlvHome;
-    private ArrayList<Bean> been;
     private Button bt_popular;
     private Button bt_infomation;
     private Button bt_selection;
-    private List<AllContentsBean.DataBean> data;
     private View view;
+    private BaseBean<List<SchoolContentBean>> bean;
 
 
     @Override
@@ -62,88 +64,86 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
 
-        been = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Bean bean = new Bean("我是测试文本" + i);
-            been.add(bean);
-        }
-     OkGo.<String>post(WebAddress.listAllContents)
-             .params("devType", "phone")
-             .params("token", SpUtil.getString(StaticValue.TOKEN,mActivity))
-             .execute(new StringCallback() {
-         public void onSuccess(Response<String> response) {
-             AllContentsBean bean = new Gson().fromJson(response.body().toString(), AllContentsBean.class);
-             if(bean.isSuccess()){
-                 pareDataFromNet(bean);
-             }
-         }
+        OkGo.<String>post(WebAddress.listAllContents)
+                .params("devType", "phone")
+                .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
+                .execute(new StringCallback() {
 
-         @Override
-         public void onCacheSuccess(Response<String> response) {
-             super.onCacheSuccess(response);
-             AllContentsBean bean = new Gson().fromJson(response.body().toString(), AllContentsBean.class);
-             if(bean.isSuccess()){
-                 pareDataFromNet(bean);
-             }
-         }
-     });
+                    public void onSuccess(Response<String> response) {
+                        bean = new Gson().fromJson(response.body().toString(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
 
+                        }.getType());
+                        if(bean.isSuccess()){
+                            pareDataFromNet();
+                        }
+                    }
+
+                    @Override
+                    public void onCacheSuccess(Response<String> response) {
+                        super.onCacheSuccess(response);
+                        bean = new Gson().fromJson(response.body().toString(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
+
+                        }.getType());
+                        if (bean.isSuccess()) {
+                            pareDataFromNet();
+                        }
+                    }
+                });
 
 
     }
 
-    public void pareDataFromNet(AllContentsBean bean) {
-        data= bean.getData();
+    public void pareDataFromNet() {
         MyAdapter adapter = new MyAdapter();
         adapter.addHeaderView(view);
         rlvHome.setAdapter(adapter);
         rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
-       adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-           @Override
-           public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-               Toast.makeText(mActivity, "点击了当前"+position+"条目", Toast.LENGTH_SHORT).show();
-           }
-       });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(mActivity, "点击了当前" + position + "条目", Toast.LENGTH_SHORT).show();
+            }
+        });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                 switch (view.getId()){
-                     case R.id.tv_zan:
-                         Toast.makeText(mActivity, "单击第"+position+"个赞", Toast.LENGTH_SHORT).show();
-                         break;
-                     case R.id.tv_shoucang:
-                         Toast.makeText(mActivity, "单击第"+position+"个收藏", Toast.LENGTH_SHORT).show();
-                         break;
-                     case R.id.tv_pinglun:
-                         Toast.makeText(mActivity, "单击第"+position+"个评论", Toast.LENGTH_SHORT).show();
-                         break;
-                 }
+                switch (view.getId()) {
+                    case R.id.tv_zan:
+                        Toast.makeText(mActivity, "单击第" + position + "个赞", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_shoucang:
+                        Toast.makeText(mActivity, "单击第" + position + "个收藏", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.tv_pinglun:
+                        Toast.makeText(mActivity, "单击第" + position + "个评论", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
     }
 
     @Override
     public void onClick(View v) {
-           switch (v.getId()){
-               case R.id.bt_popular:
-                   Intent intent = new Intent(mActivity, HomePopularActivity.class);
-                   intent.putExtra("title","最新帖子");
-                   intent.putExtra("url", WebAddress.selectByCountTime);
-                   startActivity(intent);
-                   break;
-               case R.id.bt_infomation:
-                   Intent intent1 = new Intent(mActivity, HomePopularActivity.class);
-                   intent1.putExtra("title","热门好帖");
-                   intent1.putExtra("url",WebAddress.seleteByContentHot);
-                   startActivity(intent1);
-                   break;
-               case R.id.bt_selection:
-                   Intent intent2 = new Intent(mActivity, HomePopularActivity.class);
-                   intent2.putExtra("title","精品好帖");
-                   intent2.putExtra("url",WebAddress.seleteByContentJingpin);
-                   startActivity(intent2);
-                   break;
-           }
+        switch (v.getId()) {
+            case R.id.bt_popular:
+                Intent intent = new Intent(mActivity, HomePopularActivity.class);
+                intent.putExtra("title", "最新帖子");
+                intent.putExtra("url", WebAddress.selectByCountTime);
+                startActivity(intent);
+                break;
+            case R.id.bt_infomation:
+                Intent intent1 = new Intent(mActivity, HomePopularActivity.class);
+                intent1.putExtra("title", "热门好帖");
+                intent1.putExtra("url", WebAddress.seleteByContentHot);
+                startActivity(intent1);
+                break;
+            case R.id.bt_selection:
+                Intent intent2 = new Intent(mActivity, HomePopularActivity.class);
+                intent2.putExtra("title", "精品好帖");
+                intent2.putExtra("url", WebAddress.seleteByContentJingpin);
+                startActivity(intent2);
+                break;
+        }
     }
 
     @Override
@@ -159,13 +159,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         super.onPause();
         JZVideoPlayer.releaseAllVideos();
     }
-    class MyAdapter extends BaseQuickAdapter<AllContentsBean.DataBean, BaseViewHolder> {
+
+    class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolder> {
 
         public MyAdapter() {
-            super(R.layout.item_tie, data);
+            super(R.layout.item_tie, bean.getData());
         }
+
         @Override
-        protected void convert(BaseViewHolder holder, AllContentsBean.DataBean item) {
+        protected void convert(BaseViewHolder holder, SchoolContentBean item) {
             holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
                     .setText(R.id.tv_tie_title, item.getTitle())
                     .setText(R.id.tv_tie_data, item.getContentText() + "")

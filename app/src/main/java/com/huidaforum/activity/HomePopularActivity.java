@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.huidaforum.R;
+import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.bean.InvitationBean;
 import com.huidaforum.bean.TokenBean;
 import com.huidaforum.utils.SpUtil;
@@ -36,7 +37,7 @@ import cn.jzvd.JZVideoPlayerStandard;
  * 首页中最新帖子的界面
  */
 
-public class HomePopularActivity extends AppCompatActivity {
+public class HomePopularActivity extends BaseBackActivity {
     @BindView(R.id.back)
     Button back;
     @BindView(R.id.tv_home)
