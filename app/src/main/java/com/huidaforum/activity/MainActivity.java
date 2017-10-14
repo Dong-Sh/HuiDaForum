@@ -287,4 +287,12 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        unregisterReceiver(broadcastToExit);
+        broadcastToExit = null;
+        finish();
+    }
 }

@@ -47,33 +47,44 @@ public class WelcomActivity extends BaseActivity {
     RelativeLayout rlWelcom;
 
     private int flag = 0;
+    private boolean aflag = false;
     private String value;
+    private boolean loginFlag = true;
 
     private Handler handler = new Handler() {
 
         public void handleMessage(Message msg) {
             Log.d(TAG, "handleMessage: "+flag);
-            switch (flag) {
-                case 1:
-                    startActivity(new Intent(WelcomActivity.this, MainActivity.class));
-                    break;
-                case 2: {
-                    Toast.makeText(WelcomActivity.this, value, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                    break;
-                }
-                case 3: {
-                    Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
-                    intent.putExtra("flag", true);
-                    startActivity(intent);
-                    break;
-                }
-                case 4:
-                    startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                    break;
+            if(!loginFlag){
+                return;
             }
-            finish();
+            if (aflag) {
+                if(flag==0){
+                    return;
+                }
+                loginFlag = false;
+                switch (flag) {
+                    case 1:
+                        startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+                        break;
+                    case 2: {
+                        Toast.makeText(WelcomActivity.this, value, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                        break;
+                    }
+                    case 3: {
+                        Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
+                        intent.putExtra("flag", true);
+                        startActivity(intent);
+                        break;
+                    }
+                    case 4:
+                        startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                        break;
+                }
+                finish();
+            }
 
         }
     };
@@ -109,6 +120,7 @@ public class WelcomActivity extends BaseActivity {
         valueAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                aflag = false;
                 Log.d(TAG, "onAnimationStart: ");
                 if (!TextUtils.isEmpty(SpUtil.getString(StaticValue.TOKEN, WelcomActivity.this))) {//用户已登录
                     OkGo.<String>post(WebAddress.login)
@@ -131,7 +143,7 @@ public class WelcomActivity extends BaseActivity {
                                     } else {
                                         value = beanBaseBean.getFieldError().getValue();
 
-                                        flag = 2;
+                                        flag = 2;//用户被注销
                                     }
                                     handler.sendEmptyMessage(0);
                                 }
@@ -154,33 +166,12 @@ public class WelcomActivity extends BaseActivity {
             public void onAnimationEnd(Animator animation) {
                 boolean sp = SpUtil.getBoolean(StaticValue.IS_OPENMAIN, WelcomActivity.this);
                 if (sp) {
-                    Log.d(TAG, "onAnimationEnd: " + flag);
-                    switch (flag) {
-                        case 0:
-                            return;
-                        case 1:
-                            startActivity(new Intent(WelcomActivity.this, MainActivity.class));
-                            break;
-                        case 2: {
-                            Toast.makeText(WelcomActivity.this, value, Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                            break;
-                        }
-                        case 3: {
-                            Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
-                            intent.putExtra("flag", true);
-                            startActivity(intent);
-                            break;
-                        }
-                        case 4:
-                            startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                            break;
-                    }
+                    aflag = true;
+                    handler.sendEmptyMessage(0);
                 } else {//第一次进入
                     startActivity(new Intent(WelcomActivity.this, GuideActivity.class));
+                    finish();
                 }
-                finish();
             }
 
             @Override

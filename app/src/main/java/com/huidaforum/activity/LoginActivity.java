@@ -102,6 +102,12 @@ public class LoginActivity extends BaseActivity {
                                 }else{
                                     Toast.makeText(LoginActivity.this, beanBaseBean.getFieldError().getValue(), Toast.LENGTH_SHORT).show();
                                 }
+
+                            }
+
+                            @Override
+                            public void onError(Response<String> response) {
+                                super.onError(response);
                             }
                         });
             }
