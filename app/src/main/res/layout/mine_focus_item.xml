@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical">
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="#fff">
     <ImageView
         android:id="@+id/iv_mine_pic"
         android:layout_width="55dp"
@@ -25,6 +32,7 @@
             android:textColor="@color/red"
             android:textSize="17sp" />
         <TextView
+            android:id="@+id/tv_mine_content"
             android:textSize="13sp"
             android:layout_marginTop="2dp"
             android:layout_width="wrap_content"
@@ -33,6 +41,7 @@
             android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_mine_isfocus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -52,3 +61,9 @@
             android:layout_marginTop="2dp"/>
     </LinearLayout>
 </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/linecolor"/>
+</LinearLayout>
