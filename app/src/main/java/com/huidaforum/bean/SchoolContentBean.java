@@ -310,4 +310,40 @@ public class SchoolContentBean {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        return "SchoolContentBean{" +
+                "id='" + id + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", ywUserId='" + ywUserId + '\'' +
+                ", contentCode='" + contentCode + '\'' +
+                ", contentState='" + contentState + '\'' +
+                ", publishTime='" + publishTime + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", title='" + title + '\'' +
+                ", photoFlvPath='" + photoFlvPath + '\'' +
+                ", zanCount=" + zanCount +
+                ", collectCount=" + collectCount +
+                ", commentCount=" + commentCount +
+                ", officialFlag='" + officialFlag + '\'' +
+                ", awardCount=" + awardCount +
+                ", awardTotalMoney=" + awardTotalMoney +
+                ", hotContent='" + hotContent + '\'' +
+                ", jingpinContent='" + jingpinContent + '\'' +
+                ", contentText=" + contentText +
+                ", lookCount=" + lookCount +
+                ", contentTextShort='" + contentTextShort + '\'' +
+                ", videoPictureThumbnail=" + videoPictureThumbnail +
+                ", ownerContentId=" + ownerContentId +
+                ", forwardContentText='" + forwardContentText + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", headPhoto='" + headPhoto + '\'' +
+                ", manyTime='" + manyTime + '\'' +
+                ", ghuanzhu='" + ghuanzhu + '\'' +
+                ", laud='" + laud + '\'' +
+                ", shouchang='" + shouchang + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }

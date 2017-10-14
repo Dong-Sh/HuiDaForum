@@ -27,6 +27,7 @@ import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.SchoolBean;
 import com.huidaforum.bean.SchoolContentBean;
+import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.ThreeDrawable;
@@ -105,46 +106,9 @@ public class SchoolActivity extends BaseActivity {
         rpvCommunity.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
         schoolRecylerViewAdapter.addHeaderView(rpvCommunity);
         schoolRecylerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, final View view, final int i) {
-                switch (view.getId()) {
-                    case R.id.tv_zan: {
-                        Toast.makeText(SchoolActivity.this, "tv_zan", Toast.LENGTH_SHORT).show();
-                    }
-                    case R.id.tv_pinglun: {
-                        Toast.makeText(SchoolActivity.this, "tv_pinglun", Toast.LENGTH_SHORT).show();
-                    }
-                    case R.id.tv_shoucang: {
-                        final SchoolContentBean schoolContentBean = baseBean.getData().get(i);
-                        if (schoolContentBean.getShouchang().equals("yes")) {
-                            new AlertDialog.Builder(SchoolActivity.this)
-                                    .setTitle("是否删除")
-                                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            OkGo.<String>post(WebAddress.shouchangdelect)
-                                                    .params("contentCode", schoolContentBean.getContentCode())
-                                                    .params("token", SpUtil.getString(StaticValue.TOKEN, SchoolActivity.this))
-                                                    .execute(new StringCallback() {
-                                                        @Override
-                                                        public void onSuccess(Response<String> response) {
-                                                            ((TextView) view).setCompoundDrawables(threeDrawable.getShoucang_no(), null, null, null);
-                                                        }
-                                                    });
-                                        }
-                                    })
-                                    .show();
-                        } else
-                            OkGo.<String>post(WebAddress.getshouchang)
-                                    .params("contentCode", schoolContentBean.getContentCode())
-                                    .params("token", SpUtil.getString(StaticValue.TOKEN, SchoolActivity.this))
-                                    .execute(new StringCallback() {
-                                        @Override
-                                        public void onSuccess(Response<String> response) {
-                                            ((TextView) view).setCompoundDrawables(threeDrawable.getShoucang_yes(), null, null, null);
-                                        }
-                                    });
-                    }
-                }
+            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                SchoolContentBean schoolContentBean = baseBean.getData().get(i);
+                MethodUtil.zanAndshoucang(SchoolActivity.this,(TextView)view,schoolContentBean,threeDrawable);
             }
         });
         rlvCommunity.setAdapter(schoolRecylerViewAdapter);
@@ -238,6 +202,19 @@ public class SchoolActivity extends BaseActivity {
         @Override
         public int getCount() {
             return imgs.length;
+        }
+    }
+
+    class MyAlertDialog extends AlertDialog{
+
+        protected MyAlertDialog(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+//            setContentView(R.layout.);
         }
     }
 }
