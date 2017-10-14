@@ -103,6 +103,15 @@ public class WelcomActivity extends BaseActivity {
                                             startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
                                         }
                                     }
+
+                                    @Override
+                                    public void onError(Response<String> response) {
+                                        super.onError(response);
+                                        Toast.makeText(WelcomActivity.this, "网络不行啦，请重新登录", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
+                                        intent.putExtra("flag",true);
+                                        startActivity(intent);
+                                    }
                                 });
                     }else{
                         startActivity(new Intent(WelcomActivity.this, LoginActivity.class));

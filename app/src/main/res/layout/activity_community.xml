@@ -10,15 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.jude.rollviewpager.RollPagerView
-        android:id="@+id/rpv_community"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_heightPercent="45%w"
-        app:rollviewpager_hint_gravity="center"
-        app:rollviewpager_play_delay="3000">
-    </com.jude.rollviewpager.RollPagerView>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rlv_community"
         android:layout_width="match_parent"

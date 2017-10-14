@@ -59,7 +59,11 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        boolean flag = getIntent().getBooleanExtra("flag", false);
+        if(flag){
+            etLoginUsername.setText(SpUtil.getString(StaticValue.UserName,this));
+            etLoginPassword.setText(SpUtil.getString(StaticValue.Password,this));
+        }
     }
 
     @Override

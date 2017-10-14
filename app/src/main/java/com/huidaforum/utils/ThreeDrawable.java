@@ -15,8 +15,8 @@ public class ThreeDrawable {
 
     private Drawable shoucang_no;
     private Drawable shoucang_yes;
-    private Drawable guanzhu_no;
-    private Drawable guanzhu_yes;
+    private Drawable zan_no;
+    private Drawable zan_yes;
     private Drawable pinglun_no;
     private Drawable pinglun_yes;
 
@@ -27,11 +27,20 @@ public class ThreeDrawable {
 
     private void initDrawable() {
         shoucang_no = getDrawable(R.drawable.collection_nor);
-        shoucang_yes = getDrawable(R.drawable.collection_nor);
-        guanzhu_no = getDrawable(R.drawable.collection_nor);
-        guanzhu_yes = getDrawable(R.drawable.collection_nor);
-        pinglun_no = getDrawable(R.drawable.collection_nor);
-        pinglun_yes = getDrawable(R.drawable.collection_nor);
+        shoucang_yes = getDrawable(R.drawable.collection_pre);
+        zan_no = getDrawable(R.drawable.fabulous_nor);
+        zan_yes = getDrawable(R.drawable.fabulous_pre);
+        pinglun_no = getDrawable(R.drawable.comment_nor);
+        pinglun_yes = getDrawable(R.drawable.comment_pre);
+
+        int width = 50;
+        int height = 50;
+        shoucang_no.setBounds(0,0,width,height);
+        shoucang_yes.setBounds(0,0,width,height);
+        zan_no.setBounds(0,0,width,height);
+        zan_yes.setBounds(0,0,width,height);
+        pinglun_no.setBounds(0,0,width,height);
+        pinglun_yes.setBounds(0,0,width,height);
     }
 
     private Drawable getDrawable(int collection_nor) {
@@ -51,12 +60,12 @@ public class ThreeDrawable {
         return shoucang_yes;
     }
 
-    public Drawable getGuanzhu_no() {
-        return guanzhu_no;
+    public Drawable getZan_no() {
+        return zan_no;
     }
 
-    public Drawable getGuanzhu_yes() {
-        return guanzhu_yes;
+    public Drawable getZan_yes() {
+        return zan_yes;
     }
 
     public Drawable getPinglun_no() {
