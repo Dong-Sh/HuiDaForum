@@ -1,7 +1,10 @@
 package com.huidaforum;
 
 import android.app.Application;
+import android.graphics.drawable.Drawable;
 
+import com.huidaforum.utils.MethodUtil;
+import com.huidaforum.utils.ThreeDrawable;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -19,11 +22,20 @@ import okhttp3.OkHttpClient;
  */
 
 public class MyApplication extends Application {
+
+    public ThreeDrawable threeDrawable;
+
     @Override
     public void onCreate() {
         super.onCreate();
         initOkGo();
+        initDrawable();
     }
+
+    private void initDrawable() {
+        threeDrawable = new ThreeDrawable(this);
+    }
+
     private void initOkGo() {
         try {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -48,5 +60,7 @@ public class MyApplication extends Application {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
     }
 }

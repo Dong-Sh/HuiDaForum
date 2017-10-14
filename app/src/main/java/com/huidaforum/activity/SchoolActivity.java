@@ -1,15 +1,21 @@
 package com.huidaforum.activity;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
+import com.huidaforum.bean.SchoolBean;
 import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
@@ -63,8 +69,15 @@ public class SchoolActivity extends BaseActivity {
                         }.getType());
 
                         Log.d(TAG, "onSuccess: " + baseBean.getData());
+
+                        setRecyclerViewData();
                     }
                 });
+    }
+
+    private void setRecyclerViewData() {
+        rlvCommunity.setLayoutManager(new LinearLayoutManager(this));
+        rlvCommunity.setAdapter(new SchoolRecylerViewAdapter());
     }
 
     @Override
@@ -82,5 +95,19 @@ public class SchoolActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    private class SchoolRecylerViewAdapter extends BaseQuickAdapter<SchoolContentBean,BaseViewHolder> {
+
+        public SchoolRecylerViewAdapter() {
+            super(R.layout.item_tie, baseBean.getData());
+        }
+
+        @Override
+        protected void convert(BaseViewHolder baseViewHolder, SchoolContentBean schoolBean) {
+            baseViewHolder.setText(R.id.tv_tie_nicheng,schoolBean.getNickName())
+                        .setText(R.id.tv_tie_title,schoolBean.getTitle())
+                        .setText(R.id.tv_tie_data,schoolBean.getContentTextShort());
+        }
     }
 }

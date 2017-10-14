@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <com.zhy.android.percent.support.PercentLinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_paddingPercent="3%w"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_paddingPercent="3%w">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ_photo"
             android:layout_width="wrap_content"
@@ -19,84 +21,104 @@
             app:civ_border_width="2dp"
             app:layout_heightPercent="8%w"
             app:layout_widthPercent="8%w" />
+
         <TextView
             android:id="@+id/tv_tie_nicheng"
-            app:layout_textSizePercent="4%w"
-            app:layout_marginPercent="2%w"
-            android:text="hello55555"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-         <ImageView
-             android:src="@mipmap/guanfang"
-             android:id="@+id/iv_guanfang"
-             app:layout_widthPercent="12%w"
-             app:layout_heightPercent="8%w"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="hello55555"
+            app:layout_marginPercent="2%w"
+            app:layout_textSizePercent="4%w" />
+
+        <ImageView
+            android:id="@+id/iv_guanfang"
+            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:src="@mipmap/guanfang"
+            app:layout_widthPercent="12%w" />
+
+        <TextView
+            android:id="@+id/iv_guanzhu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_marginRightPercent="5%w"
+            android:scaleType="fitEnd"
+            android:text="关注"
+            android:textAlignment="textEnd" />
     </com.zhy.android.percent.support.PercentLinearLayout>
+
     <ImageView
-        android:scaleType="centerCrop"
-        android:visibility="gone"
         android:id="@+id/iv_tie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:src="@mipmap/a"
+        android:visibility="gone"
         app:layout_heightPercent="50%w" />
-   <cn.jzvd.JZVideoPlayerStandard
-       app:layout_heightPercent="50%w"
-       android:id="@+id/jps"
-       android:visibility="gone"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+
+    <cn.jzvd.JZVideoPlayerStandard
+        android:id="@+id/jps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_heightPercent="50%w" />
+
     <TextView
         android:id="@+id/tv_tie_title"
-        app:layout_textSizePercent="6%w"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="怎么成为一名超级程序员"
         app:layout_marginLeftPercent="3%w"
         app:layout_marginRightPercent="3%w"
-        android:text="怎么成为一名超级程序员"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        app:layout_textSizePercent="6%w" />
+
     <TextView
         android:id="@+id/tv_tie_data"
-        android:lines="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:lines="2"
         android:text="兔子和小兔子一起吃兔子和小兔子一起吃兔子和小兔子一起吃兔子和小兔子一起吃兔子和小兔子一起吃饭。小兔子捧着饭碗，对大兔子说：“想你"
         app:layout_marginLeftPercent="3%w"
         app:layout_marginRightPercent="3%w"
-        app:layout_marginTopPercent="3%w"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        app:layout_marginTopPercent="3%w" />
+
     <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right">
+        android:gravity="right"
+        android:orientation="horizontal">
+
         <TextView
-            app:layout_marginRightPercent="5%w"
-            android:clickable="true"
             android:id="@+id/tv_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:text="123"
-            app:layout_textSizePercent="4%w" />
-        <TextView
-            app:layout_marginRightPercent="5%w"
             android:clickable="true"
+            android:text="123"
+            app:layout_marginRightPercent="5%w"
+            app:layout_textSizePercent="4%w" />
+
+        <TextView
             android:id="@+id/tv_shoucang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:clickable="true"
             android:text="收藏"
+            app:layout_marginRightPercent="5%w"
             app:layout_textSizePercent="4%w" />
+
         <TextView
             android:id="@+id/tv_pinglun"
-            android:clickable="true"
-            app:layout_marginRightPercent="5%w"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:clickable="true"
             android:text="评论"
+            app:layout_marginRightPercent="5%w"
             app:layout_textSizePercent="4%w" />
     </com.zhy.android.percent.support.PercentLinearLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

@@ -8,31 +8,33 @@ public class SchoolContentBean {
 
 
     /**
-     * id : 9d293a494d4c4dcc86691191ae5cf229
-     * createTime : 2017-09-22 15:25:52
-     * ywUserId : a04571c36a6642e5b36336f84831bba7
-     * contentCode : CONTENT201709220000000015
-     * contentState : noAudit
-     * publishTime : 2017-09-22 15:25:52
+     * id : 5369b89d423a472eb31052d682e3b608
+     * createTime : 2017-10-13 15:58:35
+     * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
+     * contentCode : CONTENT201710130000000010
+     * contentState : publish
+     * publishTime : 2017-10-13 15:58:35
      * contentType : picture
-     * title : 阿迪发动
-     * photoFlvPath : F:\git\drawcloud_huidaluntan\WebContent\phone150606515233443234_300.jpg
+     * title : aa
+     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608
      * zanCount : 0
      * collectCount : 0
      * commentCount : 0
-     * officialFlag : yes
+     * officialFlag : no
      * awardCount : 0
      * awardTotalMoney : 0
      * hotContent : yes
-     * jingpinContent : no
-     * contentText :
+     * jingpinContent : yes
+     * contentText : null
      * lookCount : 0
-     * contentTextShort : ''
+     * contentTextShort : 有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊
      * videoPictureThumbnail : null
-     * nickName : 西西
-     * headPhoto : 头像2
-     * manyTime : 6天前
-     * ghuanzhu : yes
+     * ownerContentId : null
+     * forwardContentText :
+     * nickName : YL
+     * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
+     * manyTime : 16小时前
+     * ghuanzhu : no
      * laud : no
      * shouchang : no
      * answer : no
@@ -55,10 +57,12 @@ public class SchoolContentBean {
     private int awardTotalMoney;
     private String hotContent;
     private String jingpinContent;
-    private String contentText;
+    private Object contentText;
     private int lookCount;
     private String contentTextShort;
     private Object videoPictureThumbnail;
+    private Object ownerContentId;
+    private String forwardContentText;
     private String nickName;
     private String headPhoto;
     private String manyTime;
@@ -203,11 +207,11 @@ public class SchoolContentBean {
         this.jingpinContent = jingpinContent;
     }
 
-    public String getContentText() {
+    public Object getContentText() {
         return contentText;
     }
 
-    public void setContentText(String contentText) {
+    public void setContentText(Object contentText) {
         this.contentText = contentText;
     }
 
@@ -233,6 +237,22 @@ public class SchoolContentBean {
 
     public void setVideoPictureThumbnail(Object videoPictureThumbnail) {
         this.videoPictureThumbnail = videoPictureThumbnail;
+    }
+
+    public Object getOwnerContentId() {
+        return ownerContentId;
+    }
+
+    public void setOwnerContentId(Object ownerContentId) {
+        this.ownerContentId = ownerContentId;
+    }
+
+    public String getForwardContentText() {
+        return forwardContentText;
+    }
+
+    public void setForwardContentText(String forwardContentText) {
+        this.forwardContentText = forwardContentText;
     }
 
     public String getNickName() {
@@ -289,39 +309,5 @@ public class SchoolContentBean {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    @Override
-    public String toString() {
-        return "SchoolContentBean{" +
-                "id='" + id + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", ywUserId='" + ywUserId + '\'' +
-                ", contentCode='" + contentCode + '\'' +
-                ", contentState='" + contentState + '\'' +
-                ", publishTime='" + publishTime + '\'' +
-                ", contentType='" + contentType + '\'' +
-                ", title='" + title + '\'' +
-                ", photoFlvPath='" + photoFlvPath + '\'' +
-                ", zanCount=" + zanCount +
-                ", collectCount=" + collectCount +
-                ", commentCount=" + commentCount +
-                ", officialFlag='" + officialFlag + '\'' +
-                ", awardCount=" + awardCount +
-                ", awardTotalMoney=" + awardTotalMoney +
-                ", hotContent='" + hotContent + '\'' +
-                ", jingpinContent='" + jingpinContent + '\'' +
-                ", contentText='" + contentText + '\'' +
-                ", lookCount=" + lookCount +
-                ", contentTextShort='" + contentTextShort + '\'' +
-                ", videoPictureThumbnail=" + videoPictureThumbnail +
-                ", nickName='" + nickName + '\'' +
-                ", headPhoto='" + headPhoto + '\'' +
-                ", manyTime='" + manyTime + '\'' +
-                ", ghuanzhu='" + ghuanzhu + '\'' +
-                ", laud='" + laud + '\'' +
-                ", shouchang='" + shouchang + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
     }
 }

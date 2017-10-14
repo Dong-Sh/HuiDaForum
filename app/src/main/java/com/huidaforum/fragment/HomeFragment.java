@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseFragment;

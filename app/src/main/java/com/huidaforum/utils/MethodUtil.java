@@ -2,6 +2,7 @@ package com.huidaforum.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 
 import com.google.gson.Gson;
 import com.huidaforum.base.BaseBean;
@@ -23,4 +24,6 @@ public class MethodUtil {
         intent.putExtra(StaticValue.EXIT,StaticValue.EXIT);
         context.sendBroadcast(intent);
     }
+
+
 }
