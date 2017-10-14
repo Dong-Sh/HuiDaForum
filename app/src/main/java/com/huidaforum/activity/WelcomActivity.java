@@ -55,7 +55,7 @@ public class WelcomActivity extends BaseActivity {
         //属性动画，0.2~1的变化
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0.2f, 1f);
         valueAnimator.setDuration(40);
-        valueAnimator.setDuration(4000);
+        valueAnimator.setDuration(1);
         //差值器  线性，线性均匀改变
         valueAnimator.setInterpolator(new LinearInterpolator());
         //动画过程的监听

@@ -31,17 +31,17 @@
         <activity android:name=".activity.MineShareActivity" />
         <activity
             android:name=".activity.HomePopularActivity"
-            android:theme="@style/NoActionBarTheme"></activity>
+            android:theme="@style/BackTheme"></activity>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" >
+
+        </activity>
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.GuideActivity" />
-        <activity android:name=".activity.WelcomActivity">
-
         </activity>
         <activity android:name=".activity.SchoolActivity" />
     </application>

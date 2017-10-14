@@ -179,15 +179,7 @@ public class HomePopularActivity extends BaseBackActivity {
         TextView tv_zan = holder.getView(R.id.tv_zan);
         TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
         TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
-        Drawable drawable = getResources().getDrawable(R.drawable.fabulous_nor);
-        drawable.setBounds(0, 0, 60, 60);
-        tv_zan.setCompoundDrawables(drawable, null, null, null);
-        Drawable drawable1 = getResources().getDrawable(R.drawable.collection_nor);
-        drawable1.setBounds(0, 0, 60, 60);
-        tv_shoucang.setCompoundDrawables(drawable1, null, null, null);
-        Drawable drawable2 = getResources().getDrawable(R.drawable.comment_nor);
-        drawable2.setBounds(0, 0, 60, 60);
-        tv_pinglun.setCompoundDrawables(drawable2, null, null, null);
+
     }
 
     @Override
