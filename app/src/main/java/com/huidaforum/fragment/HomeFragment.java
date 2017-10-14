@@ -82,7 +82,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     public void onCacheSuccess(Response<String> response) {
                         super.onCacheSuccess(response);
                         bean = new Gson().fromJson(response.body().toString(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
-
                         }.getType());
                         if (bean.isSuccess()) {
                             pareDataFromNet();

@@ -29,7 +29,6 @@
             android:text="hello55555"
             app:layout_marginPercent="2%w"
             app:layout_textSizePercent="4%w" />
-
         <ImageView
             android:id="@+id/iv_guanfang"
             android:layout_width="wrap_content"
@@ -38,7 +37,6 @@
             android:scaleType="fitStart"
             android:src="@mipmap/guanfang"
             app:layout_widthPercent="12%w" />
-
         <TextView
             android:id="@+id/iv_guanzhu"
             android:layout_width="wrap_content"
@@ -57,7 +55,6 @@
         android:src="@mipmap/a"
         android:visibility="gone"
         app:layout_heightPercent="50%w" />
-
     <cn.jzvd.JZVideoPlayerStandard
         android:id="@+id/jps"
         android:layout_width="match_parent"
@@ -87,9 +84,10 @@
 
     <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+       >
 
         <TextView
             android:id="@+id/tv_zan"
