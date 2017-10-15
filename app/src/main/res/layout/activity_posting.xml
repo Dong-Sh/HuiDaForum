@@ -5,26 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        style="@style/topbar_bg"
-        app:layout_heightPercent="14%w">
-
-        <Button style="@style/topbar_back" />
-
-        <TextView
-            style="@style/topbar_textcolor"
-            android:text="帖子详情" />
-
-        <ImageButton
-            android:id="@+id/ib_posting_share"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@mipmap/share" />
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,15 +15,21 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                app:layout_heightPercent="40%w"
-                android:padding="5dp"
                 android:id="@+id/rl_posting_pic"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                app:layout_heightPercent="40%w">
+
                 <ImageView
                     android:id="@+id/iv_posting_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"/>
+                    android:layout_height="150dp" />
+                <cn.jzvd.JZVideoPlayerStandard
+                    android:id="@+id/jps"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"/>
 
             </RelativeLayout>
 
@@ -169,24 +155,26 @@
 
             <LinearLayout
                 android:id="@+id/ll_post"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_jiaohu"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/ib_post_reward"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@mipmap/post_reward" />
+
                 <TextView
-                    android:gravity="center"
-                    android:textColor="@color/red"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="给文主个打赏吧"/>
+                    android:gravity="center"
+                    android:text="给文主个打赏吧"
+                    android:textColor="@color/red" />
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_pinglun"
                 android:layout_width="match_parent"
@@ -210,15 +198,37 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
             </RelativeLayout>
+
             <android.support.v7.widget.RecyclerView
-                android:padding="10dp"
-                android:layout_below="@id/rl_pinglun"
+                android:id="@+id/rv_posting"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_below="@id/rl_pinglun"
+                android:padding="10dp">
 
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        style="@style/topbar_bg"
+        app:layout_heightPercent="14%w">
+
+        <Button style="@style/topbar_back" />
+
+        <TextView
+            style="@style/topbar_textcolor"
+            android:text="帖子详情" />
+
+        <ImageButton
+            android:id="@+id/ib_posting_share"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/share" />
+    </RelativeLayout>
 
 </com.zhy.android.percent.support.PercentLinearLayout>
