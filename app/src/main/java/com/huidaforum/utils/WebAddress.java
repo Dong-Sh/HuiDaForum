@@ -16,6 +16,7 @@ public class WebAddress {
     private static String content = "/content";//帖子相关
     private static String award = "/award";//打赏相关
     private static String guanzhu = "/ywguanzhu";//我的关注
+    private static String dianzan="/ywlaud";//点赞
     //用户
     public final static String register = http + user + "/reg";//注册
     public final static String login = http + user + "/login";//登录
@@ -53,14 +54,11 @@ public class WebAddress {
     public final static String shouchangdelect = http + shoucang + "/shouchangdelect";//用户删除我的收藏
     public final static String getguanzhu = http + shoucang + "/getguanzhu";//用户添加我的关注
     public final static String guanzhudelect = http + shoucang + "/guanzhudelect";//用户删除我的关注
-
+    public final static String getzan=http+dianzan+"/getlaud";
     //短信
     public final static String sendUpdatePwdCode = http + phonemsg + "/sendUpdatePwdCode";//发送修改密码手机验证码
     public final static String sendBindNewPhoneCode = http + phonemsg + "/sendBindNewPhoneCode";//发送绑定新手机验证码
     public final static String sendBindOraPhoneCode = http + phonemsg + "/sendBindOraPhoneCode";//发送绑定原机验证码
     public final static String sendRegistCode = http + phonemsg + "/sendRegistCode";//发送注册短信验证码
     public final static String sendFindPwdCode = http + phonemsg + "/sendFindPwdCode";//发送找回密码手机验证码
-    //关注
-    public final static String mineFocus = http+guanzhu+"/listPage";//用户分页查看我的关注（ｙｌ）
-    public final static String deleteMineFocus = http+guanzhu+"/guanzhudelect";//删除我的关注
 }
