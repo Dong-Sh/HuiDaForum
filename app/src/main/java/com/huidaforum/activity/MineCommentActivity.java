@@ -82,6 +82,7 @@ public class MineCommentActivity extends BaseActivity {
             helper.setText(R.id.tv_comment_name,item.getNickName());
             helper.setText(R.id.tv_comment_time,item.getCreateTime());
             helper.setText(R.id.tv_comment_ownertext,item.getOwnerText());
+            helper.setText(R.id.tv_comment_title,item.getTitle());
             /*if(TextUtils.isEmpty(item.photoFlvPath)||TextUtils.equals(null,item.photoFlvPath)){
                 helper.getView(R.id.iv_collect_pic).setVisibility(View.INVISIBLE);
             }else{
