@@ -25,6 +25,7 @@ import com.huidaforum.bean.InvitationBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.ThreeDrawable;
+import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -54,7 +55,7 @@ public class HomePopularActivity extends BaseBackActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_popular);
+        setContentView(getLayoutId());
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         fab_popular = (FloatingActionButton) findViewById(R.id.fab_popular);
         popular_srl = (SmartRefreshLayout) findViewById(R.id.popular_srl);
@@ -62,6 +63,12 @@ public class HomePopularActivity extends BaseBackActivity {
         initView();
         initData();
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_popular;
+    }
+
     public void initView() {
         threeDrawable = ((MyApplication) HomePopularActivity.this.getApplication()).threeDrawable;
         String title = getIntent().getStringExtra("title");
@@ -123,34 +130,55 @@ public class HomePopularActivity extends BaseBackActivity {
         //点击子控件的事件
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 switch (view.getId()) {
                     case R.id.tv_zan:
-                        Log.e("aaaaaaa","aaaaaaa");
-                        TextView tv_zan = (TextView) adapter.getViewByPosition(rlv_tie,position, R.id.tv_zan);
+                        final TextView tv_zan = (TextView) adapter.getViewByPosition(rlv_tie,position, R.id.tv_zan);
                         if(data.get(position).getLaud().equals("yes")){
-                            Log.e("cccccc","cccccc");
                             Toast.makeText(HomePopularActivity.this, "您已赞过", Toast.LENGTH_SHORT).show();
                        }else if(data.get(position).getLaud().equals("no")){
-                            Log.e("bbbbbb","bbbbbb");
-                           int count = data.get(position).getZanCount();
-                            count++;
-                            tv_zan.setText(count+"");
-                            tv_zan.setCompoundDrawables(threeDrawable.getZan_yes(),null,null,null);
-                            //访问网络
-                            Toast.makeText(HomePopularActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
+
+                            OkGo.<String>post(WebAddress.getzan).params("ownerContentId",data.get(position).getId()).
+                                    params("token",SpUtil.getString(StaticValue.TOKEN, HomePopularActivity.this)).execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Log.e("aaaaa","aaaa");
+                                    int count = data.get(position).getZanCount();
+                                    count++;
+                                    tv_zan.setText(count+"");
+                                    tv_zan.setCompoundDrawables(threeDrawable.getZan_yes(),null,null,null);
+                                    //访问网络
+                                    Toast.makeText(HomePopularActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
                         break;
                     case R.id.tv_shoucang:
-                        TextView tv_shoucang = (TextView) adapter.getViewByPosition(rlv_tie,position, R.id.tv_shoucang);
+                        final TextView tv_shoucang = (TextView) adapter.getViewByPosition(rlv_tie,position, R.id.tv_shoucang);
                         if(data.get(position).getShouchang().equals("yes")){
-                            tv_shoucang.setCompoundDrawables(threeDrawable.getShoucang_no(),null,null,null);
-                            //访问网络
-                            Toast.makeText(HomePopularActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                            OkGo.<String>post(WebAddress.getshouchang).params("contentCode",data.get(position).getId())
+                                    .params("token",SpUtil.getString(StaticValue.TOKEN, HomePopularActivity.this)).execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    tv_shoucang.setCompoundDrawables(threeDrawable.getShoucang_no(),null,null,null);
+                                    //访问网络
+                                    Toast.makeText(HomePopularActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }else {
-                             tv_shoucang.setCompoundDrawables(threeDrawable.getShoucang_yes(),null,null,null);
-                            //访问网络
-                            Toast.makeText(HomePopularActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                            OkGo.<String>post(WebAddress.getshouchang).
+                                    params("contentCode",data.get(position).getId()).params("token",SpUtil.getString(StaticValue.TOKEN,
+                                    HomePopularActivity.this)).execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    tv_shoucang.setCompoundDrawables(threeDrawable.getShoucang_yes(),null,null,null);
+                                    //访问网络
+                                    Toast.makeText(HomePopularActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
 
                         break;
@@ -167,6 +195,11 @@ public class HomePopularActivity extends BaseBackActivity {
 
     }
 
+    @Override
+    public void processClick(View v) {
+
+    }
+
 
     class MyAdapter extends BaseQuickAdapter<InvitationBean.DataBean, BaseViewHolder> {
 
@@ -179,6 +212,7 @@ public class HomePopularActivity extends BaseBackActivity {
             holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
                     .setText(R.id.tv_tie_title, item.getTitle())
                     .setText(R.id.tv_tie_data, item.getContentTextShort() + "")
+                    .setText(R.id.tv_zan,item.getZanCount()+"")
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);

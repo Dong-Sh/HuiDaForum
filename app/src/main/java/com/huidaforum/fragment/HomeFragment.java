@@ -216,9 +216,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         @Override
         protected void convert(BaseViewHolder holder, SchoolContentBean item) {
-            holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
+            holder.setText(R.id.tv_tie_nicheng, item.getNickName())
                     .setText(R.id.tv_tie_title, item.getTitle())
                     .setText(R.id.tv_tie_data, item.getContentText() + "")
+                    .setText(R.id.tv_zan,item.getZanCount()+"")
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);

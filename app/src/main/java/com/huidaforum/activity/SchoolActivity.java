@@ -149,6 +149,7 @@ public class SchoolActivity extends BaseActivity {
             holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
                     .setText(R.id.tv_tie_title, item.getTitle())
                     .setText(R.id.tv_tie_data, item.getContentText() + "")
+                    .setText(R.id.tv_zan,item.getZanCount()+"")
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);

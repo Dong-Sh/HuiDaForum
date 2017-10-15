@@ -8,17 +8,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.huidaforum.R;
+
 import java.lang.reflect.Field;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by gui on 2017/10/14.
  */
 
-public class BaseBackActivity extends AppCompatActivity implements SlidingPaneLayout.PanelSlideListener{
+public abstract class BaseBackActivity extends AppCompatActivity implements SlidingPaneLayout.PanelSlideListener,View.OnClickListener{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initSlideBackClose();
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
+        ButterKnife.bind(this);
+        initView();
+        initData();
+        initListener();
     }
 
     private void initSlideBackClose() {
@@ -66,6 +75,18 @@ public class BaseBackActivity extends AppCompatActivity implements SlidingPaneLa
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                finish();
+                break;
+            default:
+                processClick(v);
+                break;
+        }
+    }
+
+    @Override
     public void onPanelOpened(View panel) {
         finish();
     }
@@ -74,4 +95,9 @@ public class BaseBackActivity extends AppCompatActivity implements SlidingPaneLa
     public void onPanelClosed(View panel) {
 
     }
+    public abstract int getLayoutId();
+    public abstract void initView();
+    public abstract void initData();
+    public abstract void initListener();
+    public abstract void processClick(View v);
 }

@@ -177,8 +177,6 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         pop_picture_ll = (LinearLayout) inflate.findViewById(R.id.pop_picture_ll);
         pop_camera_ll = (LinearLayout) inflate.findViewById(R.id.pop_camera_ll);
         pop_movie_ll = (LinearLayout) inflate.findViewById(R.id.pop_movie_ll);
-
-
         //逐个显示动画
         handler.postDelayed(new Runnable() {
             public void run() {
