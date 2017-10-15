@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
+import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.SchoolBean;
 import com.huidaforum.bean.SchoolContentBean;
@@ -52,7 +53,7 @@ import cn.jzvd.JZVideoPlayerStandard;
  * Created by lenovo on 2017/10/13.
  */
 
-public class SchoolActivity extends BaseActivity {
+public class SchoolActivity extends BaseBackActivity {
     private static final String TAG = "SchoolActivity";
     RollPagerView rpvCommunity;
     @BindView(R.id.rlv_community)

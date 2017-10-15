@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
 
-        OkGo.<String>post(WebAddress.listAllContents)
+        OkGo.<String>get(WebAddress.listAllContents)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
                 .execute(new StringCallback() {
@@ -110,18 +110,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         }.getType());
                         if (bean.isSuccess()) {
                             pareDataFromNet();
+                        }else {
+                            Toast.makeText(mActivity, bean.getErrMsg(), Toast.LENGTH_SHORT).show();
                         }
+
                     }
 
                     @Override
                     public void onCacheSuccess(Response<String> response) {
                         super.onCacheSuccess(response);
-                        bean = new Gson().fromJson(response.body().toString(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
-                        }.getType());
-                        if (bean.isSuccess()) {
-                            pareDataFromNet();
-                        }
+                        pareDataFromNet();
                     }
+
                 });
 
 
