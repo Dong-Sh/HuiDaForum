@@ -54,7 +54,7 @@ public class WebAddress {
     public final static String shouchangdelect = http + shoucang + "/shouchangdelect";//用户删除我的收藏
     public final static String getguanzhu = http + shoucang + "/getguanzhu";//用户添加我的关注
     public final static String guanzhudelect = http + shoucang + "/guanzhudelect";//用户删除我的关注
-
+    public final static String getzan=http+dianzan+"/getlaud";
     //短信
     public final static String sendUpdatePwdCode = http + phonemsg + "/sendUpdatePwdCode";//发送修改密码手机验证码
     public final static String sendBindNewPhoneCode = http + phonemsg + "/sendBindNewPhoneCode";//发送绑定新手机验证码
