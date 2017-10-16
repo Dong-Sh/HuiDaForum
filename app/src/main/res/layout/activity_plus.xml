@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+   <android.support.v7.widget.Toolbar
+       android:layout_width="match_parent"
+       android:layout_height="?attr/actionBarSize"
+       android:background="?attr/colorPrimary">
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <ImageView
+                app:layout_heightPercent="7%w"
+                app:layout_widthPercent="7%w"
+                android:id="@+id/back_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/back" />
+            <TextView
+                android:id="@+id/position_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="15dp"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:text="1/1" />
+        <ImageView
+            app:layout_heightPercent="12%w"
+            app:layout_widthPercent="12%w"
+            android:id="@+id/delete_iv"
+            android:padding="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/shanchu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+   </android.support.v7.widget.Toolbar>
+    <com.jude.rollviewpager.RollPagerView
+        app:rollviewpager_hint_color="#7c7c7c"
+        app:rollviewpager_hint_alpha="80"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+         android:id="@+id/rpv">
+
+    </com.jude.rollviewpager.RollPagerView>
+</com.zhy.android.percent.support.PercentLinearLayout>

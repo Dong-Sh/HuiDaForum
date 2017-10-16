@@ -62,6 +62,7 @@
         <activity android:name=".activity.SchoolActivity"
             android:theme="@style/BackTheme"></activity>
         <activity android:name=".activity.CameraViewActivity"></activity>
+        <activity android:name=".activity.PlusImageActivity"></activity>
     </application>
 
 </manifest>

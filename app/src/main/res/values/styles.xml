@@ -7,10 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+     <style name="BlackTheme" parent="Theme.AppCompat.Light.NoActionBar">
+         <item name="colorPrimary">@color/bg</item>
+         <item name="colorPrimaryDark">@color/bg</item>
+         <item name="colorAccent">@color/colorAccent</item>
+     </style>
     <style name="BackTheme" parent="AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
-
         <item name="android:windowAnimationStyle">@style/JK.Animation.SlidingBack</item>
         <item name="android:actionBarStyle">@style/JKActionBar.Custom</item>
     </style>

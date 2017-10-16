@@ -9,6 +9,7 @@
         style="@style/topbar_bg"
         app:layout_heightPercent="14%w">
         <Button
+            android:id="@+id/release_back"
             style="@style/topbar_back"/>
         <TextView
             style="@style/topbar_textcolor"

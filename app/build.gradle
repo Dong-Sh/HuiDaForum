@@ -52,4 +52,5 @@ dependencies {
     compile 'com.yanzhenjie:permission:1.1.0'
     compile 'cjt.library.wheel:camera:1.1.9'
     compile 'com.zhihu.android:matisse:0.4.3'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
 }
