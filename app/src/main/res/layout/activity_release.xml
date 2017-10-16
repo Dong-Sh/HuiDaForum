@@ -28,7 +28,6 @@
         app:layout_heightPercent="40%w"
         android:padding="15dp"
         android:orientation="vertical"
-        android:id="@+id/release_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -51,7 +50,6 @@
         app:layout_heightPercent="60%w"
         android:padding="15dp"
         android:orientation="vertical"
-        android:id="@+id/release_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -70,7 +68,19 @@
             android:gravity="top"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <GridView
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:id="@+id/gv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </GridView>
     <LinearLayout
+        android:visibility="gone"
         android:paddingLeft="15dp"
         android:layout_marginTop="5dp"
         app:layout_heightPercent="20%w"
@@ -88,6 +98,6 @@
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加照片"/>
+            android:text="添加照片 长按删除"/>
     </LinearLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

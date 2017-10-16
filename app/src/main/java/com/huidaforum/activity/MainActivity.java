@@ -3,20 +3,26 @@ package com.huidaforum.activity;
 import android.animation.ValueAnimator;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -44,11 +50,23 @@ import com.huidaforum.fragment.NewsFragment;
 import com.huidaforum.utils.RenderScriptGaussianBlur;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StatusBarUtil;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.PermissionListener;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RationaleListener;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.PicassoEngine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.huidaforum.utils.StaticValue.REQUEST_CODE_PERMISSION;
+import static com.huidaforum.utils.StaticValue.REQUEST_CODE_SETTING;
 
 public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
     private static final String TAG = "MainActivity";
@@ -199,7 +217,51 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                 setChangeBig(pMovie, 1500, pop_movie_ll);
             }
         }, 1500);
+        pop_text_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textpermission();
+            }
+        });
+        pop_picture_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Picturepermission();
+            }
+        });
+        pop_camera_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Camerapermission();
+            }
+        });
+    }
 
+    private void textpermission() {
+        AndPermission.with(MainActivity.this)
+                .requestCode(102)
+                .permission(Permission.STORAGE)
+                .rationale(rationaleListener)
+                .callback(permissionListener)
+                .start();
+    }
+
+    private void Picturepermission() {
+        AndPermission.with(MainActivity.this)
+                .requestCode(101)
+                .permission(Permission.STORAGE)
+                .rationale(rationaleListener)
+                .callback(permissionListener)
+                .start();
+    }
+
+    private void Camerapermission() {
+        AndPermission.with(MainActivity.this)
+                .requestCode(REQUEST_CODE_PERMISSION)
+                .permission(Permission.CAMERA,Permission.MICROPHONE,Permission.STORAGE)
+                .rationale(rationaleListener)
+                .callback(permissionListener)
+                .start();
     }
 
     //popupwindow 出现 图片初始化动画
@@ -293,4 +355,112 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         broadcastToExit = null;
         finish();
     }
+    private PermissionListener permissionListener=new PermissionListener() {
+        @Override
+        public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+            switch (requestCode){
+                case REQUEST_CODE_PERMISSION:
+                    startActivity(new Intent(MainActivity.this,CameraViewActivity.class));
+                    break;
+                case 102:
+                    Intent intent = new Intent(MainActivity.this, ReleaseActivity.class);
+                    intent.putExtra("style",3);
+                    startActivity(intent);
+                    break;
+                case 101: //图片
+                    Matisse.from(MainActivity.this)
+                            .choose(MimeType.allOf())
+                            .countable(true)
+                            .maxSelectable(6)
+                            .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                            .thumbnailScale(0.85f) // 缩略图的比例
+                            .theme(R.style.Matisse_Dracula)
+                            .imageEngine(new PicassoEngine()) // 使用的图片加载引擎
+                            .forResult(201);
+                    break;
+
+            }
+        }
+
+        @Override
+        public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+            switch (requestCode){
+                case REQUEST_CODE_PERMISSION:
+                    Toast.makeText(MainActivity.this, "请到设置-权限管理中开启", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            // 用户否勾选了不再提示并且拒绝了权限，那么提示用户到设置中授权。
+            if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, deniedPermissions)) {
+                // 第一种：用默认的提示语。
+                AndPermission.defaultSettingDialog(MainActivity.this,REQUEST_CODE_SETTING).show();
+
+                // 第二种：用自定义的提示语。
+//             AndPermission.defaultSettingDialog(this, REQUEST_CODE_SETTING)
+//                     .setTitle("权限申请失败")
+//                     .setMessage("我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则功能无法正常使用！")
+//                     .setPositiveButton("好，去设置")
+//                     .show();
+
+//            第三种：自定义dialog样式。
+//            SettingService settingHandle = AndPermission.defineSettingDialog(this, REQUEST_CODE_SETTING);
+//            你的dialog点击了确定调用：
+//            settingHandle.execute();
+//            你的dialog点击了取消调用：
+//            settingHandle.cancel();
+            }
+        }
+
+    };
+    private RationaleListener rationaleListener =new RationaleListener() {
+        @Override
+        public void showRequestPermissionRationale(int requestCode, Rationale rationale) {
+            AndPermission.rationaleDialog(MainActivity.this,rationale).show();
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 201:
+                    List<Uri> list = Matisse.obtainResult(data);
+                    ArrayList<String> strings = new ArrayList<>();
+                    if (list.size() > 0 && !list.isEmpty() && list != null) {
+                        Intent intent = new Intent(MainActivity.this, ReleaseActivity.class);
+                        for (int i = 0; i <list.size(); i++) {
+                            String path = getRealFilePath(MainActivity.this, list.get(i));
+                            strings.add(path);
+                        }
+                        intent.putExtra("style",4);
+                        intent.putStringArrayListExtra("list",strings);
+                        startActivity(intent);
+                    }
+                    break;
+            }
+        }
+    }
+    public  String getRealFilePath(Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
 }

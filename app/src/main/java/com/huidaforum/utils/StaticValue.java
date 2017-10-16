@@ -17,4 +17,6 @@ public class StaticValue {
 
     public static final String EXIT = "exit_application";
     public static final String EXIT_ACTION = "com.example.utils.BaseAvtivity";
+    public static final int REQUEST_CODE_PERMISSION = 100;//检查权限
+    public static final int REQUEST_CODE_SETTING = 300;//跳转到设置界面
 }
