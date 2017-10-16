@@ -15,21 +15,34 @@
         <Button
             style="@style/topbar_back"/>
     </RelativeLayout>
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:src="@mipmap/my_share_nor"
-        android:layout_gravity="center"
-        android:layout_marginTop="70dp"/>
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/ll_comment_empty"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="暂无评论"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_mine_comment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@mipmap/my_share_nor"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂无评论"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:visibility="invisible"
+            android:id="@+id/rv_mine_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
 </com.zhy.android.percent.support.PercentLinearLayout>

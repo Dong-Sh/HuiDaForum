@@ -11,18 +11,21 @@ public class MineCommentBean {
 
     /**
      * id : null
-     * createTime : 2017-10-15 09:55:51
+     * createTime : 2017-10-16 14:34:05
      * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
-     * ownerContentId : zxczxc234123412adfasdfasdfasdfa3
+     * ownerContentId : 44bbb296e78945b3b1380c9a2678de6c
      * ownerAnswerId : null
-     * ownerText : huhujjnkbbj
-     * title : 小故事
+     * ownerText : 66666
+     * title : qwer
      * nickName : YL
      * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
      * photoFlvPath : null
      * contentCode : null
      * offical : 0
      * officialFlag : no
+     * laud : null
+     * shouchang : null
+     * list : null
      * children : []
      */
 
@@ -39,6 +42,9 @@ public class MineCommentBean {
     private Object contentCode;
     private String offical;
     private String officialFlag;
+    private Object laud;
+    private Object shouchang;
+    private Object list;
     private List<?> children;
 
     public Object getId() {
@@ -143,6 +149,30 @@ public class MineCommentBean {
 
     public void setOfficialFlag(String officialFlag) {
         this.officialFlag = officialFlag;
+    }
+
+    public Object getLaud() {
+        return laud;
+    }
+
+    public void setLaud(Object laud) {
+        this.laud = laud;
+    }
+
+    public Object getShouchang() {
+        return shouchang;
+    }
+
+    public void setShouchang(Object shouchang) {
+        this.shouchang = shouchang;
+    }
+
+    public Object getList() {
+        return list;
+    }
+
+    public void setList(Object list) {
+        this.list = list;
     }
 
     public List<?> getChildren() {

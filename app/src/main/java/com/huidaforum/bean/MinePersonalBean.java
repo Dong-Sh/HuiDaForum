@@ -33,17 +33,17 @@ public class MinePersonalBean {
     private int unreadMsg;
     private String emailRenzheng;
     private String phoneRenzheng;
-    private Object realName;
-    private Object sex;
-    private Object idCardNum;
-    private Object birthday;
-    private Object major;
-    private Object xueli;
+    private String realName;
+    private String sex;
+    private String idCardNum;
+    private String birthday;
+    private String major;
+    private String xueli;
     private String school;
     private String headPhoto;
-    private Object isSetSeqQuestion;
-    private Object sequreQuestion;
-    private Object sequreAnswer;
+    private String isSetSeqQuestion;
+    private String sequreQuestion;
+    private String sequreAnswer;
 
     public String getId() {
         return id;
@@ -93,51 +93,51 @@ public class MinePersonalBean {
         this.phoneRenzheng = phoneRenzheng;
     }
 
-    public Object getRealName() {
+    public String getRealName() {
         return realName;
     }
 
-    public void setRealName(Object realName) {
+    public void setRealName(String realName) {
         this.realName = realName;
     }
 
-    public Object getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Object sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public Object getIdCardNum() {
+    public String getIdCardNum() {
         return idCardNum;
     }
 
-    public void setIdCardNum(Object idCardNum) {
+    public void setIdCardNum(String idCardNum) {
         this.idCardNum = idCardNum;
     }
 
-    public Object getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Object birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public Object getMajor() {
+    public String getMajor() {
         return major;
     }
 
-    public void setMajor(Object major) {
+    public void setMajor(String major) {
         this.major = major;
     }
 
-    public Object getXueli() {
+    public String getXueli() {
         return xueli;
     }
 
-    public void setXueli(Object xueli) {
+    public void setXueli(String xueli) {
         this.xueli = xueli;
     }
 
@@ -157,27 +157,27 @@ public class MinePersonalBean {
         this.headPhoto = headPhoto;
     }
 
-    public Object getIsSetSeqQuestion() {
+    public String getIsSetSeqQuestion() {
         return isSetSeqQuestion;
     }
 
-    public void setIsSetSeqQuestion(Object isSetSeqQuestion) {
+    public void setIsSetSeqQuestion(String isSetSeqQuestion) {
         this.isSetSeqQuestion = isSetSeqQuestion;
     }
 
-    public Object getSequreQuestion() {
+    public String getSequreQuestion() {
         return sequreQuestion;
     }
 
-    public void setSequreQuestion(Object sequreQuestion) {
+    public void setSequreQuestion(String sequreQuestion) {
         this.sequreQuestion = sequreQuestion;
     }
 
-    public Object getSequreAnswer() {
+    public String getSequreAnswer() {
         return sequreAnswer;
     }
 
-    public void setSequreAnswer(Object sequreAnswer) {
+    public void setSequreAnswer(String sequreAnswer) {
         this.sequreAnswer = sequreAnswer;
     }
 }

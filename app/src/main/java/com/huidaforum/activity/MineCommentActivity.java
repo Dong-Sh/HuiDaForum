@@ -6,7 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,7 +25,6 @@ import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,6 +39,8 @@ import butterknife.ButterKnife;
 public class MineCommentActivity extends BaseActivity {
     @BindView(R.id.rv_mine_comment)
     RecyclerView rvMineComment;
+    @BindView(R.id.ll_comment_empty)
+    LinearLayout llCommentEmpty;
     private ThreeDrawable threeDrawable;
 
     @Override
@@ -76,15 +77,24 @@ public class MineCommentActivity extends BaseActivity {
     }
 
     private void parseData(List<MineCommentBean> data) {
-        rvMineComment.setLayoutManager(new LinearLayoutManager(this));
-        mineCommentAdapter mineCommentAdapter = new mineCommentAdapter(R.layout.mine_comment_item,data);
-        rvMineComment.setAdapter(mineCommentAdapter);
-    }
-    //获取数据
-    public class mineCommentAdapter extends BaseQuickAdapter<MineCommentBean,BaseViewHolder> {
-        public mineCommentAdapter(@LayoutRes int layoutResId, List<MineCommentBean> data) {
-            super(layoutResId,data);
+        if (data.size() != 0) {
+            rvMineComment.setVisibility(View.VISIBLE);
+            llCommentEmpty.setVisibility(View.INVISIBLE);
+            rvMineComment.setLayoutManager(new LinearLayoutManager(this));
+            mineCommentAdapter mineCommentAdapter = new mineCommentAdapter(R.layout.mine_comment_item, data);
+            rvMineComment.setAdapter(mineCommentAdapter);
+        } else {
+            rvMineComment.setVisibility(View.INVISIBLE);
+            llCommentEmpty.setVisibility(View.VISIBLE);
         }
+    }
+
+    //获取数据
+    public class mineCommentAdapter extends BaseQuickAdapter<MineCommentBean, BaseViewHolder> {
+        public mineCommentAdapter(@LayoutRes int layoutResId, List<MineCommentBean> data) {
+            super(layoutResId, data);
+        }
+
         private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
             if (flag.equals("yes"))
                 textView.setCompoundDrawables(yes, null, null, null);
@@ -92,13 +102,14 @@ public class MineCommentActivity extends BaseActivity {
                 textView.setCompoundDrawables(no, null, null, null);
             }
         }
+
         @Override
         protected void convert(BaseViewHolder helper, MineCommentBean item) {
-            helper.setText(R.id.tv_comment_name,item.getNickName());
-            helper.setText(R.id.tv_comment_time,item.getCreateTime());
-            helper.setText(R.id.tv_comment_ownertext,item.getOwnerText());
-            helper.setText(R.id.tv_comment_title,item.getTitle());
-            Picasso.with(mContext).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_comment_pic));
+            helper.setText(R.id.tv_mine_name, item.getNickName().toString());
+            helper.setText(R.id.tv_comment_time, item.getCreateTime());
+            helper.setText(R.id.tv_comment_ownertext, item.getOwnerText());
+            helper.setText(R.id.tv_comment_title, item.getTitle());
+            //Picasso.with(mContext).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_comment_pic));
            /* setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.get());
             setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
             setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());*/
@@ -107,8 +118,27 @@ public class MineCommentActivity extends BaseActivity {
             }else{
                 Picasso.with(mContext).load(item.photoFlvPath).fit().into((ImageView) helper.getView(R.id.iv_collect_pic));
             }*/
+            /*//是否有图片
+            if (item.getContentType().equals("picture")) {
+                ImageView iv_tie = helper.getView(R.id.iv_tie);
+                iv_tie.setVisibility(View.VISIBLE);
+                Picasso.with(MineCommentActivity.this).load(item.getPhotoFlvPath()).into(iv_tie);
+            } else {
+                ImageView iv_tie = helper.getView(R.id.iv_tie);
+                iv_tie.setVisibility(View.GONE);
+            }
+            //是否为视频
+            if (item.getContentType().equals("flv")) {
+                JZVideoPlayerStandard jps = helper.getView(R.id.jps);
+                jps.setVisibility(View.VISIBLE);
+                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
+            } else {
+                JZVideoPlayerStandard jps = helper.getView(R.id.jps);
+                jps.setVisibility(View.GONE);
+            }*/
         }
     }
+
     @Override
     public void initListener() {
 

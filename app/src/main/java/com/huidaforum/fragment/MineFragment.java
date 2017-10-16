@@ -2,6 +2,7 @@ package com.huidaforum.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,9 @@ import com.huidaforum.activity.MinePublishActivity;
 import com.huidaforum.activity.MineSettingActivity;
 import com.huidaforum.activity.MineShareActivity;
 import com.huidaforum.base.BaseFragment;
+import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,6 +74,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     RelativeLayout rlMineShare;
     Unbinder unbinder1;
     Unbinder unbinder2;
+    @BindView(R.id.tv_alivedays)
+    TextView tvAlivedays;
 
     @Override
     public View initView() {
@@ -79,6 +85,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
+        String nickName = SpUtil.getString(StaticValue.nickName, mActivity);
+        String headPhoto = SpUtil.getString(StaticValue.HeadPhoto, mActivity);
+        String aliveDays = SpUtil.getString(StaticValue.aliveDay, mActivity);
+        if (!TextUtils.isEmpty(nickName)) {
+            tvMineName.setText(nickName);
+        } else {
+            tvMineName.setText("点击修改个人信息");
+        }
+        if (!TextUtils.isEmpty(aliveDays)) {
+            tvAlivedays.setText("活跃天数" + aliveDays + "天");
+        } else {
+            tvAlivedays.setText("活跃天数" + 0 + "天");
+        }
+        Picasso.with(mActivity).load(headPhoto).fit().placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(ivMinePic);
 
     }
 

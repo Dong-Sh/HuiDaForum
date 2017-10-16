@@ -89,6 +89,15 @@ public class UserBean {
     private String major;
     private int xueli;
     private String school;
+    private String aliveDays;
+
+    public String getAliveDays() {
+        return aliveDays;
+    }
+
+    public void setAliveDays(String aliveDays) {
+        this.aliveDays = aliveDays;
+    }
 
     public String getId() {
         return id;

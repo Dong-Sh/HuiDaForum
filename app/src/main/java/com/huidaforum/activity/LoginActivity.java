@@ -93,6 +93,10 @@ public class LoginActivity extends BaseActivity {
                                     SpUtil.putString(StaticValue.TOKEN,userBean.getToken(),LoginActivity.this);
                                     SpUtil.putString(StaticValue.UserName,etLoginUsername.getText().toString(),LoginActivity.this);
                                     SpUtil.putString(StaticValue.Password,etLoginPassword.getText().toString(),LoginActivity.this);
+                                    SpUtil.putString(StaticValue.aliveDay,userBean.getAliveDays(),LoginActivity.this);
+                                    SpUtil.putString(StaticValue.HeadPhoto,userBean.getHeadPhoto(),LoginActivity.this);
+                                    SpUtil.putString(StaticValue.nickName,userBean.getNickName(),LoginActivity.this);
+
 
                                     MethodUtil.sendMainBroadcast(LoginActivity.this);
 

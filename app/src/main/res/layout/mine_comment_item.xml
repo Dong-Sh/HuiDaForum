@@ -60,11 +60,20 @@
                 android:text="这个视频有非常好的要学习的东西。"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
-            <!--先占位，后边用Vitamio框架-->
-            <VideoView
-                android:layout_marginTop="5dp"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp" />
+                android:layout_height="wrap_content">
+                <!--先占位，后边用Vitamio框架-->
+                <VideoView
+                    android:visibility="invisible"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp" />
+                <GridView
+                    android:id="@+id/gv_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp" />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
