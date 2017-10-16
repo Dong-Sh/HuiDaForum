@@ -37,7 +37,6 @@ public class MyApplication extends Application {
     }
 
     private void initOkGo() {
-        try {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             //配置log打印
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
@@ -57,10 +56,6 @@ public class MyApplication extends Application {
                     .setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                     .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
                     .setRetryCount(3);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
 
     }
 }

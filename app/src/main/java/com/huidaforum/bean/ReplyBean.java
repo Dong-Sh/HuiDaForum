@@ -1,141 +1,154 @@
 package com.huidaforum.bean;
 
+import java.util.List;
+
 /**
  * Created by zhang on 2017/9/24.
  */
 
 public class ReplyBean {
-    /**
-     * id :
-     * userId : f589bb842a884356b5fa3082e07f0618
-     * title : 22
-     * content : 222222
-     * createTime : 2017-09-14 10:54:58
-     * isRead : 0
-     * readTime :
-     * sendUserId : 2385e139f3f74dbe8535428db0a5b5b7
-     * senUserName :
-     * dateState :
-     * ownerMsg :
-     * nickName : 2222
-     * headPhoto : 333
-     */
 
-    private String id;
-    private String userId;
-    private String title;
-    private String content;
-    private String createTime;
-    private String isRead;
-    private String readTime;
-    private String sendUserId;
-    private String senUserName;
-    private String dateState;
-    private String ownerMsg;
-    private String nickName;
-    private String headPhoto;
+        /**
+         * id : null
+         * createTime : 2017-09-30 16:28:54
+         * ywUserId : 27f11dd3fc504d86b697b39f8dd38511
+         * ownerContentId : 5395b6422a334529b83809c998ebc7c5
+         * ownerAnswerId : null
+         * ownerText : 1111111111111
+         * title : null
+         * nickName : 1111
+         * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
+         * photoFlvPath : null
+         * contentCode : null
+         * offical : 1
+         * officialFlag : null
+         * children : []
+         */
 
-    public String getId() {
-        return id;
-    }
+        private String id;
+        private String createTime;
+        private String ywUserId;
+        private String ownerContentId;
+        private String ownerAnswerId;
+        private String ownerText;
+        private String title;
+        private String nickName;
+        private String headPhoto;
+        private String photoFlvPath;
+        private String contentCode;
+        private String offical;
+        private String officialFlag;
+        private List<?> children;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+        public String getId() {
+            return id;
+        }
 
-    public String getUserId() {
-        return userId;
-    }
+        public void setId(String id) {
+            this.id = id;
+        }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+        public String getCreateTime() {
+            return createTime;
+        }
 
-    public String getTitle() {
-        return title;
-    }
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+        public String getYwUserId() {
+            return ywUserId;
+        }
 
-    public String getContent() {
-        return content;
-    }
+        public void setYwUserId(String ywUserId) {
+            this.ywUserId = ywUserId;
+        }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+        public String getOwnerContentId() {
+            return ownerContentId;
+        }
 
-    public String getCreateTime() {
-        return createTime;
-    }
+        public void setOwnerContentId(String ownerContentId) {
+            this.ownerContentId = ownerContentId;
+        }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
+        public String getOwnerAnswerId() {
+            return ownerAnswerId;
+        }
 
-    public String getIsRead() {
-        return isRead;
-    }
+        public void setOwnerAnswerId(String ownerAnswerId) {
+            this.ownerAnswerId = ownerAnswerId;
+        }
 
-    public void setIsRead(String isRead) {
-        this.isRead = isRead;
-    }
+        public String getOwnerText() {
+            return ownerText;
+        }
 
-    public String getReadTime() {
-        return readTime;
-    }
+        public void setOwnerText(String ownerText) {
+            this.ownerText = ownerText;
+        }
 
-    public void setReadTime(String readTime) {
-        this.readTime = readTime;
-    }
+        public String getTitle() {
+            return title;
+        }
 
-    public String getSendUserId() {
-        return sendUserId;
-    }
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
-    public void setSendUserId(String sendUserId) {
-        this.sendUserId = sendUserId;
-    }
+        public String getNickName() {
+            return nickName;
+        }
 
-    public String getSenUserName() {
-        return senUserName;
-    }
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
 
-    public void setSenUserName(String senUserName) {
-        this.senUserName = senUserName;
-    }
+        public String getHeadPhoto() {
+            return headPhoto;
+        }
 
-    public String getDateState() {
-        return dateState;
-    }
+        public void setHeadPhoto(String headPhoto) {
+            this.headPhoto = headPhoto;
+        }
 
-    public void setDateState(String dateState) {
-        this.dateState = dateState;
-    }
+        public String getPhotoFlvPath() {
+            return photoFlvPath;
+        }
 
-    public String getOwnerMsg() {
-        return ownerMsg;
-    }
+        public void setPhotoFlvPath(String photoFlvPath) {
+            this.photoFlvPath = photoFlvPath;
+        }
 
-    public void setOwnerMsg(String ownerMsg) {
-        this.ownerMsg = ownerMsg;
-    }
+        public String getContentCode() {
+            return contentCode;
+        }
 
-    public String getNickName() {
-        return nickName;
-    }
+        public void setContentCode(String contentCode) {
+            this.contentCode = contentCode;
+        }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
+        public String getOffical() {
+            return offical;
+        }
 
-    public String getHeadPhoto() {
-        return headPhoto;
-    }
+        public void setOffical(String offical) {
+            this.offical = offical;
+        }
 
-    public void setHeadPhoto(String headPhoto) {
-        this.headPhoto = headPhoto;
-    }
+        public String getOfficialFlag() {
+            return officialFlag;
+        }
+
+        public void setOfficialFlag(String officialFlag) {
+            this.officialFlag = officialFlag;
+        }
+
+        public List<?> getChildren() {
+            return children;
+        }
+
+        public void setChildren(List<?> children) {
+            this.children = children;
+        }
 }

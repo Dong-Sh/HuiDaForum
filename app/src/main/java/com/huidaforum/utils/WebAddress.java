@@ -32,6 +32,9 @@ public class WebAddress {
 
     public final static String listAllContents = http + content + "/listAllContents";//显示所有文章信息
     public final static String getContentsById = http + content + "/getContentsById";//通过id获取到当前用户发表过的文章信息
+    public final static String listForCountDetailInfo = http + content + "/listForCountDetailInfo";//获取帖子详情
+    public final static String listForContentAnswer = "http://114.115.208.130/yw/ywanswer/listForContentAnswer";//显示帖子所有评论
+
     public final static String saveContent = http + content + "/saveContent";//将编辑的文章信息保存到草稿箱或者发表，包含上传图片视频
     public final static String updateContent = http + content + "/updateContent";//修改草稿箱的文章信息
     public final static String deleteContentByUser = http + content + "/deleteContentByUser";//删除登录用户自己发表的文章记录
@@ -48,7 +51,6 @@ public class WebAddress {
     //评论 、回复
     public final static String replyMe = http + me + "/listPage";//谁回复我的
     public final static String commentyMe = http + me + "/pinglunme";//评论我的
-
     public final static String shoucanglistPages = http + shoucang + "/listPages";//我的收藏
     public final static String getshouchang = http + shoucang + "/getshouchang";//用户添加我的收藏
     public final static String shouchangdelect = http + shoucang + "/shouchangdelect";//用户删除我的收藏
@@ -61,4 +63,7 @@ public class WebAddress {
     public final static String sendBindOraPhoneCode = http + phonemsg + "/sendBindOraPhoneCode";//发送绑定原机验证码
     public final static String sendRegistCode = http + phonemsg + "/sendRegistCode";//发送注册短信验证码
     public final static String sendFindPwdCode = http + phonemsg + "/sendFindPwdCode";//发送找回密码手机验证码
+    public final static String mineFocus = http+guanzhu+"/listPage";//用户分页查看我的关注（ｙｌ）
+    public final static String deleteMineFocus = http+guanzhu+"/guanzhudelect";//删除我的关注
+
 }

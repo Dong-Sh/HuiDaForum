@@ -5,7 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
@@ -24,12 +26,17 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 
 import static com.huidaforum.R.id.rv_comment;
+import static com.squareup.picasso.MemoryPolicy.NO_CACHE;
+import static com.squareup.picasso.MemoryPolicy.NO_STORE;
+import static java.lang.Boolean.TRUE;
+
 //评论我的
 public class CommentActivity extends BaseActivity {
 
@@ -103,6 +110,15 @@ public class CommentActivity extends BaseActivity {
                             rv_Comment.setLayoutManager(new LinearLayoutManager(CommentActivity.this));
                             if (commentdAdapter == null) {
                                 commentdAdapter = new CommentAdapter();
+                                //item点击事件
+                                commentdAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("id",commentBeanList.get(position).getOwnerContentId());
+                                        startActivity(PostingActivity.class,bundle);
+                                    }
+                                });
                                 rv_Comment.setAdapter(commentdAdapter);
                                 return;
                             }
@@ -121,13 +137,24 @@ public class CommentActivity extends BaseActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, CommentBean item) {//填充item数据
+
+           // Picasso.with(CommentActivity.this).load(item.getHeadPhoto()).fit().memoryPolicy(NO_CACHE, NO_STORE)
+                  //  .placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_comment_pic));
+
+            Picasso.with(CommentActivity.this).load(item.getHeadPhoto()).fit()
+                    .into((ImageView) helper.getView(R.id.iv_comment_pic));
             helper.setText(R.id.tv_comment_time,item.getCreateTime())
                     .setText(R.id.tv_comment_name,item.getNickName())
                     .setText(R.id.tv_comment_content,item.getOwnerText());
             if (TextUtils.isEmpty(item.getPhotoFlvPath())){
+                helper.setVisible(R.id.tv_comment_title,true);
+                helper.setVisible(R.id.photoFlvPath,false);
                 helper.setText(R.id.tv_comment_title,item.getTitle());
             }else {
-
+                helper.setVisible(R.id.tv_comment_title,false);
+                helper.setVisible(R.id.photoFlvPath,true);
+                Picasso.with(CommentActivity.this).load(item.getHeadPhoto()).fit()
+                        .into((ImageView) helper.getView(R.id.photoFlvPath));
             }
 
         }

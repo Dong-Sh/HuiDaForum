@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class CommentBean {
+
         /**
          * id : null
          * createTime : 2017-09-30 23:56:40
@@ -14,9 +15,9 @@ public class CommentBean {
          * ownerContentId : c6df0d08774e4539b5df8002de66eb15
          * ownerAnswerId : null
          * ownerText : OK
-         * title : aa
+         * title : sddsf
          * nickName : YL
-         * headPhoto : http://114.115.208.130:80/phone/20170924\2f1361773abf4d43bf3c86f894aa0b7c.png
+         * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
          * photoFlvPath : null
          * contentCode : null
          * offical : 0

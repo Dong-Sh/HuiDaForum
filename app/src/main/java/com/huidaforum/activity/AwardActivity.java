@@ -126,7 +126,7 @@ public class AwardActivity extends BaseActivity {
                     .setText(R.id.tv_reward_money,item.getAwardMoney()+"")
                     .setText(R.id.tv_award_time,item.getCreateTime());
             //图片框数据 ， 暂时无头像
-         Picasso.with(AwardActivity.this).load("http://www.ghost64.com/qqtupian/qqTxImg/11/2012091910272111600.jpg").fit().memoryPolicy(NO_CACHE, NO_STORE).placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_reward_pic));
+         Picasso.with(AwardActivity.this).load(item.getHeadPhoto()).fit().memoryPolicy(NO_CACHE, NO_STORE).placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_reward_pic));
 
         }
     }

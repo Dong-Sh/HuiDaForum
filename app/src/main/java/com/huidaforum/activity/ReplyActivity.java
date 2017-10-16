@@ -3,8 +3,12 @@ package com.huidaforum.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
@@ -23,11 +27,13 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 
+import static com.huidaforum.R.id.headphoto;
 import static com.huidaforum.R.id.rv_reply;
 //回复我的
 public class ReplyActivity extends BaseActivity {
@@ -63,6 +69,8 @@ public class ReplyActivity extends BaseActivity {
 
     @Override
     public void initListener() {
+
+
         //下拉刷新监听
         sr_Reply.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -102,6 +110,17 @@ public class ReplyActivity extends BaseActivity {
                             rv_Reply.setLayoutManager(new LinearLayoutManager(ReplyActivity.this));
                             if (replydAdapter == null) {
                                 replydAdapter = new ReplyAdapter();
+
+                                //item点击事件
+                                replydAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("id",replyBeanList.get(position).getOwnerContentId());
+                                        startActivity(PostingActivity.class,bundle);
+                                    }
+                                });
+
                                 rv_Reply.setAdapter(replydAdapter);
                                 return;
                             }
@@ -121,13 +140,14 @@ public class ReplyActivity extends BaseActivity {
         @Override
         protected void convert(BaseViewHolder helper, ReplyBean item) {//填充item数据
             //图片框数据 ， 暂时无头像
-//            Glide.with(ReplyActivity.this).load(item.getHeadPhoto()).crossFade().into((ImageView) helper.getView(R.id.iv_reply_pic));
-            helper.setText(R.id.tv_reply_name,item.getSenUserName())
+            Picasso.with(ReplyActivity.this).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_reply_pic));
+            helper.setText(R.id.tv_reply_name,item.getNickName())
                     .setText(R.id.tv_reply_time,item.getCreateTime())
-                    .setText(R.id.tv_reply_content,item.getContent())
+                    .setText(R.id.tv_reply_content,item.getOwnerText())
                     .setText(R.id.tv_reply_posting,item.getTitle());
 
 
         }
+
     }
 }
