@@ -1,25 +1,31 @@
 package com.huidaforum.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.MineCommentBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,6 +40,7 @@ import butterknife.ButterKnife;
 public class MineCommentActivity extends BaseActivity {
     @BindView(R.id.rv_mine_comment)
     RecyclerView rvMineComment;
+    private ThreeDrawable threeDrawable;
 
     @Override
     public int getLayoutId() {
@@ -42,6 +49,7 @@ public class MineCommentActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        threeDrawable = ((MyApplication) MineCommentActivity.this.getApplication()).threeDrawable;
 
     }
 
@@ -77,12 +85,23 @@ public class MineCommentActivity extends BaseActivity {
         public mineCommentAdapter(@LayoutRes int layoutResId, List<MineCommentBean> data) {
             super(layoutResId,data);
         }
+        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
+            if (flag.equals("yes"))
+                textView.setCompoundDrawables(yes, null, null, null);
+            else {
+                textView.setCompoundDrawables(no, null, null, null);
+            }
+        }
         @Override
         protected void convert(BaseViewHolder helper, MineCommentBean item) {
             helper.setText(R.id.tv_comment_name,item.getNickName());
             helper.setText(R.id.tv_comment_time,item.getCreateTime());
             helper.setText(R.id.tv_comment_ownertext,item.getOwnerText());
             helper.setText(R.id.tv_comment_title,item.getTitle());
+            Picasso.with(mContext).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_comment_pic));
+           /* setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.get());
+            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
+            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());*/
             /*if(TextUtils.isEmpty(item.photoFlvPath)||TextUtils.equals(null,item.photoFlvPath)){
                 helper.getView(R.id.iv_collect_pic).setVisibility(View.INVISIBLE);
             }else{

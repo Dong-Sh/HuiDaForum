@@ -51,6 +51,7 @@ public class WebAddress {
     //评论 、回复
     public final static String replyMe = http + me + "/listPage";//谁回复我的
     public final static String commentyMe = http + me + "/pinglunme";//评论我的
+
     public final static String shoucanglistPages = http + shoucang + "/listPages";//我的收藏
     public final static String getshouchang = http + shoucang + "/getshouchang";//用户添加我的收藏
     public final static String shouchangdelect = http + shoucang + "/shouchangdelect";//用户删除我的收藏

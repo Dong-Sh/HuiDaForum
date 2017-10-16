@@ -1,5 +1,7 @@
 package com.huidaforum.bean;
 
+import java.util.List;
+
 /**
  * Created by xiaojiu on 2017/10/14.
  * 我的评论bean类
@@ -8,40 +10,42 @@ package com.huidaforum.bean;
 public class MineCommentBean {
 
     /**
-     * id :
-     * createTime : 2017-09-04 10:44:06
-     * ywUserId : 4
-     * ownerContentId : 3
-     * ownerAnswerId : R00T
-     * ownerText : 你在干嘛呢
-     * title : app
-     * nickName : 4
-     * headPhoto : 123
-     * photoFlvPath :
-     * contentCode :
+     * id : null
+     * createTime : 2017-10-15 09:55:51
+     * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
+     * ownerContentId : zxczxc234123412adfasdfasdfasdfa3
+     * ownerAnswerId : null
+     * ownerText : huhujjnkbbj
+     * title : 小故事
+     * nickName : YL
+     * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
+     * photoFlvPath : null
+     * contentCode : null
      * offical : 0
-     * officialFlag : 0
+     * officialFlag : no
+     * children : []
      */
 
-    private String id;
+    private Object id;
     private String createTime;
     private String ywUserId;
     private String ownerContentId;
-    private String ownerAnswerId;
+    private Object ownerAnswerId;
     private String ownerText;
     private String title;
     private String nickName;
     private String headPhoto;
-    private String photoFlvPath;
-    private String contentCode;
+    private Object photoFlvPath;
+    private Object contentCode;
     private String offical;
     private String officialFlag;
+    private List<?> children;
 
-    public String getId() {
+    public Object getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         this.id = id;
     }
 
@@ -69,11 +73,11 @@ public class MineCommentBean {
         this.ownerContentId = ownerContentId;
     }
 
-    public String getOwnerAnswerId() {
+    public Object getOwnerAnswerId() {
         return ownerAnswerId;
     }
 
-    public void setOwnerAnswerId(String ownerAnswerId) {
+    public void setOwnerAnswerId(Object ownerAnswerId) {
         this.ownerAnswerId = ownerAnswerId;
     }
 
@@ -109,19 +113,19 @@ public class MineCommentBean {
         this.headPhoto = headPhoto;
     }
 
-    public String getPhotoFlvPath() {
+    public Object getPhotoFlvPath() {
         return photoFlvPath;
     }
 
-    public void setPhotoFlvPath(String photoFlvPath) {
+    public void setPhotoFlvPath(Object photoFlvPath) {
         this.photoFlvPath = photoFlvPath;
     }
 
-    public String getContentCode() {
+    public Object getContentCode() {
         return contentCode;
     }
 
-    public void setContentCode(String contentCode) {
+    public void setContentCode(Object contentCode) {
         this.contentCode = contentCode;
     }
 
@@ -139,5 +143,13 @@ public class MineCommentBean {
 
     public void setOfficialFlag(String officialFlag) {
         this.officialFlag = officialFlag;
+    }
+
+    public List<?> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<?> children) {
+        this.children = children;
     }
 }

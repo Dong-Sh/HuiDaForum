@@ -12,7 +12,6 @@ import com.huidaforum.R;
 public class ThreeDrawable {
 
     private Context context;
-
     private Drawable shoucang_no;
     private Drawable shoucang_yes;
     private Drawable zan_no;
