@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -271,7 +270,7 @@ public class MinePersonalActivity extends BaseActivity {
                 int month = datePicker.getMonth();
                 int day = datePicker.getDayOfMonth();
                 String date = year + "-" + (month >= 9 ? month + 1 : "0" + (month + 1)) + "-" + (day > 9 ? day : "0" + day);
-                Toast.makeText(MinePersonalActivity.this, "birth" + date, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MinePersonalActivity.this, "birth" + date, Toast.LENGTH_SHORT).show();
                 if (!date.toString().isEmpty()) {
                     birth.setText(date);
                 }
@@ -330,7 +329,7 @@ public class MinePersonalActivity extends BaseActivity {
         dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MinePersonalActivity.this, "性别为：" + s, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MinePersonalActivity.this, "性别为：" + s, Toast.LENGTH_SHORT).show();
                 TextView sex = (TextView) findViewById(R.id.tv_person_sex);
                 if (!s.toString().isEmpty()) {
                     sex.setText(s);

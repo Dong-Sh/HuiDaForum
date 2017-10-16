@@ -15,6 +15,7 @@
         <Button
             style="@style/topbar_back"/>
         <TextView
+            android:id="@+id/tv_publish_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="编辑"
@@ -24,17 +25,34 @@
             android:textSize="16sp"
             android:textColor="@android:color/white"/>
     </RelativeLayout>
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:src="@mipmap/my_no_pulltable"
-        android:layout_gravity="center"
-        android:layout_marginTop="70dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="暂无发表"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_publish_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@mipmap/my_no_pulltable"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂无发表"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:visibility="invisible"
+            android:id="@+id/rv_mine_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
 </com.zhy.android.percent.support.PercentLinearLayout>
