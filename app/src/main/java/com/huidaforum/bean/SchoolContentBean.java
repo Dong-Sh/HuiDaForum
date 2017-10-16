@@ -1,5 +1,7 @@
 package com.huidaforum.bean;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2017/10/13.
  */
@@ -8,36 +10,37 @@ public class SchoolContentBean {
 
 
     /**
-     * id : 5369b89d423a472eb31052d682e3b608
-     * createTime : 2017-10-13 15:58:35
+     * id : 44bbb296e78945b3b1380c9a2678de6c
+     * createTime : 2017-10-15 15:25:22
      * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
-     * contentCode : CONTENT201710130000000010
+     * contentCode : CONTENT201710150000000013
      * contentState : publish
-     * publishTime : 2017-10-13 15:58:35
+     * publishTime : 2017-10-15 15:25:22
      * contentType : picture
-     * title : aa
-     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/5369b89d423a472eb31052d682e3b608
+     * title : qwer
+     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c
      * zanCount : 0
      * collectCount : 0
      * commentCount : 0
      * officialFlag : no
      * awardCount : 0
      * awardTotalMoney : 0
-     * hotContent : yes
-     * jingpinContent : yes
+     * hotContent : no
+     * jingpinContent : no
      * contentText : null
      * lookCount : 0
-     * contentTextShort : 有一个人经过热闹的火车站前，看到一个双腿残障的人摆设铅笔小摊
-     * videoPictureThumbnail : null
-     * ownerContentId : null
+     * contentTextShort : qwer
+     * videoPictureThumbnail : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300
+     * ownerContentId : ROOT
      * forwardContentText :
      * nickName : YL
      * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
-     * manyTime : 16小时前
+     * manyTime : 13秒前
      * ghuanzhu : no
      * laud : no
-     * shouchang : no
-     * answer : no
+     * shouchang : yes
+     * answer : yes
+     * contentPics : [{"id":"99a70486db50478bb9eb6fe2848a3362","ownerContentId":"44bbb296e78945b3b1380c9a2678de6c","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c","videoPictureThumbnail":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300","title":"qwer","shortText":"qwer","nickName":"","officialFlag":"","createTime":"","publishTime":""},{"id":"d3f0e84478a6494a8459933838a640d2","ownerContentId":"44bbb296e78945b3b1380c9a2678de6c","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c","videoPictureThumbnail":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300","title":"qwer","shortText":"qwer","nickName":"","officialFlag":"","createTime":"","publishTime":""},{"id":"b653adefd0894dd4b194181e05d64866","ownerContentId":"44bbb296e78945b3b1380c9a2678de6c","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c","videoPictureThumbnail":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300","title":"qwer","shortText":"qwer","nickName":"","officialFlag":"","createTime":"","publishTime":""}]
      */
 
     private String id;
@@ -60,8 +63,8 @@ public class SchoolContentBean {
     private Object contentText;
     private int lookCount;
     private String contentTextShort;
-    private Object videoPictureThumbnail;
-    private Object ownerContentId;
+    private String videoPictureThumbnail;
+    private String ownerContentId;
     private String forwardContentText;
     private String nickName;
     private String headPhoto;
@@ -70,6 +73,7 @@ public class SchoolContentBean {
     private String laud;
     private String shouchang;
     private String answer;
+    private List<ContentPicsBean> contentPics;
 
     public String getId() {
         return id;
@@ -231,19 +235,19 @@ public class SchoolContentBean {
         this.contentTextShort = contentTextShort;
     }
 
-    public Object getVideoPictureThumbnail() {
+    public String getVideoPictureThumbnail() {
         return videoPictureThumbnail;
     }
 
-    public void setVideoPictureThumbnail(Object videoPictureThumbnail) {
+    public void setVideoPictureThumbnail(String videoPictureThumbnail) {
         this.videoPictureThumbnail = videoPictureThumbnail;
     }
 
-    public Object getOwnerContentId() {
+    public String getOwnerContentId() {
         return ownerContentId;
     }
 
-    public void setOwnerContentId(Object ownerContentId) {
+    public void setOwnerContentId(String ownerContentId) {
         this.ownerContentId = ownerContentId;
     }
 
@@ -311,39 +315,117 @@ public class SchoolContentBean {
         this.answer = answer;
     }
 
-    @Override
-    public String toString() {
-        return "SchoolContentBean{" +
-                "id='" + id + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", ywUserId='" + ywUserId + '\'' +
-                ", contentCode='" + contentCode + '\'' +
-                ", contentState='" + contentState + '\'' +
-                ", publishTime='" + publishTime + '\'' +
-                ", contentType='" + contentType + '\'' +
-                ", title='" + title + '\'' +
-                ", photoFlvPath='" + photoFlvPath + '\'' +
-                ", zanCount=" + zanCount +
-                ", collectCount=" + collectCount +
-                ", commentCount=" + commentCount +
-                ", officialFlag='" + officialFlag + '\'' +
-                ", awardCount=" + awardCount +
-                ", awardTotalMoney=" + awardTotalMoney +
-                ", hotContent='" + hotContent + '\'' +
-                ", jingpinContent='" + jingpinContent + '\'' +
-                ", contentText=" + contentText +
-                ", lookCount=" + lookCount +
-                ", contentTextShort='" + contentTextShort + '\'' +
-                ", videoPictureThumbnail=" + videoPictureThumbnail +
-                ", ownerContentId=" + ownerContentId +
-                ", forwardContentText='" + forwardContentText + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", headPhoto='" + headPhoto + '\'' +
-                ", manyTime='" + manyTime + '\'' +
-                ", ghuanzhu='" + ghuanzhu + '\'' +
-                ", laud='" + laud + '\'' +
-                ", shouchang='" + shouchang + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
+    public List<ContentPicsBean> getContentPics() {
+        return contentPics;
+    }
+
+    public void setContentPics(List<ContentPicsBean> contentPics) {
+        this.contentPics = contentPics;
+    }
+
+    public static class ContentPicsBean {
+        /**
+         * id : 99a70486db50478bb9eb6fe2848a3362
+         * ownerContentId : 44bbb296e78945b3b1380c9a2678de6c
+         * photoFlvPath : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c
+         * videoPictureThumbnail : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300
+         * title : qwer
+         * shortText : qwer
+         * nickName :
+         * officialFlag :
+         * createTime :
+         * publishTime :
+         */
+
+        private String id;
+        private String ownerContentId;
+        private String photoFlvPath;
+        private String videoPictureThumbnail;
+        private String title;
+        private String shortText;
+        private String nickName;
+        private String officialFlag;
+        private String createTime;
+        private String publishTime;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getOwnerContentId() {
+            return ownerContentId;
+        }
+
+        public void setOwnerContentId(String ownerContentId) {
+            this.ownerContentId = ownerContentId;
+        }
+
+        public String getPhotoFlvPath() {
+            return photoFlvPath;
+        }
+
+        public void setPhotoFlvPath(String photoFlvPath) {
+            this.photoFlvPath = photoFlvPath;
+        }
+
+        public String getVideoPictureThumbnail() {
+            return videoPictureThumbnail;
+        }
+
+        public void setVideoPictureThumbnail(String videoPictureThumbnail) {
+            this.videoPictureThumbnail = videoPictureThumbnail;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getShortText() {
+            return shortText;
+        }
+
+        public void setShortText(String shortText) {
+            this.shortText = shortText;
+        }
+
+        public String getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
+
+        public String getOfficialFlag() {
+            return officialFlag;
+        }
+
+        public void setOfficialFlag(String officialFlag) {
+            this.officialFlag = officialFlag;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getPublishTime() {
+            return publishTime;
+        }
+
+        public void setPublishTime(String publishTime) {
+            this.publishTime = publishTime;
+        }
     }
 }

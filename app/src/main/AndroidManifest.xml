@@ -44,8 +44,7 @@
         <activity android:name=".activity.CommentActivity"></activity>
         <activity android:name=".activity.MinePersonalActivity"
             android:theme="@style/BackTheme"/>
-        <activity android:name=".activity.MineShareActivity"
-            android:theme="@style/BackTheme"/>
+        <activity android:name=".activity.MineShareActivity"/>
         <activity
             android:name=".activity.HomePopularActivity"
             android:theme="@style/BackTheme"></activity>

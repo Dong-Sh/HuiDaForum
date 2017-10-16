@@ -4,21 +4,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
     <com.zhy.android.percent.support.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="false">
 
         <com.zhy.android.percent.support.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:layout_heightPercent="65%w"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="false">
 
             <ImageView
-                android:fitsSystemWindows="true"
+                android:fitsSystemWindows="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@mipmap/home_top" />

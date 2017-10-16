@@ -112,7 +112,7 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            if(broadcastToExit==null){
+            if (broadcastToExit == null) {
                 broadcastToExit = new BroadcastToExit();
                 IntentFilter intentFilter = new IntentFilter(StaticValue.EXIT_ACTION);
                 registerReceiver(broadcastToExit, intentFilter);
@@ -299,8 +299,10 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         hideAllFragment(ft);
+        boolean flag = false;
         switch (checkedId) {
             case R.id.rb_main_home:
+                flag = true;
                 if (hf == null) {
                     hf = new HomeFragment();
                     ft.add(R.id.fl_main, hf);
@@ -326,7 +328,10 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                 break;
         }
         StatusBarUtil.setTransparentForImageView(MainActivity.this, flMain);
-        StatusBarUtil.setColor(MainActivity.this, getResources().getColor(R.color.red));
+        if (flag)
+            StatusBarUtil.setColor(MainActivity.this, Color.TRANSPARENT);
+        else
+            StatusBarUtil.setColor(MainActivity.this, getResources().getColor(R.color.red));
         ft.commit();
     }
 

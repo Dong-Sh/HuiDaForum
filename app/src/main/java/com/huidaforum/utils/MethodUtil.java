@@ -34,11 +34,30 @@ public class MethodUtil {
         context.sendBroadcast(intent);
     }
 
-    public static void zanAndshoucang(final Context context, final TextView view, SchoolContentBean schoolContentBean, final ThreeDrawable threeDrawable) {
+    public static void zanAndshoucang(final Context context, final TextView view, final SchoolContentBean schoolContentBean, final ThreeDrawable threeDrawable) {
 
         switch (view.getId()) {
             case R.id.tv_zan: {
-                Toast.makeText(context, "tv_zan", Toast.LENGTH_SHORT).show();
+                if(schoolContentBean.getLaud().equals("yes")){
+                    Toast.makeText(context, "你已经赞过了", Toast.LENGTH_SHORT).show();
+                }else{
+                    OkGo.<String>post(WebAddress.getzan)
+                            .params("ownerContentId",schoolContentBean.getId())
+                            .params("token", SpUtil.getString(StaticValue.TOKEN, context))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new Gson();
+                                    BaseBean baseBean = gson.fromJson(response.body(), BaseBean.class);
+                                    if(baseBean.isSuccess()){
+                                        view.setCompoundDrawables(threeDrawable.getZan_yes(),null,null,null);
+                                        schoolContentBean.setLaud("yes");
+                                        int count = Integer.parseInt(((TextView)view).getText().toString());
+                                        ((TextView)view).setText(count+"");
+                                    }
+                                }
+                            });
+                }
                 break;
             }
             case R.id.tv_pinglun: {
@@ -48,28 +67,30 @@ public class MethodUtil {
             case R.id.tv_shoucang: {
                 if (schoolContentBean.getShouchang().equals("yes")) {
                     OkGo.<String>post(WebAddress.shouchangdelect)
-                            .params("contentCode", schoolContentBean.getContentCode())
+                            .params("contentCode", schoolContentBean.getId())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
                                     view.setCompoundDrawables(threeDrawable.getShoucang_no(), null, null, null);
                                     Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                                    schoolContentBean.setShouchang("no");
                                 }
                             });
-                    schoolContentBean.setShouchang("no");
+
                 } else {
                     OkGo.<String>post(WebAddress.getshouchang)
-                            .params("contentCode", schoolContentBean.getContentCode())
+                            .params("contentCode", schoolContentBean.getId())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
                                     view.setCompoundDrawables(threeDrawable.getShoucang_yes(), null, null, null);
                                     Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+                                    schoolContentBean.setShouchang("yes");
                                 }
                             });
-                    schoolContentBean.setShouchang("yes");
+
                 }
                 break;
             }

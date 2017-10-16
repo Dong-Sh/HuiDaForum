@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
     <android.support.design.widget.CoordinatorLayout
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.AppBarLayout
-            android:fitsSystemWindows="true"
+            android:fitsSystemWindows="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.Toolbar
-                android:fitsSystemWindows="true"
+                android:fitsSystemWindows="false"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -26,7 +26,7 @@
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:fitsSystemWindows="true"
+            android:fitsSystemWindows="false"
             android:id="@+id/popular_srl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

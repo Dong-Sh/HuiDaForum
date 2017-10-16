@@ -29,22 +29,24 @@
             android:text="hello55555"
             app:layout_marginPercent="2%w"
             app:layout_textSizePercent="4%w" />
+
         <ImageView
             android:id="@+id/iv_guanfang"
             android:layout_width="wrap_content"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:scaleType="fitStart"
             android:src="@mipmap/guanfang"
             app:layout_widthPercent="12%w" />
+
         <TextView
             android:id="@+id/iv_guanzhu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_marginRightPercent="5%w"
             android:scaleType="fitEnd"
             android:text="关注"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            app:layout_marginRightPercent="5%w" />
     </com.zhy.android.percent.support.PercentLinearLayout>
 
     <ImageView
@@ -55,6 +57,17 @@
         android:src="@mipmap/a"
         android:visibility="gone"
         app:layout_heightPercent="50%w" />
+
+    <GridView
+        android:id="@+id/item_gv_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="auto_fit"
+        android:visibility="gone"
+        app:layout_heightPercent="50%w">
+
+    </GridView>
+
     <cn.jzvd.JZVideoPlayerStandard
         android:id="@+id/jps"
         android:layout_width="match_parent"
@@ -89,42 +102,43 @@
         android:orientation="horizontal">
 
         <TextView
-            android:drawablePadding="5dp"
             android:id="@+id/tv_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:clickable="true"
+            android:drawablePadding="5dp"
             android:text="123"
             app:layout_marginRightPercent="5%w"
             app:layout_textSizePercent="4%w" />
 
         <TextView
-            android:drawablePadding="5dp"
             android:id="@+id/tv_shoucang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:clickable="true"
+            android:drawablePadding="5dp"
             android:text="收藏"
             app:layout_marginRightPercent="5%w"
             app:layout_textSizePercent="4%w" />
 
         <TextView
-            android:drawablePadding="5dp"
             android:id="@+id/tv_pinglun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:clickable="true"
+            android:drawablePadding="5dp"
             android:text="评论"
             app:layout_marginRightPercent="5%w"
             app:layout_textSizePercent="4%w" />
     </com.zhy.android.percent.support.PercentLinearLayout>
+
     <View
-        app:layout_marginTopPercent="2%w"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#dfdfdf"
         app:layout_heightPercent="0.3%w"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></View>
+        app:layout_marginTopPercent="2%w"></View>
 </com.zhy.android.percent.support.PercentLinearLayout>

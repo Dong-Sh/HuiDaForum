@@ -100,17 +100,16 @@ public class CommunityFragment extends BaseFragment {
         rlvCommunity.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(mActivity, "第" + position + "个条目", Toast.LENGTH_SHORT).show();
 
                 if (baseBean.isSuccess()) {
-
-                } else {
+                    Intent intent = new Intent(mActivity, SchoolActivity.class);
+                    intent.putExtra("id",baseBean.getData().get(position).getId());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(mActivity, "网络有问题，请重试", Toast.LENGTH_SHORT).show();
                     initNetData();
                 }
 
-                Intent intent = new Intent(mActivity, SchoolActivity.class);
-                intent.putExtra("id",baseBean.getData().get(position).getId());
-                startActivity(intent);
             }
         });
     }

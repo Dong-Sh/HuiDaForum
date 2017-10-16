@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,9 +56,11 @@ import cn.jzvd.JZVideoPlayerStandard;
 
 public class SchoolActivity extends BaseBackActivity {
     private static final String TAG = "SchoolActivity";
+
     RollPagerView rpvCommunity;
     @BindView(R.id.rlv_community)
     RecyclerView rlvCommunity;
+
     private BaseBean<List<SchoolContentBean>> baseBean;
     private ThreeDrawable threeDrawable;
 
@@ -158,6 +161,7 @@ public class SchoolActivity extends BaseBackActivity {
             TextView tv_zan = holder.getView(R.id.tv_zan);
             TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
             TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
+            tv_zan.setText(item.getZanCount()+"");
             setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
             setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
             setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());

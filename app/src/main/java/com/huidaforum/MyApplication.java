@@ -53,7 +53,7 @@ public class MyApplication extends Application {
                     .init(this)
                     .addCommonParams(params)
                     .setOkHttpClient(builder.build())
-                    .setCacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
+                    .setCacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
                     .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
                     .setRetryCount(3);
 

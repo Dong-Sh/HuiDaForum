@@ -65,7 +65,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public View initView() {
-        FitStateUI.setImmersionStateMode(mActivity);
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home, null);
         return view;
     }
@@ -73,7 +72,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData() {
         threeDrawable = ((MyApplication) mActivity.getApplication()).threeDrawable;
-        FitStateUI.setImmersionStateMode(mActivity);
         view = View.inflate(mActivity, R.layout.top_home, null);
         ImageButton ib_home = (ImageButton) view.findViewById(R.id.ib_home);
         Button bt_home = (Button) view.findViewById(R.id.bt_home);
@@ -99,7 +97,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
 
-        OkGo.<String>get(WebAddress.listAllContents)
+        OkGo.<String>post(WebAddress.listAllContents)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
                 .execute(new StringCallback() {
