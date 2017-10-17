@@ -25,7 +25,6 @@ import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.SchoolContentBean;
-import com.huidaforum.utils.FitStateUI;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.ThreeDrawable;
@@ -117,7 +116,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     @Override
                     public void onCacheSuccess(Response<String> response) {
                         super.onCacheSuccess(response);
-                        pareDataFromNet();
+                        //pareDataFromNet();
                     }
 
                 });

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -60,20 +61,35 @@
                 android:text="这个视频有非常好的要学习的东西。"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <!--先占位，后边用Vitamio框架-->
-                <VideoView
-                    android:visibility="invisible"
-                    android:layout_marginTop="5dp"
+                <ImageView
+                    android:id="@+id/iv_tie"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/a"
+                    android:visibility="gone"
+                    app:layout_heightPercent="40%w" />
+
                 <GridView
-                    android:id="@+id/gv_pic"
+                    android:id="@+id/item_gv_images"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:numColumns="auto_fit"
+                    android:visibility="gone"
+                    app:layout_heightPercent="40%w">
+
+                </GridView>
+                <cn.jzvd.JZVideoPlayerStandard
+                    android:id="@+id/jps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_heightPercent="40%w"
+                    android:visibility="gone" />
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,17 +121,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+                android:id="@+id/rl_comment_dz"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/iv_comment_fabulous"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:background="@mipmap/home_fabulous_nor"/>
                 <TextView
+                    android:id="@+id/tv_dz"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
@@ -131,24 +143,19 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_centerVertical="true"
-                        android:id="@+id/iv_comment_collect"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:background="@mipmap/home_collection_nor"/>
                     <TextView
+                        android:id="@+id/tv_shoucang"
                         android:layout_centerVertical="true"
                         android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:textSize="15sp"
-                        android:layout_toRightOf="@id/iv_comment_collect"
                         android:text="收藏"/>
                 </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_comment_zhuanfa"
                 android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

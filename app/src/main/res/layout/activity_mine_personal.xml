@@ -9,11 +9,12 @@
     <RelativeLayout
         style="@style/topbar_bg"
         app:layout_heightPercent="37%w">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_color="#fff"
+            app:civ_border_width="1dp"
             android:id="@+id/iv_mine_personal_pic"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@mipmap/ic_launcher"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"/>

@@ -322,4 +322,9 @@ public class MinePublishBean {
     public void setContentPics(List<?> contentPics) {
         this.contentPics = contentPics;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -109,10 +109,11 @@ public class MineCommentActivity extends BaseActivity {
             helper.setText(R.id.tv_comment_time, item.getCreateTime());
             helper.setText(R.id.tv_comment_ownertext, item.getOwnerText());
             helper.setText(R.id.tv_comment_title, item.getTitle());
+            TextView tv_dz = helper.getView(R.id.tv_dz);
+            TextView tv_shoucang = helper.getView(R.id.tv_shoucang);
             //Picasso.with(mContext).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_comment_pic));
-           /* setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.get());
-            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
-            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());*/
+            setTextDrawableLeft(tv_dz, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
+            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
             /*if(TextUtils.isEmpty(item.photoFlvPath)||TextUtils.equals(null,item.photoFlvPath)){
                 helper.getView(R.id.iv_collect_pic).setVisibility(View.INVISIBLE);
             }else{

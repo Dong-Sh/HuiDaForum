@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 主页中我的页面
@@ -38,7 +39,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.ib_mine_setting)
     ImageButton ibMineSetting;
     @BindView(R.id.iv_mine_pic)
-    ImageView ivMinePic;
+    CircleImageView ivMinePic;
     @BindView(R.id.tv_mine_name)
     TextView tvMineName;
     @BindView(R.id.rl_mine_top)

@@ -1,11 +1,12 @@
 package com.huidaforum.activity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,11 +24,14 @@ import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * Created by xiaojiu on 2017/9/3.
@@ -42,6 +46,7 @@ public class MinePublishActivity extends BaseActivity {
     @BindView(R.id.rv_mine_publish)
     RecyclerView rvMinePublish;
     private boolean editFlag = false;
+    private MinePublishAdapter minePublishAdapter;
 
     @Override
     public int getLayoutId() {
@@ -56,15 +61,14 @@ public class MinePublishActivity extends BaseActivity {
     @Override
     public void initData() {
         OkGo.<String>post(WebAddress.getContentsById)
-                .params("devType", "phone")
-                .params("token", SpUtil.getString(StaticValue.TOKEN, this))
+                .params("token", SpUtil.getString(StaticValue.TOKEN,MinePublishActivity.this))
+                .params("devType","phone")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         String body = response.body();
-                        String s = body.replaceAll("\\\\", "//");
-                        BaseBean<List<MinePublishBean>> minePublishBean = gson.fromJson(s,
+                        BaseBean<List<MinePublishBean>> minePublishBean = gson.fromJson(body,
                                 new TypeToken<BaseBean<List<MinePublishBean>>>() {
                                 }.getType());
                         if (minePublishBean.isSuccess()) {
@@ -74,14 +78,16 @@ public class MinePublishActivity extends BaseActivity {
                         }
                     }
                 });
+
     }
 
     private void parseData(List<MinePublishBean> data) {
         if (data.size() != 0) {
             rvMinePublish.setVisibility(View.VISIBLE);
             llPublishEmpty.setVisibility(View.INVISIBLE);
+            Log.e("jdr",data.size()+"");
             rvMinePublish.setLayoutManager(new LinearLayoutManager(this));
-            MinePublishAdapter minePublishAdapter = new MinePublishAdapter(R.layout.mine_publish_item, data);
+            minePublishAdapter = new MinePublishAdapter(R.layout.mine_publish_item, data);
             rvMinePublish.setAdapter(minePublishAdapter);
         } else {
             rvMinePublish.setVisibility(View.INVISIBLE);
@@ -106,30 +112,53 @@ public class MinePublishActivity extends BaseActivity {
         protected void convert(BaseViewHolder helper, MinePublishBean item) {
             if (editFlag){
                 helper.getView(R.id.publish_item_delete).setVisibility(View.VISIBLE);
-            }//Todo Adapter的填充
+                helper.getView(R.id.publish_item_delete).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        
+                    }
+                });
+            }else{
+                helper.getView(R.id.publish_item_delete).setVisibility(View.INVISIBLE);
+            }
 
-          /*  helper.setText(R.id.tv_publish_item_title, item.getTitle().toString());
-            helper.setText(R.id.tv_comment_time, item.getCreateTime());
-            helper.setText(R.id.tv_comment_ownertext, item.getOwnerText());
-            helper.setText(R.id.tv_comment_title, item.getTitle());*/
-        }
+            helper.setText(R.id.tv_publish_item_title, item.getTitle().toString());
+            helper.setText(R.id.tv_publish_item_time, item.getCreateTime());
+            helper.setText(R.id.tv_publish_item_hot, item.getLookCount()+"阅读");
 
-        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
-            if (flag.equals("yes"))
-                textView.setCompoundDrawables(yes, null, null, null);
-            else {
-                textView.setCompoundDrawables(no, null, null, null);
+            //是否有图片
+            if (item.getContentType().equals("picture")) {
+                ImageView iv_tie = helper.getView(R.id.iv_tie);
+                iv_tie.setVisibility(View.VISIBLE);
+                Picasso.with(MinePublishActivity.this).load(item.getPhotoFlvPath()).into(iv_tie);
+            } else {
+                ImageView iv_tie = helper.getView(R.id.iv_tie);
+                iv_tie.setVisibility(View.GONE);
+            }
+            //是否为视频
+            if (item.getContentType().equals("flv")) {
+                JZVideoPlayerStandard jps = helper.getView(R.id.jps);
+                jps.setVisibility(View.VISIBLE);
+                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
+            } else {
+                JZVideoPlayerStandard jps = helper.getView(R.id.jps);
+                jps.setVisibility(View.GONE);
             }
         }
     }
 
     @Override
     public void initListener() {
+        tvPublishEdit.setOnClickListener(this);
 
     }
 
     @Override
     public void processClick(View v) {
-
+        if (v == tvPublishEdit){
+            editFlag = !editFlag;
+            if (minePublishAdapter!=null)
+            minePublishAdapter.notifyDataSetChanged();
+        }
     }
 }

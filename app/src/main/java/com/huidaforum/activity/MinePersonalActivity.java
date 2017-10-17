@@ -1,9 +1,20 @@
 package com.huidaforum.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,9 +39,16 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by xiaojiu on 2017/9/9.
@@ -37,6 +56,8 @@ import butterknife.BindView;
  */
 
 public class MinePersonalActivity extends BaseActivity {
+    private static final int CAMERA_OK = 100;
+    private static final int EXETR_OK = 101;
     @BindView(R.id.rl_mine_personal_name)
     RelativeLayout rlMinePersonalName;
     @BindView(R.id.rl_mine_personal_sex)
@@ -48,7 +69,7 @@ public class MinePersonalActivity extends BaseActivity {
     @BindView(R.id.rl_mine_personal_school)
     RelativeLayout rlMinePersonalSchool;
     @BindView(R.id.iv_mine_personal_pic)
-    ImageView ivMinePersonalPic;
+    CircleImageView ivMinePersonalPic;
     @BindView(R.id.back)
     Button back;
     @BindView(R.id.iv_mine_personal_name)
@@ -85,6 +106,8 @@ public class MinePersonalActivity extends BaseActivity {
     private String s;
     private int sexFlag = 1;
     private static final int CHOOSE_BIG_PICTURE = 0;
+    private static final int CHOOSE_COOP = 3;
+    private Bitmap photo;
 
     @Override
     public int getLayoutId() {
@@ -200,8 +223,26 @@ public class MinePersonalActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
-                //调用系统相机
-
+                //Andorid 6.0动态获取权限
+                if(Build.VERSION.SDK_INT>22){
+                    if(ContextCompat.checkSelfPermission(MinePersonalActivity.this,
+                            android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(MinePersonalActivity.this,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED
+                            ||ContextCompat.checkSelfPermission(MinePersonalActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                        ActivityCompat.requestPermissions(MinePersonalActivity.this,
+                                new String[]{android.Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},CAMERA_OK);
+                    }else{
+                        //调用系统相机
+                        Intent intent = new Intent(
+                                MediaStore.ACTION_IMAGE_CAPTURE);
+                        //下面这句指定调用相机拍照后的照片存储的路径
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                                .fromFile(new File(WebAddress.IconPath+File.separator+"temp.jpg")));
+                        startActivityForResult(intent, 2);
+                    }
+                }
 
             }
         });
@@ -210,9 +251,19 @@ public class MinePersonalActivity extends BaseActivity {
             public void onClick(View v) {
                 alertDialog.dismiss();
                 //调用系统相册
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");// 相片类型
-                startActivityForResult(intent, CHOOSE_BIG_PICTURE);
+                if(Build.VERSION.SDK_INT>22) {
+                    if (ContextCompat.checkSelfPermission(MinePersonalActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(MinePersonalActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MinePersonalActivity.this,
+                                new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, EXETR_OK);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_PICK);
+                        intent.setType("image/*");// 相片类型
+                        startActivityForResult(intent, CHOOSE_BIG_PICTURE);
+                    }
+                }
             }
         });
         alertDialog.show();
@@ -376,5 +427,103 @@ public class MinePersonalActivity extends BaseActivity {
             }
         });
         dialog.show();
+    }
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        //下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, CHOOSE_COOP);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case CHOOSE_BIG_PICTURE:
+                startPhotoZoom(data.getData());
+                break;
+            case CHOOSE_COOP:
+                if(data != null){
+                    setPicToView(data);
+                }
+                break;
+            case 2:
+                File temp = new File(WebAddress.IconPath+File.separator+"temp.jpg");
+                startPhotoZoom(Uri.fromFile(temp));
+                break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case CAMERA_OK:
+                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    //这里已经获取到了摄像头的权限，想干嘛干嘛了可以
+                    Intent intent = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    //下面这句指定调用相机拍照后的照片存储的路径
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                            .fromFile(new File(WebAddress.IconPath+File.separator+"temp.jpg")));
+                    startActivityForResult(intent, 2);
+                }else {
+                    //这里是拒绝给APP摄像头权限，给个提示什么的说明一下都可以。
+                    Toast.makeText(this,"请手动打开相机权限",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case EXETR_OK:
+                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    Intent intent = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent intent1 = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");// 相片类型
+                    startActivityForResult(intent1, CHOOSE_BIG_PICTURE);
+                }else {
+                    Toast.makeText(this,"请手动打开内存卡读取权限",Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void setPicToView(Intent data) {
+        Bundle extras = data.getExtras();
+        if (extras != null) {
+            photo = extras.getParcelable("data");
+            ivMinePersonalPic.setImageBitmap(photo);
+            File file = new File(WebAddress.IconPath);
+            if (!file.exists()){
+                file.mkdirs();
+            }
+            String picname = new DateFormat().format("yyyyMMdd_hhmmss",
+                    Calendar.getInstance(Locale.CHINA))
+                    + ".jpg";
+            String fileName = file.getPath()+File.separator + picname;//在指定目录下创建文件picname
+
+            FileOutputStream b = null;
+            try {
+                b = new FileOutputStream(fileName);
+                photo.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    b.flush();
+                    b.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,9 @@
 package com.huidaforum.utils;
 
+import android.os.Environment;
+
+import java.io.File;
+
 /**
  * Created by lenovo on 2017/9/19.
  */
@@ -66,5 +70,10 @@ public class WebAddress {
     public final static String sendFindPwdCode = http + phonemsg + "/sendFindPwdCode";//发送找回密码手机验证码
     public final static String mineFocus = http+guanzhu+"/listPage";//用户分页查看我的关注（ｙｌ）
     public final static String deleteMineFocus = http+guanzhu+"/guanzhudelect";//删除我的关注
+    //sdcard 基础保存位置
+    public final static String CachePath = Environment.getExternalStorageDirectory().getPath()+
+            File.separator+"HuidaForum";
+    //Sdcard 保存头像位置
+    public final static String IconPath = CachePath + File.separator+"icon";
 
 }
