@@ -163,11 +163,11 @@ public class MinePersonalActivity extends BaseActivity {
         }else {
             tvPersonBirthday.setText("请设置出生日期");
         }
-       /* if (!TextUtils.isEmpty(minePersonalData.getEmailRenzheng())) {
-            tvPersonalNikename.setText(minePersonalData.getEmailRenzheng());
+        if (!minePersonalData.getEmailRenzheng().equals("-1")) {
+            tvPersonEmail.setText(minePersonalData.getEmailRenzheng());
         }else {
-            tvPersonalNikename.setText("请设置昵称");
-        }*/
+            tvPersonEmail.setText("请设置邮箱");
+        }
         if (!TextUtils.isEmpty(minePersonalData.getSchool())) {
             tvPersonSchoolname.setText(minePersonalData.getSchool());
         }else {
@@ -242,6 +242,14 @@ public class MinePersonalActivity extends BaseActivity {
                                 .fromFile(new File(WebAddress.IconPath+File.separator+"temp.jpg")));
                         startActivityForResult(intent, 2);
                     }
+                }else{
+                    //调用系统相机
+                    Intent intent = new Intent(
+                            MediaStore.ACTION_IMAGE_CAPTURE);
+                    //下面这句指定调用相机拍照后的照片存储的路径
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                            .fromFile(new File(WebAddress.IconPath+File.separator+"temp.jpg")));
+                    startActivityForResult(intent, 2);
                 }
 
             }
@@ -263,6 +271,10 @@ public class MinePersonalActivity extends BaseActivity {
                         intent.setType("image/*");// 相片类型
                         startActivityForResult(intent, CHOOSE_BIG_PICTURE);
                     }
+                }else{
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");// 相片类型
+                    startActivityForResult(intent, CHOOSE_BIG_PICTURE);
                 }
             }
         });
@@ -447,6 +459,7 @@ public class MinePersonalActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
             case CHOOSE_BIG_PICTURE:
+                if (data!=null)
                 startPhotoZoom(data.getData());
                 break;
             case CHOOSE_COOP:
@@ -455,8 +468,10 @@ public class MinePersonalActivity extends BaseActivity {
                 }
                 break;
             case 2:
-                File temp = new File(WebAddress.IconPath+File.separator+"temp.jpg");
-                startPhotoZoom(Uri.fromFile(temp));
+                if(data !=null) {
+                    File temp = new File(WebAddress.IconPath + File.separator + "temp.jpg");
+                    startPhotoZoom(Uri.fromFile(temp));
+                }
                 break;
 
         }

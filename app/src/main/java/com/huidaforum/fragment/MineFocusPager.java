@@ -21,6 +21,7 @@ import com.huidaforum.bean.MineFocusBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CircleTransform;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -103,7 +104,7 @@ public class MineFocusPager {
         protected void convert(final BaseViewHolder helper, final MineFocusBean item) {
             helper.setText(R.id.tv_mine_name,item.getNickName());
             helper.setText(R.id.tv_mine_content,item.getOffical());
-            Picasso.with(mActivity).load(item.getHeadPhoto()).placeholder(R.mipmap.ic_launcher).fit().into((ImageView) helper.getView(R.id.iv_mine_pic));
+            Picasso.with(mActivity).load(item.getHeadPhoto()).transform(new CircleTransform()).placeholder(R.mipmap.ic_launcher).fit().into((ImageView) helper.getView(R.id.iv_mine_pic));
             helper.getView(R.id.ll_mine_isfocus).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

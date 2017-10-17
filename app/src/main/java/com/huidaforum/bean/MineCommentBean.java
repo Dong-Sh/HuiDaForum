@@ -9,6 +9,7 @@ import java.util.List;
 
 public class MineCommentBean {
 
+
     /**
      * id : null
      * createTime : 2017-10-16 14:34:05
@@ -23,35 +24,35 @@ public class MineCommentBean {
      * contentCode : null
      * offical : 0
      * officialFlag : no
-     * laud : null
-     * shouchang : null
+     * laud : no
+     * shouchang : no
      * list : null
      * children : []
      */
 
-    private String id;
+    private Object id;
     private String createTime;
     private String ywUserId;
     private String ownerContentId;
-    private String ownerAnswerId;
+    private Object ownerAnswerId;
     private String ownerText;
     private String title;
     private String nickName;
     private String headPhoto;
-    private String photoFlvPath;
-    private String contentCode;
+    private Object photoFlvPath;
+    private Object contentCode;
     private String offical;
     private String officialFlag;
     private String laud;
     private String shouchang;
-    private String list;
+    private Object list;
     private List<?> children;
 
-    public String getId() {
+    public Object getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         this.id = id;
     }
 
@@ -79,11 +80,11 @@ public class MineCommentBean {
         this.ownerContentId = ownerContentId;
     }
 
-    public String getOwnerAnswerId() {
+    public Object getOwnerAnswerId() {
         return ownerAnswerId;
     }
 
-    public void setOwnerAnswerId(String ownerAnswerId) {
+    public void setOwnerAnswerId(Object ownerAnswerId) {
         this.ownerAnswerId = ownerAnswerId;
     }
 
@@ -119,19 +120,19 @@ public class MineCommentBean {
         this.headPhoto = headPhoto;
     }
 
-    public String getPhotoFlvPath() {
+    public Object getPhotoFlvPath() {
         return photoFlvPath;
     }
 
-    public void setPhotoFlvPath(String photoFlvPath) {
+    public void setPhotoFlvPath(Object photoFlvPath) {
         this.photoFlvPath = photoFlvPath;
     }
 
-    public String getContentCode() {
+    public Object getContentCode() {
         return contentCode;
     }
 
-    public void setContentCode(String contentCode) {
+    public void setContentCode(Object contentCode) {
         this.contentCode = contentCode;
     }
 
@@ -167,11 +168,11 @@ public class MineCommentBean {
         this.shouchang = shouchang;
     }
 
-    public String getList() {
+    public Object getList() {
         return list;
     }
 
-    public void setList(String list) {
+    public void setList(Object list) {
         this.list = list;
     }
 

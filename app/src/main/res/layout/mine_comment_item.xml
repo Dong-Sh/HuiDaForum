@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2017/08/12"
-                    android:textColor="@color/linecolor"/>
+                    android:textColor="@color/gary_textcolor"/>
             </LinearLayout>
         </RelativeLayout>
         <LinearLayout
@@ -132,7 +132,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:drawablePadding="5dp"
                     android:layout_toRightOf="@id/iv_comment_fabulous"
                     android:textSize="15sp"
                     android:text="赞"/>
@@ -149,7 +149,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:drawablePadding="5dp"
                         android:textSize="15sp"
                         android:text="收藏"/>
                 </RelativeLayout>

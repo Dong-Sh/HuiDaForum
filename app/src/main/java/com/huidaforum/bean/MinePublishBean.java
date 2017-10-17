@@ -9,18 +9,19 @@ import java.util.List;
 
 public class MinePublishBean {
 
+
     /**
-     * id : 5cc635eb0b5043a6aa32142a35723775
-     * createTime : 2017-09-24 00:26:23
+     * id : 44bbb296e78945b3b1380c9a2678de6c
+     * createTime : 2017-10-15 15:25:22
      * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
-     * contentCode : CONTENT201709240000000003
+     * contentCode : CONTENT201710150000000013
      * contentState : publish
-     * publishTime : 2017-09-24 00:26:23
-     * contentType : flv
-     * title : aa
-     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/1.mp4
+     * publishTime : 2017-10-15 15:25:22
+     * contentType : picture
+     * title : qwer
+     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c
      * zanCount : 0
-     * collectCount : 2
+     * collectCount : 0
      * commentCount : 0
      * officialFlag : no
      * awardCount : 0
@@ -29,18 +30,18 @@ public class MinePublishBean {
      * jingpinContent : no
      * contentText : null
      * lookCount : 3
-     * contentTextShort : 图片
-     * videoPictureThumbnail : null
+     * contentTextShort : qwer
+     * videoPictureThumbnail : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300
      * ownerContentId : ROOT
-     * forwardContentText : null
+     * forwardContentText :
      * nickName : YL
      * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
-     * manyTime : 22天前
+     * manyTime : 昨天
      * ghuanzhu : no
      * laud : no
-     * shouchang : yes
+     * shouchang : no
      * answer : yes
-     * contentPics : []
+     * contentPics : [{"id":"99a70486db50478bb9eb6fe2848a3362","ownerContentId":"44bbb296e78945b3b1380c9a2678de6c","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c","videoPictureThumbnail":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300","title":"qwer","shortText":"qwer","nickName":null,"officialFlag":null,"createTime":null,"publishTime":null,"contentType":null},{"id":"d3f0e84478a6494a8459933838a640d2","ownerContentId":"44bbb296e78945b3b1380c9a2678de6c","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c","videoPictureThumbnail":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300","title":"qwer","shortText":"qwer","nickName":null,"officialFlag":null,"createTime":null,"publishTime":null,"contentType":null},{"id":"b653adefd0894dd4b194181e05d64866","ownerContentId":"44bbb296e78945b3b1380c9a2678de6c","photoFlvPath":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c","videoPictureThumbnail":"http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300","title":"qwer","shortText":"qwer","nickName":null,"officialFlag":null,"createTime":null,"publishTime":null,"contentType":null}]
      */
 
     private String id;
@@ -63,9 +64,9 @@ public class MinePublishBean {
     private Object contentText;
     private int lookCount;
     private String contentTextShort;
-    private Object videoPictureThumbnail;
+    private String videoPictureThumbnail;
     private String ownerContentId;
-    private Object forwardContentText;
+    private String forwardContentText;
     private String nickName;
     private String headPhoto;
     private String manyTime;
@@ -73,7 +74,7 @@ public class MinePublishBean {
     private String laud;
     private String shouchang;
     private String answer;
-    private List<?> contentPics;
+    private List<ContentPicsBean> contentPics;
 
     public String getId() {
         return id;
@@ -235,11 +236,11 @@ public class MinePublishBean {
         this.contentTextShort = contentTextShort;
     }
 
-    public Object getVideoPictureThumbnail() {
+    public String getVideoPictureThumbnail() {
         return videoPictureThumbnail;
     }
 
-    public void setVideoPictureThumbnail(Object videoPictureThumbnail) {
+    public void setVideoPictureThumbnail(String videoPictureThumbnail) {
         this.videoPictureThumbnail = videoPictureThumbnail;
     }
 
@@ -251,11 +252,11 @@ public class MinePublishBean {
         this.ownerContentId = ownerContentId;
     }
 
-    public Object getForwardContentText() {
+    public String getForwardContentText() {
         return forwardContentText;
     }
 
-    public void setForwardContentText(Object forwardContentText) {
+    public void setForwardContentText(String forwardContentText) {
         this.forwardContentText = forwardContentText;
     }
 
@@ -315,16 +316,127 @@ public class MinePublishBean {
         this.answer = answer;
     }
 
-    public List<?> getContentPics() {
+    public List<ContentPicsBean> getContentPics() {
         return contentPics;
     }
 
-    public void setContentPics(List<?> contentPics) {
+    public void setContentPics(List<ContentPicsBean> contentPics) {
         this.contentPics = contentPics;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public static class ContentPicsBean {
+        /**
+         * id : 99a70486db50478bb9eb6fe2848a3362
+         * ownerContentId : 44bbb296e78945b3b1380c9a2678de6c
+         * photoFlvPath : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c
+         * videoPictureThumbnail : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c?imageView2/1/w/300/h/300
+         * title : qwer
+         * shortText : qwer
+         * nickName : null
+         * officialFlag : null
+         * createTime : null
+         * publishTime : null
+         * contentType : null
+         */
+
+        private String id;
+        private String ownerContentId;
+        private String photoFlvPath;
+        private String videoPictureThumbnail;
+        private String title;
+        private String shortText;
+        private Object nickName;
+        private Object officialFlag;
+        private Object createTime;
+        private Object publishTime;
+        private Object contentType;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getOwnerContentId() {
+            return ownerContentId;
+        }
+
+        public void setOwnerContentId(String ownerContentId) {
+            this.ownerContentId = ownerContentId;
+        }
+
+        public String getPhotoFlvPath() {
+            return photoFlvPath;
+        }
+
+        public void setPhotoFlvPath(String photoFlvPath) {
+            this.photoFlvPath = photoFlvPath;
+        }
+
+        public String getVideoPictureThumbnail() {
+            return videoPictureThumbnail;
+        }
+
+        public void setVideoPictureThumbnail(String videoPictureThumbnail) {
+            this.videoPictureThumbnail = videoPictureThumbnail;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getShortText() {
+            return shortText;
+        }
+
+        public void setShortText(String shortText) {
+            this.shortText = shortText;
+        }
+
+        public Object getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(Object nickName) {
+            this.nickName = nickName;
+        }
+
+        public Object getOfficialFlag() {
+            return officialFlag;
+        }
+
+        public void setOfficialFlag(Object officialFlag) {
+            this.officialFlag = officialFlag;
+        }
+
+        public Object getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(Object createTime) {
+            this.createTime = createTime;
+        }
+
+        public Object getPublishTime() {
+            return publishTime;
+        }
+
+        public void setPublishTime(Object publishTime) {
+            this.publishTime = publishTime;
+        }
+
+        public Object getContentType() {
+            return contentType;
+        }
+
+        public void setContentType(Object contentType) {
+            this.contentType = contentType;
+        }
     }
 }

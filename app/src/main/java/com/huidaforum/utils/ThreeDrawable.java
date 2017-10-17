@@ -32,8 +32,8 @@ public class ThreeDrawable {
         pinglun_no = getDrawable(R.drawable.comment_nor);
         pinglun_yes = getDrawable(R.drawable.comment_pre);
 
-        int width = 30;
-        int height = 30;
+        int width = 45;
+        int height = 45;
         shoucang_no.setBounds(0,0,width,height);
         shoucang_yes.setBounds(0,0,width,height);
         zan_no.setBounds(0,0,width,height);

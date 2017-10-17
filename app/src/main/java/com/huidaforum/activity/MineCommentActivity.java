@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,9 +24,11 @@ import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CircleTransform;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -111,7 +115,14 @@ public class MineCommentActivity extends BaseActivity {
             helper.setText(R.id.tv_comment_title, item.getTitle());
             TextView tv_dz = helper.getView(R.id.tv_dz);
             TextView tv_shoucang = helper.getView(R.id.tv_shoucang);
-            //Picasso.with(mContext).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_comment_pic));
+            if(!TextUtils.isEmpty(item.getHeadPhoto())){
+                Picasso.with(mContext).load(item.getHeadPhoto()).fit().
+                        transform(new CircleTransform()).error(R.mipmap.ic_launcher).
+                        placeholder(R.mipmap.ic_launcher).
+                        into((ImageView) helper.getView(R.id.iv_mine_pic));
+            }else{
+                Picasso.with(mContext).load(R.mipmap.ic_launcher).fit().transform(new CircleTransform()).error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_mine_pic));
+            }
             setTextDrawableLeft(tv_dz, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
             setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
             /*if(TextUtils.isEmpty(item.photoFlvPath)||TextUtils.equals(null,item.photoFlvPath)){

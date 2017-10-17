@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +46,7 @@ public class MinePublishActivity extends BaseActivity {
     RecyclerView rvMinePublish;
     private boolean editFlag = false;
     private MinePublishAdapter minePublishAdapter;
+    private List<MinePublishBean> data;
 
     @Override
     public int getLayoutId() {
@@ -72,7 +72,7 @@ public class MinePublishActivity extends BaseActivity {
                                 new TypeToken<BaseBean<List<MinePublishBean>>>() {
                                 }.getType());
                         if (minePublishBean.isSuccess()) {
-                            List<MinePublishBean> data = minePublishBean.getData();
+                            data = minePublishBean.getData();
                             parseData(data);
 
                         }
@@ -85,7 +85,6 @@ public class MinePublishActivity extends BaseActivity {
         if (data.size() != 0) {
             rvMinePublish.setVisibility(View.VISIBLE);
             llPublishEmpty.setVisibility(View.INVISIBLE);
-            Log.e("jdr",data.size()+"");
             rvMinePublish.setLayoutManager(new LinearLayoutManager(this));
             minePublishAdapter = new MinePublishAdapter(R.layout.mine_publish_item, data);
             rvMinePublish.setAdapter(minePublishAdapter);
@@ -109,13 +108,13 @@ public class MinePublishActivity extends BaseActivity {
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, MinePublishBean item) {
+        protected void convert(final BaseViewHolder helper, final MinePublishBean item) {
             if (editFlag){
                 helper.getView(R.id.publish_item_delete).setVisibility(View.VISIBLE);
                 helper.getView(R.id.publish_item_delete).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        
+                        DeleteItem(helper.getAdapterPosition(),item);
                     }
                 });
             }else{
@@ -131,7 +130,7 @@ public class MinePublishActivity extends BaseActivity {
                 ImageView iv_tie = helper.getView(R.id.iv_tie);
                 iv_tie.setVisibility(View.VISIBLE);
                 Picasso.with(MinePublishActivity.this).load(item.getPhotoFlvPath()).into(iv_tie);
-            } else {
+            }else {
                 ImageView iv_tie = helper.getView(R.id.iv_tie);
                 iv_tie.setVisibility(View.GONE);
             }
@@ -145,6 +144,35 @@ public class MinePublishActivity extends BaseActivity {
                 jps.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void DeleteItem(final int adapterPosition, MinePublishBean item) {
+        OkGo.<String>post(WebAddress.deleteContentByUser)
+                .params(StaticValue.TOKEN,SpUtil.getString(StaticValue.TOKEN,MinePublishActivity.this))
+                .params("devType","phone")
+                .params("id",item.getId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        String body = response.body();
+                        BaseBean<Object> minePublishBean = gson.fromJson(body,
+                                new TypeToken<BaseBean<Object>>() {
+                                }.getType());
+                        if (minePublishBean.isSuccess()) {
+                            if (data!=null&&data.size()!=0){
+                                data.remove(adapterPosition);
+                                if (minePublishAdapter!=null)
+                                    minePublishAdapter.notifyDataSetChanged();
+                                if (data.size()==0){
+                                    rvMinePublish.setVisibility(View.INVISIBLE);
+                                    llPublishEmpty.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    }
+                });
+
     }
 
     @Override
