@@ -26,8 +26,7 @@
             android:layout_height="20sp" />
     </RelativeLayout>
     <LinearLayout
-        app:layout_heightPercent="40%w"
-        android:padding="15dp"
+        android:padding="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -38,18 +37,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/et_title"
             android:padding="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/release_edittext_shape"
             android:hint="标题叫什么呢？"
-            android:lines="5"
+            android:lines="1"
             android:layout_width="match_parent"
             android:gravity="top"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         app:layout_heightPercent="60%w"
-        android:padding="15dp"
+        android:padding="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -59,15 +59,16 @@
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <EditText
-            android:padding="10dp"
-            android:layout_marginTop="5dp"
+            android:id="@+id/et_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/release_edittext_shape"
+            android:gravity="top"
             android:hint="大神写点东西再走吧！"
             android:lines="8"
-            android:layout_width="match_parent"
-            android:gravity="top"
-            android:layout_height="wrap_content" />
+            android:padding="10dp" />
     </LinearLayout>
     <GridView
         android:gravity="center_horizontal"
@@ -80,6 +81,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </GridView>
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/ib_bofang"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bofang"
+        android:background="@null"
+        app:layout_marginPercent="3%w"
+        app:layout_heightPercent="30%w"
+        app:layout_widthPercent="30%w"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
     <LinearLayout
         android:visibility="gone"
         android:paddingLeft="15dp"

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,9 +17,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.huidaforum.R;
 import com.huidaforum.adapter.GridViewAdapter;
 import com.huidaforum.base.BaseActivity;
@@ -41,6 +47,12 @@ public class ReleaseActivity extends BaseActivity {
     Button releaseSend;
     @BindView(R.id.release_back)
     Button releaseBack;
+    @BindView(R.id.et_title)
+    EditText etTitle;
+    @BindView(R.id.et_text)
+    EditText etText;
+    @BindView(R.id.ib_bofang)
+    ImageButton ibBofang;
     private ArrayList<String> mPicList = new ArrayList<>();
     private GridViewAdapter gridViewAdapter;
 
@@ -55,8 +67,8 @@ public class ReleaseActivity extends BaseActivity {
         releaseBack.setOnClickListener(this);
         releaseSend.setOnClickListener(this);
         ArrayList<String> list = getIntent().getStringArrayListExtra("list");
-        String url = getIntent().getStringExtra("url");
-        Bitmap photo = getIntent().getParcelableExtra("photo");//视频的图片
+        final String url = getIntent().getStringExtra("url");
+        String photo = getIntent().getStringExtra("photo");//视频的图片
         int style = getIntent().getIntExtra("style", 0);
         switch (style) {
             case 1://拍摄的为图片 url
@@ -64,7 +76,18 @@ public class ReleaseActivity extends BaseActivity {
                 takePhoto();
                 break;
             case 2://拍摄的视频
-
+                ibBofang.setVisibility(View.VISIBLE);
+                Glide.with(ReleaseActivity.this).load(photo).into(ibBofang);
+                ibBofang.setImageResource(R.mipmap.bofang);
+                ibBofang.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                ibBofang.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(ReleaseActivity.this,FullscreenActivity.class);
+                        intent.putExtra("url",url);
+                        startActivity(intent);
+                    }
+                });
                 break;
             case 3://文字可选图片
                 takePhoto();
@@ -90,18 +113,21 @@ public class ReleaseActivity extends BaseActivity {
 
     @Override
     public void processClick(View v) {
-              switch (v.getId()){
-                  case R.id.release_back:
-                      back();
-                      break;
-                  case R.id.release_send:
-                      send();
-                      break;
-              }
+        switch (v.getId()) {
+            case R.id.release_back:
+                back();
+                break;
+            case R.id.release_send:
+                send();
+                break;
+        }
     }
 
     private void send() {
         Toast.makeText(this, "发布", Toast.LENGTH_SHORT).show();
+        String title = etTitle.getText().toString().trim();
+        String text = etText.getText().toString().trim();
+
     }
 
     private void back() {
@@ -155,9 +181,9 @@ public class ReleaseActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-          if (keyCode==KeyEvent.KEYCODE_BACK){
-               back();
-          }
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            back();
+        }
         return super.onKeyDown(keyCode, event);
     }
 

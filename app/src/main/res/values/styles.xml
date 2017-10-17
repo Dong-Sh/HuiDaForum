@@ -12,6 +12,7 @@
          <item name="colorPrimaryDark">@color/bg</item>
          <item name="colorAccent">@color/colorAccent</item>
      </style>
+
     <style name="BackTheme" parent="AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>

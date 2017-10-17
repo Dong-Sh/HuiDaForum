@@ -66,10 +66,12 @@ public class WelcomActivity extends BaseActivity {
                 switch (flag) {
                     case 1:
                         startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+                        finish();
                         break;
                     case 2: {
                         Toast.makeText(WelcomActivity.this, value, Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                        finish();
                         break;
                     }
                     case 3: {
@@ -77,10 +79,12 @@ public class WelcomActivity extends BaseActivity {
                         Intent intent = new Intent(WelcomActivity.this, LoginActivity.class);
                         intent.putExtra("flag", true);
                         startActivity(intent);
+                        finish();
                         break;
                     }
                     case 4:
                         startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                        finish();
                         break;
                 }
                 finish();

@@ -63,6 +63,7 @@
             android:theme="@style/BackTheme"></activity>
         <activity android:name=".activity.CameraViewActivity"></activity>
         <activity android:name=".activity.PlusImageActivity"></activity>
+        <activity android:name=".activity.FullscreenActivity" />
     </application>
 
 </manifest>
