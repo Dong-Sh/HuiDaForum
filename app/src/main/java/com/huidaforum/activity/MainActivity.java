@@ -366,10 +366,10 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
         @Override
         public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
             switch (requestCode){
-                case REQUEST_CODE_PERMISSION:
+                case REQUEST_CODE_PERMISSION://拍摄
                     startActivity(new Intent(MainActivity.this,CameraViewActivity.class));
                     break;
-                case 102:
+                case 102://文字
                     Intent intent = new Intent(MainActivity.this, ReleaseActivity.class);
                     intent.putExtra("style",3);
                     startActivity(intent);
