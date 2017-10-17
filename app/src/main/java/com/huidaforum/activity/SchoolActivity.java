@@ -24,11 +24,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huidaforum.MyApplication;
 import com.huidaforum.R;
+import com.huidaforum.adapter.GridViewAdapter;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.SchoolBean;
 import com.huidaforum.bean.SchoolContentBean;
+import com.huidaforum.bean.listPicBean;
 import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
@@ -102,20 +104,48 @@ public class SchoolActivity extends BaseBackActivity {
         SchoolRecylerViewAdapter schoolRecylerViewAdapter = new SchoolRecylerViewAdapter();
         rpvCommunity = new RollPagerView(this);
         rpvCommunity.setPlayDelay(1000);
-        int[] imgs = {
-                R.drawable.collection_nor,
-                R.drawable.collection_pre
-        };
-        rpvCommunity.setAdapter(new MyRollPageViewAdapter(this, imgs));
+        rpvSetAdapter();
         rpvCommunity.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
         schoolRecylerViewAdapter.addHeaderView(rpvCommunity);
         schoolRecylerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SchoolContentBean schoolContentBean = baseBean.getData().get(i);
-                MethodUtil.zanAndshoucang(SchoolActivity.this,(TextView)view,schoolContentBean,threeDrawable);
+                MethodUtil.zanAndshoucang(SchoolActivity.this, (TextView) view, schoolContentBean);
             }
         });
         rlvCommunity.setAdapter(schoolRecylerViewAdapter);
+    }
+
+    private void rpvSetAdapter() {
+        Log.d(TAG, "onSuccessPcic: ");
+        OkGo.<String>post(WebAddress.listPicForSchool)
+                .params("model", getIntent().getStringExtra("id"))
+                .params("token", SpUtil.getString(StaticValue.TOKEN, this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        Log.d(TAG, "onSuccessPcic: "+response.body());
+                        BaseBean<List<listPicBean>> baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<listPicBean>>>() {
+                        }.getType());
+                        if(baseBean.isSuccess()){
+                            List<listPicBean> data = baseBean.getData();
+                            if(data!=null && data.size()!=0){
+                                for(int i =0;i<data.size();i++){
+                                    listPicBean listPicBean = data.get(i);
+
+
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCacheSuccess(Response<String> response) {
+                        super.onCacheSuccess(response);
+                    }
+                });
+        //rpvCommunity.setAdapter(new MyRollPageViewAdapter(this, imgs));
     }
 
     @Override
@@ -153,7 +183,7 @@ public class SchoolActivity extends BaseBackActivity {
             holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
                     .setText(R.id.tv_tie_title, item.getTitle())
                     .setText(R.id.tv_tie_data, item.getContentText() + "")
-                    .setText(R.id.tv_zan,item.getZanCount()+"")
+                    .setText(R.id.tv_zan, item.getZanCount() + "")
                     .addOnClickListener(R.id.tv_zan)
                     .addOnClickListener(R.id.tv_shoucang)
                     .addOnClickListener(R.id.tv_pinglun);
@@ -161,7 +191,8 @@ public class SchoolActivity extends BaseBackActivity {
             TextView tv_zan = holder.getView(R.id.tv_zan);
             TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
             TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
-            tv_zan.setText(item.getZanCount()+"");
+            tv_zan.setText(item.getZanCount() + "");
+            Log.d(TAG, "convert: " + item.getZanCount());
             setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
             setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
             setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
@@ -211,7 +242,7 @@ public class SchoolActivity extends BaseBackActivity {
         }
     }
 
-    class MyAlertDialog extends AlertDialog{
+    class MyAlertDialog extends AlertDialog {
 
         protected MyAlertDialog(Context context) {
             super(context);

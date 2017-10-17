@@ -31,7 +31,7 @@ public class SchoolBean {
     private String provinceName;
     private String cityId;
     private String cityName;
-    private Object schoolPhoto;
+    private String schoolPhoto;
     private Object schoolLunboDetail;
 
     public String getId() {
@@ -114,11 +114,11 @@ public class SchoolBean {
         this.cityName = cityName;
     }
 
-    public Object getSchoolPhoto() {
+    public String getSchoolPhoto() {
         return schoolPhoto;
     }
 
-    public void setSchoolPhoto(Object schoolPhoto) {
+    public void setSchoolPhoto(String schoolPhoto) {
         this.schoolPhoto = schoolPhoto;
     }
 

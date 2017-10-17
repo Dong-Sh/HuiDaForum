@@ -1,5 +1,6 @@
 package com.huidaforum.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.SchoolActivity;
 import com.huidaforum.base.BaseBean;
@@ -22,6 +24,8 @@ import com.lzy.okgo.model.Response;
 
 public class MethodUtil {
 
+    private static ThreeDrawable threeDrawable;
+
     public static <T> BaseBean getBaseBean(String json) {
         Gson gson = new Gson();
         BaseBean<T> baseBean = gson.fromJson(json, BaseBean.class);
@@ -34,26 +38,59 @@ public class MethodUtil {
         context.sendBroadcast(intent);
     }
 
-    public static void zanAndshoucang(final Context context, final TextView view, final SchoolContentBean schoolContentBean, final ThreeDrawable threeDrawable) {
+    private static void initThreeDrawable(Context context) {
+        if (context instanceof Activity) {
+            threeDrawable = ((MyApplication) (((Activity) context).getApplication())).threeDrawable;
+        } else
+            threeDrawable = ((MyApplication) context.getApplicationContext()).threeDrawable;
+    }
 
+    public static void setTextDrawableLeft(Context context, TextView textView, int name, String flag) {
+        Drawable yes = null;
+        Drawable no = null;
+        initThreeDrawable(context);
+        switch (name) {
+            case StaticValue.ZAN:
+                yes = threeDrawable.getZan_yes();
+                no = threeDrawable.getZan_no();
+                break;
+            case StaticValue.SHOWCANG:
+                yes = threeDrawable.getShoucang_yes();
+                no = threeDrawable.getShoucang_no();
+                break;
+            case StaticValue.PINGLUN:
+                yes = threeDrawable.getPinglun_yes();
+                no = threeDrawable.getPinglun_no();
+                break;
+        }
+
+        if (flag.equals("yes"))
+            textView.setCompoundDrawables(yes, null, null, null);
+        else {
+            textView.setCompoundDrawables(no, null, null, null);
+        }
+    }
+
+    public static void zanAndshoucang(final Context context, final TextView view, final SchoolContentBean schoolContentBean) {
+        initThreeDrawable(context);
         switch (view.getId()) {
             case R.id.tv_zan: {
-                if(schoolContentBean.getLaud().equals("yes")){
+                if (schoolContentBean.getLaud().equals("yes")) {
                     Toast.makeText(context, "你已经赞过了", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     OkGo.<String>post(WebAddress.getzan)
-                            .params("ownerContentId",schoolContentBean.getId())
+                            .params("ownerContentId", schoolContentBean.getId())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
                                     Gson gson = new Gson();
                                     BaseBean baseBean = gson.fromJson(response.body(), BaseBean.class);
-                                    if(baseBean.isSuccess()){
-                                        view.setCompoundDrawables(threeDrawable.getZan_yes(),null,null,null);
+                                    if (baseBean.isSuccess()) {
+                                        view.setCompoundDrawables(threeDrawable.getZan_yes(), null, null, null);
                                         schoolContentBean.setLaud("yes");
-                                        int count = Integer.parseInt(((TextView)view).getText().toString());
-                                        ((TextView)view).setText(count+"");
+                                        int count = Integer.parseInt(((TextView) view).getText().toString()) + 1;
+                                        view.setText(count + "");
                                     }
                                 }
                             });

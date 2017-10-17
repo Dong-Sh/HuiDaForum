@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,12 @@ import com.google.gson.reflect.TypeToken;
 import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
+import com.huidaforum.activity.SchoolActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.SchoolContentBean;
+import com.huidaforum.utils.FitStateUI;
+import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.ThreeDrawable;
@@ -60,7 +64,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Button bt_selection;
     private View view;
     private BaseBean<List<SchoolContentBean>> bean;
-    private ThreeDrawable threeDrawable;
 
     @Override
     public View initView() {
@@ -70,7 +73,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
-        threeDrawable = ((MyApplication) mActivity.getApplication()).threeDrawable;
         view = View.inflate(mActivity, R.layout.top_home, null);
         ImageButton ib_home = (ImageButton) view.findViewById(R.id.ib_home);
         Button bt_home = (Button) view.findViewById(R.id.bt_home);
@@ -116,7 +118,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     @Override
                     public void onCacheSuccess(Response<String> response) {
                         super.onCacheSuccess(response);
-                        //pareDataFromNet();
+                        pareDataFromNet();
                     }
 
                 });
@@ -138,17 +140,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()) {
-                    case R.id.tv_zan:
-                        Toast.makeText(mActivity, "单击第" + position + "个赞", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.tv_shoucang:
-                        Toast.makeText(mActivity, "单击第" + position + "个收藏", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.tv_pinglun:
-                        Toast.makeText(mActivity, "单击第" + position + "个评论", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+                SchoolContentBean schoolContentBean = bean.getData().get(position);
+                MethodUtil.zanAndshoucang(mActivity,(TextView)view,schoolContentBean);
             }
         });
     }
@@ -222,11 +215,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     .addOnClickListener(R.id.tv_pinglun);
 
             TextView tv_zan = holder.getView(R.id.tv_zan);
-            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
             TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
-            setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
+            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
+            tv_zan.setText(item.getZanCount()+"");
+            Log.d(TAG, "convert: "+item.getShouchang());
+            /*setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
             setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
-            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
+            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());*/
+
+            MethodUtil.setTextDrawableLeft(mActivity,tv_zan,StaticValue.ZAN,item.getLaud());
+            MethodUtil.setTextDrawableLeft(mActivity,tv_shoucang,StaticValue.SHOWCANG,item.getLaud());
+            MethodUtil.setTextDrawableLeft(mActivity,tv_pinglun,StaticValue.PINGLUN,item.getLaud());
             //是否有图片
             if (item.getContentType().equals("picture")) {
                 ImageView iv_tie = holder.getView(R.id.iv_tie);

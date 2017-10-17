@@ -28,6 +28,7 @@ import com.jude.rollviewpager.RollPagerView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +48,11 @@ public class CommunityFragment extends BaseFragment {
     @BindView(R.id.rlv_community)
     RecyclerView rlvCommunity;
     Unbinder unbinder;
-    private ArrayList<Bean> beanList;
     private BaseBean<List<SchoolBean>> baseBean;
 
     @Override
     public View initView() {
+
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_community, null);
         return view;
     }
@@ -59,7 +60,6 @@ public class CommunityFragment extends BaseFragment {
     @Override
     protected void initData() {
         initNetData();
-        initGridView();
     }
 
     private void initNetData() {
@@ -71,41 +71,29 @@ public class CommunityFragment extends BaseFragment {
                         baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<SchoolBean>>>() {
                         }.getType());
                         Log.d(TAG, "onSuccess: " + baseBean.getData());
+
+                        initGridView();
                     }
                 });
     }
 
     private void initGridView() {
-        beanList = new ArrayList<>();
-        Bean 燕山大学 = new Bean("燕山大学", R.mipmap.school_yanshan);
-        Bean 科技师范 = new Bean("科技师范", R.mipmap.school_keshi);
-        Bean 东北大学 = new Bean("东北大学", R.mipmap.school_dongbei);
-        Bean 职业技术学院 = new Bean("职业技术学院", R.mipmap.school_zhiye);
-        Bean 东北石油 = new Bean("东北石油", R.mipmap.school_dongyou);
-        Bean 外国语职业学院 = new Bean("外国语职业学院", R.mipmap.school_waiguoyu);
-        Bean 环境工程学院 = new Bean("环境工程学院", R.mipmap.school_huanjing);
-        Bean 华北煤炭 = new Bean("华北煤炭", R.mipmap.school_huabei);
-        Bean 建材职业技术学院 = new Bean("建材职业技术学院", R.mipmap.school_jiancai);
-        beanList.add(燕山大学);
-        beanList.add(科技师范);
-        beanList.add(东北大学);
-        beanList.add(职业技术学院);
-        beanList.add(东北石油);
-        beanList.add(外国语职业学院);
-        beanList.add(环境工程学院);
-        beanList.add(华北煤炭);
-        beanList.add(建材职业技术学院);
         rlvCommunity.setLayoutManager(new GridLayoutManager(mActivity, 3));
         Myadapter adapter = new Myadapter();
         rlvCommunity.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (baseBean != null)
+                    if (baseBean.isSuccess()) {
 
-                if (baseBean.isSuccess()) {
-                    Intent intent = new Intent(mActivity, SchoolActivity.class);
-                    intent.putExtra("id",baseBean.getData().get(position).getId());
-                    startActivity(intent);
-                }else{
+                        Intent intent = new Intent(mActivity, SchoolActivity.class);
+                        intent.putExtra("id", baseBean.getData().get(position).getId());
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(mActivity, "网络有问题，请重试", Toast.LENGTH_SHORT).show();
+                        initNetData();
+                    }
+                else {
                     Toast.makeText(mActivity, "网络有问题，请重试", Toast.LENGTH_SHORT).show();
                     initNetData();
                 }
@@ -114,17 +102,17 @@ public class CommunityFragment extends BaseFragment {
         });
     }
 
-    class Myadapter extends BaseQuickAdapter<Bean, BaseViewHolder> {
+    class Myadapter extends BaseQuickAdapter<SchoolBean, BaseViewHolder> {
 
         public Myadapter() {
-            super(R.layout.item_community, beanList);
+            super(R.layout.item_community, baseBean.getData());
         }
 
         @Override
-        protected void convert(BaseViewHolder holder, Bean item) {
-            holder.setText(R.id.tv, item.getName());
+        protected void convert(BaseViewHolder holder, SchoolBean item) {
+            holder.setText(R.id.tv, item.getSchoolName());
             ImageView iv = holder.getView(R.id.iv);
-            iv.setImageResource(item.getTupian());
+            Picasso.with(mActivity).load(item.getSchoolPhoto()).fit().into(iv);
         }
     }
 

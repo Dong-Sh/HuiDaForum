@@ -21,6 +21,7 @@ public class WebAddress {
     private static String award = "/award";//打赏相关
     private static String guanzhu = "/ywguanzhu";//我的关注
     private static String dianzan="/ywlaud";//点赞
+    private static String pic="/pic";//轮播图
     //用户
     public final static String register = http + user + "/reg";//注册
     public final static String login = http + user + "/login";//登录
@@ -75,5 +76,8 @@ public class WebAddress {
             File.separator+"HuidaForum";
     //Sdcard 保存头像位置
     public final static String IconPath = CachePath + File.separator+"icon";
+
+
+    public final static String listPicForSchool = http+pic+"/listPicForModel";//轮播图
 
 }
