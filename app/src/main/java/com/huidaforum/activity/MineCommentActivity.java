@@ -20,6 +20,7 @@ import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.MineCommentBean;
+import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.ThreeDrawable;
@@ -46,6 +47,8 @@ public class MineCommentActivity extends BaseActivity {
     @BindView(R.id.ll_comment_empty)
     LinearLayout llCommentEmpty;
     private ThreeDrawable threeDrawable;
+    private MineCommentActivity.mineCommentAdapter mineCommentAdapter;
+    private List<MineCommentBean> data;
 
     @Override
     public int getLayoutId() {
@@ -73,7 +76,7 @@ public class MineCommentActivity extends BaseActivity {
                                 new TypeToken<BaseBean<List<MineCommentBean>>>() {
                                 }.getType());
                         if (mineCommentBean.isSuccess()) {
-                            List<MineCommentBean> data = mineCommentBean.getData();
+                            data = mineCommentBean.getData();
                             parseData(data);
                         }
                     }
@@ -85,7 +88,7 @@ public class MineCommentActivity extends BaseActivity {
             rvMineComment.setVisibility(View.VISIBLE);
             llCommentEmpty.setVisibility(View.INVISIBLE);
             rvMineComment.setLayoutManager(new LinearLayoutManager(this));
-            mineCommentAdapter mineCommentAdapter = new mineCommentAdapter(R.layout.mine_comment_item, data);
+            mineCommentAdapter = new mineCommentAdapter(R.layout.mine_comment_item, data);
             rvMineComment.setAdapter(mineCommentAdapter);
         } else {
             rvMineComment.setVisibility(View.INVISIBLE);
@@ -113,6 +116,8 @@ public class MineCommentActivity extends BaseActivity {
             helper.setText(R.id.tv_comment_time, item.getCreateTime());
             helper.setText(R.id.tv_comment_ownertext, item.getOwnerText());
             helper.setText(R.id.tv_comment_title, item.getTitle());
+            helper.addOnClickListener(R.id.tv_zan);
+            helper.addOnClickListener(R.id.tv_shoucang);
             TextView tv_dz = helper.getView(R.id.tv_dz);
             TextView tv_shoucang = helper.getView(R.id.tv_shoucang);
             if(!TextUtils.isEmpty(item.getHeadPhoto())){
@@ -153,7 +158,13 @@ public class MineCommentActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-
+        mineCommentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                MineCommentBean bean = data.get(position);
+                MethodUtil.dzandsc(MineCommentActivity.this,(TextView)view,bean);
+            }
+        });
     }
 
     @Override

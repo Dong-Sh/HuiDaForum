@@ -30,29 +30,29 @@ public class MineCommentBean {
      * children : []
      */
 
-    private Object id;
+    private String id;
     private String createTime;
     private String ywUserId;
     private String ownerContentId;
-    private Object ownerAnswerId;
+    private String ownerAnswerId;
     private String ownerText;
     private String title;
     private String nickName;
     private String headPhoto;
-    private Object photoFlvPath;
-    private Object contentCode;
+    private String photoFlvPath;
+    private String contentCode;
     private String offical;
     private String officialFlag;
     private String laud;
     private String shouchang;
-    private Object list;
+    private String list;
     private List<?> children;
 
-    public Object getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Object id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,11 +80,11 @@ public class MineCommentBean {
         this.ownerContentId = ownerContentId;
     }
 
-    public Object getOwnerAnswerId() {
+    public String getOwnerAnswerId() {
         return ownerAnswerId;
     }
 
-    public void setOwnerAnswerId(Object ownerAnswerId) {
+    public void setOwnerAnswerId(String ownerAnswerId) {
         this.ownerAnswerId = ownerAnswerId;
     }
 
@@ -120,19 +120,19 @@ public class MineCommentBean {
         this.headPhoto = headPhoto;
     }
 
-    public Object getPhotoFlvPath() {
+    public String getPhotoFlvPath() {
         return photoFlvPath;
     }
 
-    public void setPhotoFlvPath(Object photoFlvPath) {
+    public void setPhotoFlvPath(String photoFlvPath) {
         this.photoFlvPath = photoFlvPath;
     }
 
-    public Object getContentCode() {
+    public String getContentCode() {
         return contentCode;
     }
 
-    public void setContentCode(Object contentCode) {
+    public void setContentCode(String contentCode) {
         this.contentCode = contentCode;
     }
 
@@ -168,11 +168,11 @@ public class MineCommentBean {
         this.shouchang = shouchang;
     }
 
-    public Object getList() {
+    public String getList() {
         return list;
     }
 
-    public void setList(Object list) {
+    public void setList(String list) {
         this.list = list;
     }
 
