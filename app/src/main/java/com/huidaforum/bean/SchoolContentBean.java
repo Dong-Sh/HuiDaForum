@@ -5,10 +5,7 @@ import java.util.List;
 /**
  * Created by lenovo on 2017/10/13.
  */
-
 public class SchoolContentBean {
-
-
     /**
      * id : 44bbb296e78945b3b1380c9a2678de6c
      * createTime : 2017-10-15 15:25:22
@@ -60,7 +57,7 @@ public class SchoolContentBean {
     private int awardTotalMoney;
     private String hotContent;
     private String jingpinContent;
-    private Object contentText;
+    private String contentText;
     private int lookCount;
     private String contentTextShort;
     private String videoPictureThumbnail;
@@ -211,11 +208,11 @@ public class SchoolContentBean {
         this.jingpinContent = jingpinContent;
     }
 
-    public Object getContentText() {
+    public String getContentText() {
         return contentText;
     }
 
-    public void setContentText(Object contentText) {
+    public void setContentText(String contentText) {
         this.contentText = contentText;
     }
 

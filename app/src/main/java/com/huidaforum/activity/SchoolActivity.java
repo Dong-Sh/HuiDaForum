@@ -3,6 +3,7 @@ package com.huidaforum.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.huidaforum.adapter.GridViewAdapter;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.base.BaseBean;
+import com.huidaforum.bean.PostingBean;
 import com.huidaforum.bean.SchoolBean;
 import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.bean.listPicBean;
@@ -52,6 +54,8 @@ import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
+import static android.R.attr.targetActivity;
+
 /**
  * Created by lenovo on 2017/10/13.
  */
@@ -73,7 +77,7 @@ public class SchoolActivity extends BaseBackActivity {
 
     @Override
     public void initView() {
-        threeDrawable = ((MyApplication) SchoolActivity.this.getApplication()).threeDrawable;
+        threeDrawable = ((MyApplication) getApplication()).threeDrawable;
     }
 
     @Override
@@ -111,6 +115,17 @@ public class SchoolActivity extends BaseBackActivity {
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SchoolContentBean schoolContentBean = baseBean.getData().get(i);
                 MethodUtil.zanAndshoucang(SchoolActivity.this, (TextView) view, schoolContentBean);
+            }
+        });
+        schoolRecylerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SchoolContentBean schoolContentBean = baseBean.getData().get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",schoolContentBean.getOwnerContentId());
+                Intent intent = new Intent(SchoolActivity.this, PostingActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         rlvCommunity.setAdapter(schoolRecylerViewAdapter);

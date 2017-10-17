@@ -5,307 +5,308 @@ package com.huidaforum.bean;
  */
 
 public class PostingBean {
-        /**
-         * id : zxczxc234123412adfasdfasdfasdfa3
-         * createTime : 2017-10-13 16:10:50
-         * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
-         * contentCode : 1234adfadfsaf
-         * contentState : draft
-         * publishTime : 2017-10-13 16:11:21
-         * contentType : picture
-         * title : 小故事
-         * photoFlvPath : http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f
-         * zanCount : 0
-         * collectCount : 0
-         * commentCount : 0
-         * officialFlag : no
-         * awardCount : 0
-         * awardTotalMoney : 0.0
-         * hotContent : yes
-         * jingpinContent : yes
-         * contentText : 有一个人作了一个梦，梦中他来到一间二层楼的屋子。进到第一层楼时，发现一张长长的大桌子，桌旁都坐着人，而桌子上摆满了丰盛的佳肴，可是没有一个人能吃得到，因为大家的手臂受到魔法师咒诅，全都变成直的，手肘不能弯曲，而桌上的美食，夹不到口中，所以个个愁苦满面。但是他听到楼上却充满了欢愉的笑声，他好奇的上楼一看，同样的也有一群人，手肘也是不能弯曲，但是大家却吃得兴高彩烈。原来每个人的手臂虽然不能伸直，但是因为对面的人彼此协助，互相帮助夹菜喂食，
-         * lookCount : 1
-         * contentTextShort : 有一个人作了一个梦，梦中他来到一间二层楼的屋子
-         * videoPictureThumbnail : null
-         * ownerContentId : null
-         * forwardContentText :
-         * nickName : YL
-         * headPhoto : null
-         * manyTime : 4分钟前
-         * ghuanzhu : no
-         * laud : no
-         * shouchang : no
-         * answer : no
-         */
 
-        private String id;
-        private String createTime;
-        private String ywUserId;
-        private String contentCode;
-        private String contentState;
-        private String publishTime;
-        private String contentType;
-        private String title;
-        private String photoFlvPath;
-        private int zanCount;
-        private int collectCount;
-        private int commentCount;
-        private String officialFlag;
-        private int awardCount;
-        private double awardTotalMoney;
-        private String hotContent;
-        private String jingpinContent;
-        private String contentText;
-        private int lookCount;
-        private String contentTextShort;
-        private String videoPictureThumbnail;
-        private String ownerContentId;
-        private String forwardContentText;
-        private String nickName;
-        private String headPhoto;
-        private String manyTime;
-        private String ghuanzhu;
-        private String laud;
-        private String shouchang;
-        private String answer;
+    /**
+     * id : zxczxc234123412adfasdfasdfasdfa3
+     * createTime : 2017-10-13 16:10:50
+     * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
+     * contentCode : 1234adfadfsaf
+     * contentState : draft
+     * publishTime : 2017-10-13 16:11:21
+     * contentType : picture
+     * title : 小故事
+     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/7ec3426219de44dcae7af8467b229e5f
+     * zanCount : 0
+     * collectCount : 0
+     * commentCount : 0
+     * officialFlag : no
+     * awardCount : 0
+     * awardTotalMoney : 0.0
+     * hotContent : yes
+     * jingpinContent : yes
+     * contentText : 有一个人作了一个梦，梦中他来到一间二层楼的屋子。进到第一层楼时，发现一张长长的大桌子，桌旁都坐着人，而桌子上摆满了丰盛的佳肴，可是没有一个人能吃得到，因为大家的手臂受到魔法师咒诅，全都变成直的，手肘不能弯曲，而桌上的美食，夹不到口中，所以个个愁苦满面。但是他听到楼上却充满了欢愉的笑声，他好奇的上楼一看，同样的也有一群人，手肘也是不能弯曲，但是大家却吃得兴高彩烈。原来每个人的手臂虽然不能伸直，但是因为对面的人彼此协助，互相帮助夹菜喂食，
+     * lookCount : 1
+     * contentTextShort : 有一个人作了一个梦，梦中他来到一间二层楼的屋子
+     * videoPictureThumbnail : null
+     * ownerContentId : null
+     * forwardContentText :
+     * nickName : YL
+     * headPhoto : null
+     * manyTime : 4分钟前
+     * ghuanzhu : no
+     * laud : no
+     * shouchang : no
+     * answer : no
+     */
 
-        public String getId() {
-            return id;
-        }
+    private String id;
+    private String createTime;
+    private String ywUserId;
+    private String contentCode;
+    private String contentState;
+    private String publishTime;
+    private String contentType;
+    private String title;
+    private String photoFlvPath;
+    private int zanCount;
+    private int collectCount;
+    private int commentCount;
+    private String officialFlag;
+    private int awardCount;
+    private double awardTotalMoney;
+    private String hotContent;
+    private String jingpinContent;
+    private String contentText;
+    private int lookCount;
+    private String contentTextShort;
+    private String videoPictureThumbnail;
+    private String ownerContentId;
+    private String forwardContentText;
+    private String nickName;
+    private String headPhoto;
+    private String manyTime;
+    private String ghuanzhu;
+    private String laud;
+    private String shouchang;
+    private String answer;
 
-        public void setId(String id) {
-            this.id = id;
-        }
+    public String getId() {
+        return id;
+    }
 
-        public String getCreateTime() {
-            return createTime;
-        }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
+    public String getCreateTime() {
+        return createTime;
+    }
 
-        public String getYwUserId() {
-            return ywUserId;
-        }
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
-        public void setYwUserId(String ywUserId) {
-            this.ywUserId = ywUserId;
-        }
+    public String getYwUserId() {
+        return ywUserId;
+    }
 
-        public String getContentCode() {
-            return contentCode;
-        }
+    public void setYwUserId(String ywUserId) {
+        this.ywUserId = ywUserId;
+    }
 
-        public void setContentCode(String contentCode) {
-            this.contentCode = contentCode;
-        }
+    public String getContentCode() {
+        return contentCode;
+    }
 
-        public String getContentState() {
-            return contentState;
-        }
+    public void setContentCode(String contentCode) {
+        this.contentCode = contentCode;
+    }
 
-        public void setContentState(String contentState) {
-            this.contentState = contentState;
-        }
+    public String getContentState() {
+        return contentState;
+    }
 
-        public String getPublishTime() {
-            return publishTime;
-        }
+    public void setContentState(String contentState) {
+        this.contentState = contentState;
+    }
 
-        public void setPublishTime(String publishTime) {
-            this.publishTime = publishTime;
-        }
+    public String getPublishTime() {
+        return publishTime;
+    }
 
-        public String getContentType() {
-            return contentType;
-        }
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+    }
 
-        public void setContentType(String contentType) {
-            this.contentType = contentType;
-        }
+    public String getContentType() {
+        return contentType;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public String getPhotoFlvPath() {
-            return photoFlvPath;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public void setPhotoFlvPath(String photoFlvPath) {
-            this.photoFlvPath = photoFlvPath;
-        }
+    public String getPhotoFlvPath() {
+        return photoFlvPath;
+    }
 
-        public int getZanCount() {
-            return zanCount;
-        }
+    public void setPhotoFlvPath(String photoFlvPath) {
+        this.photoFlvPath = photoFlvPath;
+    }
 
-        public void setZanCount(int zanCount) {
-            this.zanCount = zanCount;
-        }
+    public int getZanCount() {
+        return zanCount;
+    }
 
-        public int getCollectCount() {
-            return collectCount;
-        }
+    public void setZanCount(int zanCount) {
+        this.zanCount = zanCount;
+    }
 
-        public void setCollectCount(int collectCount) {
-            this.collectCount = collectCount;
-        }
+    public int getCollectCount() {
+        return collectCount;
+    }
 
-        public int getCommentCount() {
-            return commentCount;
-        }
+    public void setCollectCount(int collectCount) {
+        this.collectCount = collectCount;
+    }
 
-        public void setCommentCount(int commentCount) {
-            this.commentCount = commentCount;
-        }
+    public int getCommentCount() {
+        return commentCount;
+    }
 
-        public String getOfficialFlag() {
-            return officialFlag;
-        }
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
 
-        public void setOfficialFlag(String officialFlag) {
-            this.officialFlag = officialFlag;
-        }
+    public String getOfficialFlag() {
+        return officialFlag;
+    }
 
-        public int getAwardCount() {
-            return awardCount;
-        }
+    public void setOfficialFlag(String officialFlag) {
+        this.officialFlag = officialFlag;
+    }
 
-        public void setAwardCount(int awardCount) {
-            this.awardCount = awardCount;
-        }
+    public int getAwardCount() {
+        return awardCount;
+    }
 
-        public double getAwardTotalMoney() {
-            return awardTotalMoney;
-        }
+    public void setAwardCount(int awardCount) {
+        this.awardCount = awardCount;
+    }
 
-        public void setAwardTotalMoney(double awardTotalMoney) {
-            this.awardTotalMoney = awardTotalMoney;
-        }
+    public double getAwardTotalMoney() {
+        return awardTotalMoney;
+    }
 
-        public String getHotContent() {
-            return hotContent;
-        }
+    public void setAwardTotalMoney(double awardTotalMoney) {
+        this.awardTotalMoney = awardTotalMoney;
+    }
 
-        public void setHotContent(String hotContent) {
-            this.hotContent = hotContent;
-        }
+    public String getHotContent() {
+        return hotContent;
+    }
 
-        public String getJingpinContent() {
-            return jingpinContent;
-        }
+    public void setHotContent(String hotContent) {
+        this.hotContent = hotContent;
+    }
 
-        public void setJingpinContent(String jingpinContent) {
-            this.jingpinContent = jingpinContent;
-        }
+    public String getJingpinContent() {
+        return jingpinContent;
+    }
 
-        public String getContentText() {
-            return contentText;
-        }
+    public void setJingpinContent(String jingpinContent) {
+        this.jingpinContent = jingpinContent;
+    }
 
-        public void setContentText(String contentText) {
-            this.contentText = contentText;
-        }
+    public String getContentText() {
+        return contentText;
+    }
 
-        public int getLookCount() {
-            return lookCount;
-        }
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
+    }
 
-        public void setLookCount(int lookCount) {
-            this.lookCount = lookCount;
-        }
+    public int getLookCount() {
+        return lookCount;
+    }
 
-        public String getContentTextShort() {
-            return contentTextShort;
-        }
+    public void setLookCount(int lookCount) {
+        this.lookCount = lookCount;
+    }
 
-        public void setContentTextShort(String contentTextShort) {
-            this.contentTextShort = contentTextShort;
-        }
+    public String getContentTextShort() {
+        return contentTextShort;
+    }
 
-        public String getVideoPictureThumbnail() {
-            return videoPictureThumbnail;
-        }
+    public void setContentTextShort(String contentTextShort) {
+        this.contentTextShort = contentTextShort;
+    }
 
-        public void setVideoPictureThumbnail(String videoPictureThumbnail) {
-            this.videoPictureThumbnail = videoPictureThumbnail;
-        }
+    public String getVideoPictureThumbnail() {
+        return videoPictureThumbnail;
+    }
 
-        public String getOwnerContentId() {
-            return ownerContentId;
-        }
+    public void setVideoPictureThumbnail(String videoPictureThumbnail) {
+        this.videoPictureThumbnail = videoPictureThumbnail;
+    }
 
-        public void setOwnerContentId(String ownerContentId) {
-            this.ownerContentId = ownerContentId;
-        }
+    public String getOwnerContentId() {
+        return ownerContentId;
+    }
 
-        public String getForwardContentText() {
-            return forwardContentText;
-        }
+    public void setOwnerContentId(String ownerContentId) {
+        this.ownerContentId = ownerContentId;
+    }
 
-        public void setForwardContentText(String forwardContentText) {
-            this.forwardContentText = forwardContentText;
-        }
+    public String getForwardContentText() {
+        return forwardContentText;
+    }
 
-        public String getNickName() {
-            return nickName;
-        }
+    public void setForwardContentText(String forwardContentText) {
+        this.forwardContentText = forwardContentText;
+    }
 
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
-        }
+    public String getNickName() {
+        return nickName;
+    }
 
-        public String getHeadPhoto() {
-            return headPhoto;
-        }
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
-        public void setHeadPhoto(String headPhoto) {
-            this.headPhoto = headPhoto;
-        }
+    public String getHeadPhoto() {
+        return headPhoto;
+    }
 
-        public String getManyTime() {
-            return manyTime;
-        }
+    public void setHeadPhoto(String headPhoto) {
+        this.headPhoto = headPhoto;
+    }
 
-        public void setManyTime(String manyTime) {
-            this.manyTime = manyTime;
-        }
+    public String getManyTime() {
+        return manyTime;
+    }
 
-        public String getGhuanzhu() {
-            return ghuanzhu;
-        }
+    public void setManyTime(String manyTime) {
+        this.manyTime = manyTime;
+    }
 
-        public void setGhuanzhu(String ghuanzhu) {
-            this.ghuanzhu = ghuanzhu;
-        }
+    public String getGhuanzhu() {
+        return ghuanzhu;
+    }
 
-        public String getLaud() {
-            return laud;
-        }
+    public void setGhuanzhu(String ghuanzhu) {
+        this.ghuanzhu = ghuanzhu;
+    }
 
-        public void setLaud(String laud) {
-            this.laud = laud;
-        }
+    public String getLaud() {
+        return laud;
+    }
 
-        public String getShouchang() {
-            return shouchang;
-        }
+    public void setLaud(String laud) {
+        this.laud = laud;
+    }
 
-        public void setShouchang(String shouchang) {
-            this.shouchang = shouchang;
-        }
+    public String getShouchang() {
+        return shouchang;
+    }
 
-        public String getAnswer() {
-            return answer;
-        }
+    public void setShouchang(String shouchang) {
+        this.shouchang = shouchang;
+    }
 
-        public void setAnswer(String answer) {
-            this.answer = answer;
-        }
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 }

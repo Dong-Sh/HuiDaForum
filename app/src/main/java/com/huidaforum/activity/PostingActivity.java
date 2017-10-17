@@ -3,6 +3,7 @@ package com.huidaforum.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,13 +15,17 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.PostingBean;
 import com.huidaforum.bean.PostingCommentBean;
+import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.StringUtil;
+import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -33,6 +38,8 @@ import butterknife.BindView;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
+import static android.R.attr.name;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static com.huidaforum.R.id.tv_posting_content;
 
 
@@ -72,6 +79,8 @@ public class PostingActivity extends BaseActivity {
 
     private List<PostingCommentBean> postingBeanList;
     private PostingAdapter postingAdapter;
+    private ThreeDrawable threeDrawable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +94,12 @@ public class PostingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        threeDrawable = ((MyApplication) getApplication()).threeDrawable;
     }
 //帖子详情
     @Override
     public void initData() {
+
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("id");
         OkGo.<String>post(WebAddress.listForCountDetailInfo)
@@ -100,12 +110,13 @@ public class PostingActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        BaseBean<PostingBean> baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<PostingBean>>() {
+                        BaseBean<SchoolContentBean> baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<SchoolContentBean>>() {
                         }.getType());
                         if (baseBean.isSuccess()) {
-                            PostingBean postingBean = baseBean.getData();
+                            SchoolContentBean postingBean = baseBean.getData();
                             //是否为视频
-                            if (postingBean.getContentType().equals("flv")) {
+                            if (postingBean==null) return;
+                            if ("flv".equals(postingBean.getContentType())) {
 
                                 jps.setVisibility(View.VISIBLE);
                                 ivPostingPic.setVisibility(View.GONE);
@@ -122,6 +133,7 @@ public class PostingActivity extends BaseActivity {
                             tvPostingTitle.setText(postingBean.getTitle());
                             tvPostingContent.setText(postingBean.getContentText());
 
+
                         }
                     }
                 });
@@ -133,7 +145,7 @@ public class PostingActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        BaseBean<List<PostingCommentBean>> baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<PostingCommentBean>>>() {
+                        BaseBean<List<PostingCommentBean>> baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<List<PostingCommentBean>>>() {
                         }.getType());
                         if (baseBean.isSuccess()) {
                             postingBeanList = baseBean.getData();
@@ -166,17 +178,29 @@ public class PostingActivity extends BaseActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, PostingCommentBean item) {//填充item数据
+            TextView name = null;
+            TextView content = null;
+            View view = null;
+
             Picasso.with(PostingActivity.this).load(item.getHeadPhoto()).fit()
                     .into((ImageView) helper.getView(R.id.headphoto));
             helper.setText(R.id.nick_name, item.getNickName())
                     .setText(R.id.pinglun_content, item.getOwnerText());
+
             List<PostingCommentBean.ChildrenBean> children = item.getChildren();
             LinearLayout llPingLun = helper.getView(R.id.ll_pinglun);
+
             for (PostingCommentBean.ChildrenBean c : children) {
-                TextView textView = new TextView(PostingActivity.this);
-                textView.setText(c.getNickName() + ":" + c.getOwnerText());
-                llPingLun.addView(textView);
+                if (view==null){
+                    view = View.inflate(PostingActivity.this, R.layout.pinglun_children_item, null);
+                    name= (TextView) view.findViewById(R.id.children_name);
+                    content= (TextView) view.findViewById(R.id.children_content);
+                }
+                name.setText(c.getNickName());
+                content.setText(":"+c.getOwnerText());
+                llPingLun.addView(view);
             }
+
 
         }
 

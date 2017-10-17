@@ -19,7 +19,9 @@ import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.ReplyBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.StringUtil;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CircleTransform;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -34,6 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 
 import static com.huidaforum.R.id.headphoto;
+import static com.huidaforum.R.id.iv_tie;
 import static com.huidaforum.R.id.rv_reply;
 //回复我的
 public class ReplyActivity extends BaseActivity {
@@ -102,7 +105,7 @@ public class ReplyActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        BaseBean<List<ReplyBean>> baseBean = gson.fromJson(response.body()
+                        BaseBean<List<ReplyBean>> baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body())
                                 , new TypeToken<BaseBean<List<ReplyBean>>>() {
                                 }.getType());
                         if (baseBean.isSuccess()) {
@@ -140,7 +143,8 @@ public class ReplyActivity extends BaseActivity {
         @Override
         protected void convert(BaseViewHolder helper, ReplyBean item) {//填充item数据
             //图片框数据 ， 暂时无头像
-            Picasso.with(ReplyActivity.this).load(item.getHeadPhoto()).fit().into((ImageView) helper.getView(R.id.iv_reply_pic));
+
+            Picasso.with(ReplyActivity.this).load(item.getHeadPhoto()).fit().transform(new CircleTransform()).placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_reply_pic));
             helper.setText(R.id.tv_reply_name,item.getNickName())
                     .setText(R.id.tv_reply_time,item.getCreateTime())
                     .setText(R.id.tv_reply_content,item.getOwnerText())

@@ -11,6 +11,7 @@
         android:background="@color/linecolor" />
 
     <ImageView
+        android:layout_marginTop="5dp"
         android:id="@+id/iv_system_pic"
         android:layout_width="55dp"
         android:layout_height="55dp"
@@ -80,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_system_title"
             android:layout_marginTop="5dp"
-            android:lines="3"
             android:text="啊经十东路看风景阿拉会计法垃圾 啊经十东路看风景阿拉会计法垃圾 啊经十东路看风景阿拉会计法垃圾 啊经十东路看风景阿拉会计法垃圾 " />
     </RelativeLayout>
 

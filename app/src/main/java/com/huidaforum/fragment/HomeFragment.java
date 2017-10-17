@@ -24,6 +24,7 @@ import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
 import com.huidaforum.activity.SchoolActivity;
+import com.huidaforum.activity.PostingActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.SchoolContentBean;
@@ -64,6 +65,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Button bt_selection;
     private View view;
     private BaseBean<List<SchoolContentBean>> bean;
+    private ThreeDrawable threeDrawable;
 
     @Override
     public View initView() {
@@ -73,6 +75,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
+        threeDrawable = ((MyApplication) mActivity.getApplication()).threeDrawable;
         view = View.inflate(mActivity, R.layout.top_home, null);
         ImageButton ib_home = (ImageButton) view.findViewById(R.id.ib_home);
         Button bt_home = (Button) view.findViewById(R.id.bt_home);
@@ -134,7 +137,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(mActivity, "点击了当前" + position + "条目", Toast.LENGTH_SHORT).show();
+
+                SchoolContentBean schoolContentBean = bean.getData().get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",schoolContentBean.getOwnerContentId());
+                Intent intent = new Intent(mActivity, PostingActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
