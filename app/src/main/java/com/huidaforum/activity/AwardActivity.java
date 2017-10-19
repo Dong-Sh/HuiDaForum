@@ -17,6 +17,7 @@ import com.huidaforum.base.BaseBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CircleTransform;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -126,7 +127,13 @@ public class AwardActivity extends BaseActivity {
                     .setText(R.id.tv_reward_money,item.getAwardMoney()+"")
                     .setText(R.id.tv_award_time,item.getCreateTime());
             //图片框数据 ， 暂时无头像
-         Picasso.with(AwardActivity.this).load(item.getHeadPhoto()).fit().memoryPolicy(NO_CACHE, NO_STORE).placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_reward_pic));
+         Picasso.with(AwardActivity.this)
+                 .load(item.getHeadPhoto())
+                 .fit()
+                 .memoryPolicy(NO_CACHE, NO_STORE)
+                 .placeholder(R.mipmap.ic_launcher)
+                 .transform(new CircleTransform())
+                 .into((ImageView) helper.getView(R.id.iv_reward_pic));
 
         }
     }

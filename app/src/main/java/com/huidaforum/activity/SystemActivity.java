@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -16,6 +17,7 @@ import com.huidaforum.bean.SystemBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CircleTransform;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -23,10 +25,13 @@ import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.huidaforum.R.id.iv_system_pic;
 
 
 public class SystemActivity extends BaseActivity {
@@ -123,6 +128,11 @@ public class SystemActivity extends BaseActivity {
             helper.setText(R.id.tv_system_time, item.getCreateTime())
                     .setText(R.id.tv_system_title, item.getTitle())
                     .setText(R.id.tv_system_content, item.getContent());
+            Picasso.with(SystemActivity.this)
+                    .load(item.getHeadPhoto())
+                    .transform(new CircleTransform())
+                    .fit()
+                    .into((ImageView) helper.getView(R.id.iv_system_pic));
         }
     }
 

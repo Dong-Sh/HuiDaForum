@@ -19,6 +19,7 @@ import com.huidaforum.bean.CommentBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CircleTransform;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -153,7 +154,10 @@ public class CommentActivity extends BaseActivity {
             }else {
                 helper.setVisible(R.id.tv_comment_title,false);
                 helper.setVisible(R.id.photoFlvPath,true);
-                Picasso.with(CommentActivity.this).load(item.getHeadPhoto()).fit()
+                Picasso.with(CommentActivity.this)
+                        .load(item.getHeadPhoto())
+                        .fit()
+                        .transform(new CircleTransform())
                         .into((ImageView) helper.getView(R.id.photoFlvPath));
             }
 

@@ -3,6 +3,7 @@ package com.huidaforum.activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -54,6 +55,8 @@ public class RecordActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        rvRecord.setLayoutManager(new LinearLayoutManager(RecordActivity.this));
+
         OkGo.<String>post(queryMoneyRecList).tag(this)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, RecordActivity.this))
