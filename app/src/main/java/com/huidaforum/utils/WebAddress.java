@@ -31,6 +31,11 @@ public class WebAddress {
     public final static String updateFindPwdByPhone = http + user + "/updateFindPwdByPhone";//通过手机号修改用户密码
     public final static String updateFindPwdByEmail = http + user + "/updateFindPwdByEmail";//通过邮箱找回密码
     public final static String listYwUserDetailInfo = http + user + "/listYwUserDetailInfo";// 显示当前用户详细信息
+    public final static String getMoneyNum = http + user + "/getMoneyNum";// 查询我的账号
+    public final static String createTxRec = http + "/txrec/createTxRec";// 提现
+    public final static String queryMoneyRecList = http + "/moneyrec/queryMoneyRecList";//交易记录
+
+
 
     public final static String getBySchoolName = http + school + "/getBySchoolName";//根据学校名称进行搜索学校(支持模糊查询)
     public final static String listSchoolNames = http + school + "/listSchoolNames";//显示所有的学校名称信息

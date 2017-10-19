@@ -30,6 +30,7 @@ import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.StringUtil;
 import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
@@ -121,7 +122,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 .execute(new StringCallback() {
 
                     public void onSuccess(Response<String> response) {
-                        bean = new Gson().fromJson(response.body().toString(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
+                        bean = new Gson().fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
 
                         }.getType());
                         if (bean.isSuccess()) {

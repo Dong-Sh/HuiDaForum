@@ -22,6 +22,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="70dp"/>
     <TextView
+        android:id="@+id/mine_money_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="当前余额0.00"
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
         <TextView
+            android:clickable="false"
             android:id="@+id/tv_money_tixian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,6 +51,7 @@
             android:text="提现"
             android:background="@drawable/mine_money_button" />
         <TextView
+            android:id="@+id/tv_money_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
