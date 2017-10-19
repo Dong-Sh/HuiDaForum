@@ -21,6 +21,7 @@ public class WebAddress {
     private static String award = "/award";//打赏相关
     private static String guanzhu = "/ywguanzhu";//我的关注
     private static String dianzan="/ywlaud";//点赞
+    private static String ywguanzhu="/ywguanzhu";//点赞
     private static String pic="/pic";//轮播图
     //用户
     public final static String register = http + user + "/reg";//注册
@@ -60,9 +61,10 @@ public class WebAddress {
     public final static String shoucanglistPages = http + shoucang + "/listPages";//我的收藏
     public final static String getshouchang = http + shoucang + "/getshouchang";//用户添加我的收藏
     public final static String shouchangdelect = http + shoucang + "/shouchangdelect";//用户删除我的收藏
-    public final static String getguanzhu = http + shoucang + "/getguanzhu";//用户添加我的关注
-    public final static String guanzhudelect = http + shoucang + "/guanzhudelect";//用户删除我的关注
+    public final static String getguanzhu = http + ywguanzhu + "/getguanzhu";//用户添加我的关注
+    public final static String guanzhudelect = http + ywguanzhu + "/guanzhudelect";//用户删除我的关注
     public final static String getzan=http+dianzan+"/getlaud";//用户点赞
+    public final static String lauddelect=http+dianzan+"/lauddelect";//用户点赞
     //短信
     public final static String sendUpdatePwdCode = http + phonemsg + "/sendUpdatePwdCode";//发送修改密码手机验证码
     public final static String sendBindNewPhoneCode = http + phonemsg + "/sendBindNewPhoneCode";//发送绑定新手机验证码

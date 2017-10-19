@@ -1,9 +1,14 @@
 package com.huidaforum.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +66,8 @@ public class MethodUtil {
                 yes = threeDrawable.getPinglun_yes();
                 no = threeDrawable.getPinglun_no();
                 break;
+            case StaticValue.GUANZHU:
+                break;
         }
 
         if (flag.equals("yes"))
@@ -75,7 +82,22 @@ public class MethodUtil {
         switch (view.getId()) {
             case R.id.tv_zan: {
                 if (schoolContentBean.getLaud().equals("yes")) {
-                    Toast.makeText(context, "你已经赞过了", Toast.LENGTH_SHORT).show();
+                    OkGo.<String>post(WebAddress.lauddelect)
+                            .params("ownerContentId", schoolContentBean.getId())
+                            .params("token", SpUtil.getString(StaticValue.TOKEN, context))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new Gson();
+                                    BaseBean baseBean = gson.fromJson(response.body(), BaseBean.class);
+                                    if (baseBean.isSuccess()) {
+                                        view.setCompoundDrawables(threeDrawable.getZan_no(), null, null, null);
+                                        schoolContentBean.setLaud("no");
+                                        int count = Integer.parseInt(((TextView) view).getText().toString()) - 1;
+                                        view.setText(count + "");
+                                    }
+                                }
+                            });
                 } else {
                     OkGo.<String>post(WebAddress.getzan)
                             .params("ownerContentId", schoolContentBean.getId())
@@ -130,6 +152,57 @@ public class MethodUtil {
                 }
                 break;
             }
+            case R.id.tv_guanzhu: {
+                if (schoolContentBean.getGhuanzhu().equals("yes")) {
+                    View inflate = LayoutInflater.from(context).inflate(R.layout.my_dialog, null);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                            .setView(inflate);
+                    final AlertDialog dialog = builder.create();
+                    inflate.findViewById(R.id.tv_mydialog_no).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    inflate.findViewById(R.id.tv_mydialog_yes).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            OkGo.<String>post(WebAddress.guanzhudelect)
+                                    .params("guanzhuUserId", schoolContentBean.getYwUserId())
+                                    .params("token", SpUtil.getString(StaticValue.TOKEN, context))
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+                                            view.setText("关注");
+                                            view.setBackgroundResource(R.drawable.guanzhu_shape);
+                                            Toast.makeText(context, "取消关注成功", Toast.LENGTH_SHORT).show();
+                                            schoolContentBean.setGhuanzhu("no");
+                                        }
+                                    });
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                    schoolContentBean.setShouchang("no");
+
+                } else {
+                    OkGo.<String>post(WebAddress.getguanzhu)
+                            .params("ywUserId", schoolContentBean.getYwUserId())
+                            .params("token", SpUtil.getString(StaticValue.TOKEN, context))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    view.setText("已关注");
+                                    view.setBackgroundResource(R.drawable.guanzhu_shape);
+                                    Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
+                                    schoolContentBean.setGhuanzhu("yes");
+                                }
+                            });
+                }
+                break;
+            }
+
         }
     }
 

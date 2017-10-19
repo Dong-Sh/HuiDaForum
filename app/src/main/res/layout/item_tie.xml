@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.zhy.android.percent.support.PercentLinearLayout
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -16,6 +16,7 @@
             android:id="@+id/civ_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:src="@mipmap/selection"
             app:civ_border_color="#999999"
             app:civ_border_width="2dp"
@@ -24,7 +25,9 @@
 
         <TextView
             android:id="@+id/tv_tie_nicheng"
+            android:layout_toRightOf="@id/civ_photo"
             android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:text="hello55555"
             app:layout_marginPercent="2%w"
@@ -34,20 +37,24 @@
             android:id="@+id/iv_guanfang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_tie_nicheng"
             android:layout_weight="2"
             android:scaleType="fitStart"
             android:src="@mipmap/guanfang"
             app:layout_widthPercent="12%w" />
 
         <TextView
-            android:id="@+id/iv_guanzhu"
+            android:id="@+id/tv_guanzhu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/guanzhu_shape"
+            android:layout_centerVertical="true"
             android:scaleType="fitEnd"
             android:text="关注"
             android:textAlignment="textEnd"
-            app:layout_marginRightPercent="5%w" />
-    </com.zhy.android.percent.support.PercentLinearLayout>
+            app:layout_marginLeftPercent="75%w" />
+    </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <ImageView
         android:id="@+id/iv_tie"

@@ -1,60 +1,44 @@
 package com.huidaforum.activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.huidaforum.MyApplication;
 import com.huidaforum.R;
-import com.huidaforum.adapter.GridViewAdapter;
-import com.huidaforum.base.BaseActivity;
+import com.huidaforum.adapter.MyAdapter;
 import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.base.BaseBean;
-import com.huidaforum.bean.PostingBean;
-import com.huidaforum.bean.SchoolBean;
 import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.bean.listPicBean;
 import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
-import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.FullyLinearLayoutManager;
+import com.huidaforum.view.MyScrollView;
 import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.jude.rollviewpager.adapter.LoopPagerAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
-
-import static android.R.attr.targetActivity;
 
 /**
  * Created by lenovo on 2017/10/13.
@@ -63,12 +47,10 @@ import static android.R.attr.targetActivity;
 public class SchoolActivity extends BaseBackActivity {
     private static final String TAG = "SchoolActivity";
 
-    RollPagerView rpvCommunity;
     @BindView(R.id.rlv_community)
     RecyclerView rlvCommunity;
 
     private BaseBean<List<SchoolContentBean>> baseBean;
-    private ThreeDrawable threeDrawable;
 
     @Override
     public int getLayoutId() {
@@ -77,7 +59,7 @@ public class SchoolActivity extends BaseBackActivity {
 
     @Override
     public void initView() {
-        threeDrawable = ((MyApplication) getApplication()).threeDrawable;
+
     }
 
     @Override
@@ -96,7 +78,7 @@ public class SchoolActivity extends BaseBackActivity {
                         baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
                         }.getType());
 
-                        Log.d(TAG, "onSuccess: " + baseBean.getData());
+                        Log.d(TAG, "abc " + baseBean.getData().get(1).toString());
 
                         setRecyclerViewData();
                     }
@@ -104,13 +86,11 @@ public class SchoolActivity extends BaseBackActivity {
     }
 
     private void setRecyclerViewData() {
-        rlvCommunity.setLayoutManager(new LinearLayoutManager(this));
-        SchoolRecylerViewAdapter schoolRecylerViewAdapter = new SchoolRecylerViewAdapter();
-        rpvCommunity = new RollPagerView(this);
-        rpvCommunity.setPlayDelay(1000);
+
+        rlvCommunity.setLayoutManager(new FullyLinearLayoutManager(this));
+        MyAdapter schoolRecylerViewAdapter = new MyAdapter(R.layout.item_tie, baseBean.getData());
         rpvSetAdapter();
-        rpvCommunity.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
-        schoolRecylerViewAdapter.addHeaderView(rpvCommunity);
+        rlvCommunity.setAdapter(schoolRecylerViewAdapter);
         schoolRecylerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SchoolContentBean schoolContentBean = baseBean.getData().get(i);
@@ -122,13 +102,14 @@ public class SchoolActivity extends BaseBackActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SchoolContentBean schoolContentBean = baseBean.getData().get(position);
                 Bundle bundle = new Bundle();
-                bundle.putString("id",schoolContentBean.getOwnerContentId());
+                bundle.putString("id", schoolContentBean.getOwnerContentId());
                 Intent intent = new Intent(SchoolActivity.this, PostingActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        rlvCommunity.setAdapter(schoolRecylerViewAdapter);
+
+        Log.d(TAG, "setRecyclerViewData: 加载成功");
     }
 
     private void rpvSetAdapter() {
@@ -140,18 +121,11 @@ public class SchoolActivity extends BaseBackActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        Log.d(TAG, "onSuccessPcic: "+response.body());
+                        Log.d(TAG, "onSuccessPcic: " + response.body());
                         BaseBean<List<listPicBean>> baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<listPicBean>>>() {
                         }.getType());
-                        if(baseBean.isSuccess()){
+                        if (baseBean.isSuccess()) {
                             List<listPicBean> data = baseBean.getData();
-                            if(data!=null && data.size()!=0){
-                                for(int i =0;i<data.size();i++){
-                                    listPicBean listPicBean = data.get(i);
-
-
-                                }
-                            }
                         }
                     }
 
@@ -160,7 +134,7 @@ public class SchoolActivity extends BaseBackActivity {
                         super.onCacheSuccess(response);
                     }
                 });
-        //rpvCommunity.setAdapter(new MyRollPageViewAdapter(this, imgs));
+
     }
 
     @Override
@@ -180,93 +154,26 @@ public class SchoolActivity extends BaseBackActivity {
         ButterKnife.bind(this);
     }
 
-    private class SchoolRecylerViewAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolder> {
+    class MyRollPageViewAdapter extends LoopPagerAdapter {
 
-        public SchoolRecylerViewAdapter() {
-            super(R.layout.item_tie, baseBean.getData());
-        }
+        private List<listPicBean> data;
 
-        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
-            if (flag.equals("yes"))
-                textView.setCompoundDrawables(yes, null, null, null);
-            else {
-                textView.setCompoundDrawables(no, null, null, null);
-            }
-        }
-
-        protected void convert(BaseViewHolder holder, SchoolContentBean item) {
-            holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
-                    .setText(R.id.tv_tie_title, item.getTitle())
-                    .setText(R.id.tv_tie_data, item.getContentText() + "")
-                    .setText(R.id.tv_zan, item.getZanCount() + "")
-                    .addOnClickListener(R.id.tv_zan)
-                    .addOnClickListener(R.id.tv_shoucang)
-                    .addOnClickListener(R.id.tv_pinglun);
-
-            TextView tv_zan = holder.getView(R.id.tv_zan);
-            TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
-            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
-            tv_zan.setText(item.getZanCount() + "");
-            Log.d(TAG, "convert: " + item.getZanCount());
-            setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
-            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
-            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
-            //是否有图片
-            if (item.getContentType().equals("picture")) {
-                ImageView iv_tie = holder.getView(R.id.iv_tie);
-                iv_tie.setVisibility(View.VISIBLE);
-                Picasso.with(SchoolActivity.this).load(item.getPhotoFlvPath()).into(iv_tie);
-            } else {
-                ImageView iv_tie = holder.getView(R.id.iv_tie);
-                iv_tie.setVisibility(View.GONE);
-            }
-            //是否为视频
-            if (item.getContentType().equals("flv")) {
-                JZVideoPlayerStandard jps = holder.getView(R.id.jps);
-                jps.setVisibility(View.VISIBLE);
-                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
-            } else {
-                JZVideoPlayerStandard jps = holder.getView(R.id.jps);
-                jps.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    class MyRollPageViewAdapter extends StaticPagerAdapter {
-
-        private Context context;
-        private int[] imgs;
-
-        public MyRollPageViewAdapter(Context context, int[] imgs) {
-            this.context = context;
-            this.imgs = imgs;
+        public MyRollPageViewAdapter(RollPagerView viewPager, List<listPicBean> data) {
+            super(viewPager);
+            this.data = data;
         }
 
         @Override
         public View getView(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(context);
-            imageView.setImageResource(imgs[position]);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            ImageView imageView = new ImageView(container.getContext());
+            Picasso.with(SchoolActivity.this).load(data.get(position).getDetailPhoto()).fit().into(imageView);
             return imageView;
         }
 
         @Override
-        public int getCount() {
-            return imgs.length;
+        public int getRealCount() {
+            return data.size();
         }
     }
 
-    class MyAlertDialog extends AlertDialog {
-
-        protected MyAlertDialog(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.);
-        }
-    }
 }

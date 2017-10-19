@@ -7,22 +7,28 @@ package com.huidaforum.bean;
 public class listPicBean {
 
     /**
-     * id : kasjdfi234sdjfadjf
-     * picUrlPath : C:\Users\ienovo\Pictures\Camera Roll
-     * picFilePath : C:\Users\ienovo\Pictures\Camera Roll\22.jpg
-     * ownerModel : 37e49a6c94794bec907817d10d10b53a
-     * ownerUserId : adfadfadfeadfcv23d
-     * createTime : 2017-08-30 09:07:36
-     * createUsername : 李春辉
+     * id : 18d34db8e4b241469cbe47f423aeeddd
+     * ownerModelId : 1bab5195d8984ffda5cd62999263e05d
+     * ownerUserId : 02abe791-fb78-4062-9dee-a62aa7784daa
+     * createTime : 2017-10-18 11:34:53
+     * createUsername : 王振
+     * detailPhoto : http://114.115.208.130/imgfile/2017/10/18/ce6259d5d0ae49a9b6036e1e02b97117.png
+     * detailText : null
+     * orderNumber : 3
+     * qiyongFlag : yes
+     * detailPhotoUrl : 3
      */
 
     private String id;
-    private String picUrlPath;
-    private String picFilePath;
-    private String ownerModel;
+    private String ownerModelId;
     private String ownerUserId;
     private String createTime;
     private String createUsername;
+    private String detailPhoto;
+    private Object detailText;
+    private int orderNumber;
+    private String qiyongFlag;
+    private String detailPhotoUrl;
 
     public String getId() {
         return id;
@@ -32,28 +38,12 @@ public class listPicBean {
         this.id = id;
     }
 
-    public String getPicUrlPath() {
-        return picUrlPath;
+    public String getOwnerModelId() {
+        return ownerModelId;
     }
 
-    public void setPicUrlPath(String picUrlPath) {
-        this.picUrlPath = picUrlPath;
-    }
-
-    public String getPicFilePath() {
-        return picFilePath;
-    }
-
-    public void setPicFilePath(String picFilePath) {
-        this.picFilePath = picFilePath;
-    }
-
-    public String getOwnerModel() {
-        return ownerModel;
-    }
-
-    public void setOwnerModel(String ownerModel) {
-        this.ownerModel = ownerModel;
+    public void setOwnerModelId(String ownerModelId) {
+        this.ownerModelId = ownerModelId;
     }
 
     public String getOwnerUserId() {
@@ -80,16 +70,43 @@ public class listPicBean {
         this.createUsername = createUsername;
     }
 
-    @Override
-    public String toString() {
-        return "listPicBean{" +
-                "id='" + id + '\'' +
-                ", picUrlPath='" + picUrlPath + '\'' +
-                ", picFilePath='" + picFilePath + '\'' +
-                ", ownerModel='" + ownerModel + '\'' +
-                ", ownerUserId='" + ownerUserId + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", createUsername='" + createUsername + '\'' +
-                '}';
+    public String getDetailPhoto() {
+        return detailPhoto;
+    }
+
+    public void setDetailPhoto(String detailPhoto) {
+        this.detailPhoto = detailPhoto;
+    }
+
+    public Object getDetailText() {
+        return detailText;
+    }
+
+    public void setDetailText(Object detailText) {
+        this.detailText = detailText;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getQiyongFlag() {
+        return qiyongFlag;
+    }
+
+    public void setQiyongFlag(String qiyongFlag) {
+        this.qiyongFlag = qiyongFlag;
+    }
+
+    public String getDetailPhotoUrl() {
+        return detailPhotoUrl;
+    }
+
+    public void setDetailPhotoUrl(String detailPhotoUrl) {
+        this.detailPhotoUrl = detailPhotoUrl;
     }
 }

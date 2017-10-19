@@ -23,4 +23,5 @@ public class StaticValue {
     public static final int ZAN = 1;
     public static final int SHOWCANG = 2;
     public static final int PINGLUN = 3;
+    public static final int GUANZHU = 4;
 }

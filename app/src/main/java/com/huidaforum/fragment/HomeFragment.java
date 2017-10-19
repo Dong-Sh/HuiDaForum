@@ -1,7 +1,6 @@
 package com.huidaforum.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,12 +22,11 @@ import com.google.gson.reflect.TypeToken;
 import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
-import com.huidaforum.activity.SchoolActivity;
 import com.huidaforum.activity.PostingActivity;
+import com.huidaforum.adapter.MyAdapter;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.SchoolContentBean;
-import com.huidaforum.utils.FitStateUI;
 import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
@@ -38,6 +36,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -53,6 +53,7 @@ import cn.jzvd.JZVideoPlayerStandard;
  */
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
+    private static final String TAG = "HomeFragment";
     @BindView(R.id.rlv_home)
     RecyclerView rlvHome;
     @BindView(R.id.srl_home)
@@ -65,18 +66,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Button bt_selection;
     private View view;
     private BaseBean<List<SchoolContentBean>> bean;
-    private ThreeDrawable threeDrawable;
+    private MyAdapter adapter;
 
     @Override
     public View initView() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home, null);
+
         return view;
     }
 
     @Override
     protected void initData() {
-        threeDrawable = ((MyApplication) mActivity.getApplication()).threeDrawable;
         view = View.inflate(mActivity, R.layout.top_home, null);
+
         ImageButton ib_home = (ImageButton) view.findViewById(R.id.ib_home);
         Button bt_home = (Button) view.findViewById(R.id.bt_home);
         bt_home.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +103,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
 
+        initNetData(false);
+        if (rlvHome.getAdapter() != null) {
+            adapter = (MyAdapter) rlvHome.getAdapter();
+        } else {
+            adapter = new MyAdapter(R.layout.item_tie,null);
+            adapter.addHeaderView(view);
+        }
+        rlvHome.setAdapter(adapter);
+        rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
+    }
+
+    private void initNetData(final boolean flag) {
         OkGo.<String>post(WebAddress.listAllContents)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
@@ -112,8 +126,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         }.getType());
                         if (bean.isSuccess()) {
                             pareDataFromNet();
-                        }else {
+                        } else {
                             Toast.makeText(mActivity, bean.getErrMsg(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        if (flag) {
+                            srlHome.finishRefresh();
                         }
 
                     }
@@ -125,22 +143,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     }
 
                 });
-
-
     }
 
     public void pareDataFromNet() {
-        MyAdapter adapter = new MyAdapter();
-        adapter.addHeaderView(view);
-        rlvHome.setAdapter(adapter);
-        rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
+        adapter.setNewData(bean.getData());
+        adapter.notifyDataSetChanged();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
                 SchoolContentBean schoolContentBean = bean.getData().get(position);
                 Bundle bundle = new Bundle();
-                bundle.putString("id",schoolContentBean.getOwnerContentId());
+                bundle.putString("id", schoolContentBean.getOwnerContentId());
                 Intent intent = new Intent(mActivity, PostingActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -150,7 +164,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 SchoolContentBean schoolContentBean = bean.getData().get(position);
-                MethodUtil.zanAndshoucang(mActivity,(TextView)view,schoolContentBean);
+                MethodUtil.zanAndshoucang(mActivity, (TextView) view, schoolContentBean);
             }
         });
     }
@@ -184,6 +198,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_popular.setOnClickListener(this);
         bt_infomation.setOnClickListener(this);
         bt_selection.setOnClickListener(this);
+        srlHome.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                initNetData(true);
+            }
+        });
     }
 
 
@@ -207,59 +227,4 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         unbinder.unbind();
     }
 
-    class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolder> {
-
-        public MyAdapter() {
-            super(R.layout.item_tie, bean.getData());
-        }
-
-        @Override
-        protected void convert(BaseViewHolder holder, SchoolContentBean item) {
-            holder.setText(R.id.tv_tie_nicheng, item.getNickName())
-                    .setText(R.id.tv_tie_title, item.getTitle())
-                    .setText(R.id.tv_tie_data, item.getContentText() + "")
-                    .setText(R.id.tv_zan,item.getZanCount()+"")
-                    .addOnClickListener(R.id.tv_zan)
-                    .addOnClickListener(R.id.tv_shoucang)
-                    .addOnClickListener(R.id.tv_pinglun);
-
-            TextView tv_zan = holder.getView(R.id.tv_zan);
-            TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
-            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
-            tv_zan.setText(item.getZanCount()+"");
-            Log.d(TAG, "convert: "+item.getShouchang());
-            /*setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
-            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
-            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());*/
-
-            MethodUtil.setTextDrawableLeft(mActivity,tv_zan,StaticValue.ZAN,item.getLaud());
-            MethodUtil.setTextDrawableLeft(mActivity,tv_shoucang,StaticValue.SHOWCANG,item.getLaud());
-            MethodUtil.setTextDrawableLeft(mActivity,tv_pinglun,StaticValue.PINGLUN,item.getLaud());
-            //是否有图片
-            if (item.getContentType().equals("picture")) {
-                ImageView iv_tie = holder.getView(R.id.iv_tie);
-                iv_tie.setVisibility(View.VISIBLE);
-                Picasso.with(mActivity).load(item.getPhotoFlvPath()).into(iv_tie);
-            } else {
-                ImageView iv_tie = holder.getView(R.id.iv_tie);
-                iv_tie.setVisibility(View.GONE);
-            }
-            //是否为视频
-            if (item.getContentType().equals("flv")) {
-                JZVideoPlayerStandard jps = holder.getView(R.id.jps);
-                jps.setVisibility(View.VISIBLE);
-                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
-            } else {
-                JZVideoPlayerStandard jps = holder.getView(R.id.jps);
-                jps.setVisibility(View.GONE);
-            }
-        }
-        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
-            if (flag.equals("yes"))
-                textView.setCompoundDrawables(yes, null, null, null);
-            else {
-                textView.setCompoundDrawables(no, null, null, null);
-            }
-        }
-    }
 }

@@ -8,4 +8,5 @@
     <color name="red">#ff3515</color>
     <color name="gary_textcolor">#6e6c6d</color>
     <color name="bg">#77000000</color>
+    <color name="t">#00000000</color>
 </resources>
