@@ -63,7 +63,7 @@ public class MineCommentActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        OkGo.<String>post(WebAddress.commentyMe)
+        OkGo.<String>post(WebAddress.answerPage)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, this))
                 .execute(new StringCallback() {

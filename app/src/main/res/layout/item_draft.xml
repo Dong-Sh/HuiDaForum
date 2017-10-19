@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.huidaforum.view.SwipeItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_item_draft_dele"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/draft_dele"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_item_draft_time"
+                        android:textColor="@color/gary_textcolor"
+                        android:text="9月20 下午12:30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_item_draft_resend"
+                        android:textSize="13sp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/resend_shape"
+                        android:text="重发"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/iv_item_draft_pic"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/ic_launcher"
+                        android:layout_width="140dp"
+                        android:layout_height="95dp" />
+
+                    <TextView
+                        android:id="@+id/tv_item_draft_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开始倒计时，新年就要到啦，你回家了吗//这个说的好，转发"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_item_draft_dele"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:text="删除"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:background="@color/red"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</com.huidaforum.view.SwipeItemLayout>
