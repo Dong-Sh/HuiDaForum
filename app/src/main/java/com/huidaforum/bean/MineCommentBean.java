@@ -12,20 +12,21 @@ public class MineCommentBean {
 
     /**
      * id : null
-     * createTime : 2017-10-16 14:34:05
+     * createTime : null
      * ywUserId : 50fe35a63fa54180bb7d49dee689bca1
      * ownerContentId : 44bbb296e78945b3b1380c9a2678de6c
      * ownerAnswerId : null
-     * ownerText : 66666
+     * ownerText : null
+     * zanCount : null
      * title : qwer
      * nickName : YL
      * headPhoto : http://114.115.208.130:80/phone/20170924\c91c9d471a6f7c4acf43c72e9734d446.jpg
-     * photoFlvPath : null
-     * contentCode : null
+     * photoFlvPath : http://owx7eunef.bkt.clouddn.com/44bbb296e78945b3b1380c9a2678de6c
+     * contentCode : CONTENT201710150000000013
      * offical : 0
      * officialFlag : no
-     * laud : no
-     * shouchang : no
+     * laud : yes
+     * shouchang : yes
      * list : null
      * children : []
      */
@@ -36,6 +37,7 @@ public class MineCommentBean {
     private String ownerContentId;
     private String ownerAnswerId;
     private String ownerText;
+    private String zanCount;
     private String title;
     private String nickName;
     private String headPhoto;
@@ -94,6 +96,14 @@ public class MineCommentBean {
 
     public void setOwnerText(String ownerText) {
         this.ownerText = ownerText;
+    }
+
+    public String getZanCount() {
+        return zanCount;
+    }
+
+    public void setZanCount(String zanCount) {
+        this.zanCount = zanCount;
     }
 
     public String getTitle() {

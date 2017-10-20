@@ -23,6 +23,7 @@ public class WebAddress {
     private static String dianzan="/ywlaud";//点赞
     private static String ywguanzhu="/ywguanzhu";//点赞
     private static String pic="/pic";//轮播图
+    private static String ywanswer = "/ywanswer";
     //用户
     public final static String register = http + user + "/reg";//注册
     public final static String login = http + user + "/login";//登录
@@ -76,8 +77,11 @@ public class WebAddress {
     public final static String sendBindOraPhoneCode = http + phonemsg + "/sendBindOraPhoneCode";//发送绑定原机验证码
     public final static String sendRegistCode = http + phonemsg + "/sendRegistCode";//发送注册短信验证码
     public final static String sendFindPwdCode = http + phonemsg + "/sendFindPwdCode";//发送找回密码手机验证码
+    //关注
     public final static String mineFocus = http+guanzhu+"/listPage";//用户分页查看我的关注（ｙｌ）
     public final static String deleteMineFocus = http+guanzhu+"/guanzhudelect";//删除我的关注
+    //我的评论
+    public final static String answerPage = http +ywanswer+"/listPage";
     //sdcard 基础保存位置
     public final static String CachePath = Environment.getExternalStorageDirectory().getPath()+
             File.separator+"HuidaForum";
