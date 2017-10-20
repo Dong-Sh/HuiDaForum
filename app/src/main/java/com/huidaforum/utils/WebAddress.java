@@ -46,8 +46,9 @@ public class WebAddress {
     public final static String getContentsById = http + content + "/getContentsById";//通过id获取到当前用户发表过的文章信息
     public final static String listForCountDetailInfo = http + content + "/listForCountDetailInfo";//获取帖子详情
     public final static String listForContentAnswer = "http://114.115.208.130/yw/ywanswer/listForContentAnswer";//显示帖子所有评论
+    public final static String saveContent = http + content + "/saveContent";//发表文章，包含上传图片视频
+    public final static String saveContentDraft = http + content + "/saveContentDraft";//保存草稿，包含上传图片视频
 
-    public final static String saveContent = http + content + "/saveContent";//将编辑的文章信息保存到草稿箱或者发表，包含上传图片视频
     public final static String updateContent = http + content + "/updateContent";//修改草稿箱的文章信息
     public final static String deleteContentByUser = http + content + "/deleteContentByUser";//删除登录用户自己发表的文章记录
     public final static String seleteByContentState = http + content + "/seleteByContentState";//我的草稿箱显示

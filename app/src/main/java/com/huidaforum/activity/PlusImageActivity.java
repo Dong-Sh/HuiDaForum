@@ -97,7 +97,13 @@ public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                       mList.remove(mPosition);
-                      positionTv.setText(mPosition+1+"/"+mList.size());
+                if (mList.size()!=0){
+                    positionTv.setText(mPosition+1+"/"+mList.size());
+
+                }else {
+                    positionTv.setText(mPosition+"/"+mList.size());
+
+                }
                       viewPager.setCurrentItem(mPosition);
                       adapter.notifyDataSetChanged();
 

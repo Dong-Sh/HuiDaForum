@@ -13,6 +13,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,18 +26,34 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
 import com.huidaforum.adapter.GridViewAdapter;
 import com.huidaforum.base.BaseActivity;
+import com.huidaforum.base.BaseBean;
+import com.huidaforum.utils.SpUtil;
+import com.huidaforum.utils.StaticValue;
+import com.huidaforum.utils.StringUtil;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static com.huidaforum.R.color.t;
+import static com.huidaforum.R.id.release_send;
+import static com.huidaforum.utils.WebAddress.saveContent;
+import static com.huidaforum.utils.WebAddress.saveContentDraft;
 //发布页面
 
 public class ReleaseActivity extends BaseActivity {
@@ -43,7 +61,7 @@ public class ReleaseActivity extends BaseActivity {
 
     @BindView(R.id.gv_photo)
     GridView gvPhoto;
-    @BindView(R.id.release_send)
+    @BindView(release_send)
     Button releaseSend;
     @BindView(R.id.release_back)
     Button releaseBack;
@@ -55,6 +73,9 @@ public class ReleaseActivity extends BaseActivity {
     ImageButton ibBofang;
     private ArrayList<String> mPicList = new ArrayList<>();
     private GridViewAdapter gridViewAdapter;
+    private ArrayList<File> files=null;
+    private String url;
+    private boolean isback=true;//是否可以退出  TRUE=可以退出  FALSE=不可以退出
 
     @Override
     public int getLayoutId() {
@@ -67,7 +88,7 @@ public class ReleaseActivity extends BaseActivity {
         releaseBack.setOnClickListener(this);
         releaseSend.setOnClickListener(this);
         ArrayList<String> list = getIntent().getStringArrayListExtra("list");
-        final String url = getIntent().getStringExtra("url");
+        url = getIntent().getStringExtra("url");
         String photo = getIntent().getStringExtra("photo");//视频的图片
         int style = getIntent().getIntExtra("style", 0);
         switch (style) {
@@ -84,7 +105,7 @@ public class ReleaseActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(ReleaseActivity.this,FullscreenActivity.class);
-                        intent.putExtra("url",url);
+                        intent.putExtra("url", url);
                         startActivity(intent);
                     }
                 });
@@ -117,20 +138,76 @@ public class ReleaseActivity extends BaseActivity {
             case R.id.release_back:
                 back();
                 break;
-            case R.id.release_send:
+            case release_send:
                 send();
                 break;
         }
     }
 
     private void send() {
-        Toast.makeText(this, "发布", Toast.LENGTH_SHORT).show();
+        releaseSend.setEnabled(false);
         String title = etTitle.getText().toString().trim();
         String text = etText.getText().toString().trim();
+        if (TextUtils.isEmpty(title)||TextUtils.isEmpty(text)){
+            Toast.makeText(this,"标题或正文不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        urlToFile();
+        isback=false;
+        OkGo.<String>post(saveContent).tag(this)
+                .params("devType","phone")
+                .params("token", SpUtil.getString(StaticValue.TOKEN, this))
+                .params("contentState","publish")
+                .params("title",title)
+                .params("contentText",text)
+                .addFileParams("file",files)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {//网络连接成功
+                        Gson gson = new Gson();
+                        BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
+                        }.getType());
+                        if (baseBean.isSuccess()){
+                            Toast.makeText(ReleaseActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else {
+                            Toast.makeText(ReleaseActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
+                            releaseSend.setEnabled(true);
+                            isback=true;
+                        }
+                    }
+                });
 
     }
 
+    private void urlToFile() {
+        files = new ArrayList<>();
+        if (mPicList.size()==0){
+            if (!TextUtils.isEmpty(url)){
+                files.add(new File(url));
+            }
+        }else {
+            for (String picUrl:mPicList ) {
+                files.add(new File(picUrl));
+            }
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (!isback){
+            Toast.makeText(this, "正在发布文章或保存至草稿箱无法退出", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
     private void back() {
+        if (!isback){
+            Toast.makeText(this, "正在发布文章或保存至草稿箱无法退出", Toast.LENGTH_SHORT).show();
+            return;
+        }
         new AlertDialog.Builder(ReleaseActivity.this)
                 .setCancelable(false)
                 .setMessage("是否保存至我的草稿")
@@ -143,7 +220,36 @@ public class ReleaseActivity extends BaseActivity {
                 }).setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(ReleaseActivity.this, "保存", Toast.LENGTH_SHORT).show();
+                isback = false;
+                String title = etTitle.getText().toString().trim();
+                String text = etText.getText().toString().trim();
+                if (TextUtils.isEmpty(title)||TextUtils.isEmpty(text)){
+                    Toast.makeText(ReleaseActivity.this,"标题或正文不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                urlToFile();
+                OkGo.<String>post(saveContentDraft).tag(this)
+                        .params("devType","phone")
+                        .params("token", SpUtil.getString(StaticValue.TOKEN, ReleaseActivity.this))
+                        .params("contentState","draft")
+                        .params("title",title)
+                        .params("contentText",text)
+                        .addFileParams("file",files)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {//网络连接成功
+                                Gson gson = new Gson();
+                                BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
+                                }.getType());
+                                if (baseBean.isSuccess()){
+                                    Toast.makeText(ReleaseActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }else {
+                                    Toast.makeText(ReleaseActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+                                    isback=true;
+                                }
+                            }
+                        });
 
             }
         }).show();
@@ -161,14 +267,14 @@ public class ReleaseActivity extends BaseActivity {
                         gridViewAdapter.notifyDataSetChanged();
                     }
                     break;
+            }
 
-            }
-            if (requestCode == 0 && resultCode == 11) {
-                ArrayList<String> list = data.getStringArrayListExtra("list");
-                mPicList.clear();
-                mPicList.addAll(list);
-                gridViewAdapter.notifyDataSetChanged();
-            }
+        }
+        if (requestCode == 10 &&resultCode == 11) {
+            ArrayList<String> list = data.getStringArrayListExtra("list");
+            mPicList.clear();
+            mPicList.addAll(list);
+            gridViewAdapter.notifyDataSetChanged();
         }
     }
 
@@ -189,8 +295,11 @@ public class ReleaseActivity extends BaseActivity {
 
     private void takePhoto() {
         gvPhoto.setVisibility(View.VISIBLE);
-        gridViewAdapter = new GridViewAdapter(ReleaseActivity.this, mPicList);
-        gvPhoto.setAdapter(gridViewAdapter);
+        if (gridViewAdapter==null){
+            gridViewAdapter = new GridViewAdapter(ReleaseActivity.this, mPicList);
+            gvPhoto.setAdapter(gridViewAdapter);
+        }
+
         gvPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -220,7 +329,7 @@ public class ReleaseActivity extends BaseActivity {
         });
 
     }
-
+    
     private void seeLargeImage(int position) {
         Intent intent = new Intent(ReleaseActivity.this, PlusImageActivity.class);
         intent.putStringArrayListExtra("list", mPicList);

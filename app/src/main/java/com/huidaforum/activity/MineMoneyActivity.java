@@ -65,6 +65,8 @@ public class MineMoneyActivity extends BaseActivity {
                                 mineMoneyNum.setText(mineMoneyBean.getMoneyNum() + "");
                                 if (mineMoneyBean.getMoneyNum() >= 50) {
                                     tvMoneyTixian.setClickable(true);
+                                }else {
+                                    tvMoneyTixian.setClickable(false);
                                 }
                             }
                         }

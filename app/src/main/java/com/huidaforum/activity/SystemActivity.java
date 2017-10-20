@@ -2,6 +2,7 @@ package com.huidaforum.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,11 +43,6 @@ public class SystemActivity extends BaseActivity {
     private List<SystemBean> systemBeanList;
     private SystemAdapter systemAdapter;
 
-    //系统消息
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public int getLayoutId() {
@@ -61,6 +57,8 @@ public class SystemActivity extends BaseActivity {
     @Override
     public void initData() {
         //下拉刷新头样式
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SystemActivity.this);
+        rv_System.setLayoutManager(linearLayoutManager);
         sr_system.setRefreshHeader(new MaterialHeader(this).setShowBezierWave(true));
 
         getOkGo();//调用从网络获取系统消息方法
@@ -68,6 +66,7 @@ public class SystemActivity extends BaseActivity {
 
     @Override
     public void initListener() {
+
         //下拉刷新监听
         sr_system.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -104,7 +103,6 @@ public class SystemActivity extends BaseActivity {
                                 }.getType());
                         if (baseBean.isSuccess()) {
                             systemBeanList = baseBean.getData();
-                            rv_System.setLayoutManager(new LinearLayoutManager(SystemActivity.this));
                             if (systemAdapter == null) {
                                 systemAdapter = new SystemAdapter();
                                 rv_System.setAdapter(systemAdapter);
