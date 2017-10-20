@@ -70,7 +70,7 @@ public class MineDraftActivity extends BaseActivity {
     public void initData() {
         getData();
     }
-
+    //获取数据
     private void getData() {
         OkGo.<String>post(WebAddress.seleteByContentState)
                 .params("devType","phone")
@@ -89,8 +89,9 @@ public class MineDraftActivity extends BaseActivity {
                     }
                 });
     }
-
+    //解析数据
     private void parseData(List<MineDraftBean> data) {
+        //如果没有数据 就显示暂无草稿
         if(data.size()==0){
             llPublishEmpty.setVisibility(View.VISIBLE);
             frDraft.setVisibility(View.INVISIBLE);

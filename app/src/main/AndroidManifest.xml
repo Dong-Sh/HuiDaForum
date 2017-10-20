@@ -64,6 +64,7 @@
         <activity android:name=".activity.CameraViewActivity"></activity>
         <activity android:name=".activity.PlusImageActivity"></activity>
         <activity android:name=".activity.FullscreenActivity" />
+        <activity android:name=".activity.ForwardContentActivity"></activity>
     </application>
 
 </manifest>
