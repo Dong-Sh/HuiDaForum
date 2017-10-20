@@ -18,7 +18,7 @@
         android:id="@+id/et_forward_talk"
         android:padding="10dp"
         android:gravity="top"
-        android:textColor="12sp"
+        android:textSize="13sp"
         android:hint="说说你的分享心得吧..."
         android:background="@android:color/transparent"
         app:layout_heightPercent = "39%w"
@@ -48,7 +48,7 @@
                 android:layout_height="22dp" />
             <TextView
                 android:textSize="13sp"
-                android:layout_margineft="2dp"
+                android:layout_marginLeft="2dp"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:text="表情"
@@ -111,5 +111,9 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/linecolor"/>
 
 </com.zhy.android.percent.support.PercentLinearLayout>

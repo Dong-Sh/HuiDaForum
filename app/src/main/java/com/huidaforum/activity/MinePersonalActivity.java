@@ -468,7 +468,7 @@ public class MinePersonalActivity extends BaseActivity {
                 }
                 break;
             case 2:
-                if(data !=null) {
+                if(resultCode==RESULT_OK){
                     File temp = new File(WebAddress.IconPath + File.separator + "temp.jpg");
                     startPhotoZoom(Uri.fromFile(temp));
                 }
