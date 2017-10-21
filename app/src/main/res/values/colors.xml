@@ -9,4 +9,5 @@
     <color name="gary_textcolor">#6e6c6d</color>
     <color name="bg">#77000000</color>
     <color name="t">#00000000</color>
+    <color name="txbg">#f6f2f2</color>
 </resources>
