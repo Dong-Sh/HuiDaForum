@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huidaforum.MyApplication;
 import com.huidaforum.R;
+import com.huidaforum.adapter.MyAdapter;
 import com.huidaforum.base.BaseBackActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.InvitationBean;
@@ -116,24 +117,8 @@ public class HomePopularActivity extends BaseBackActivity {
     public void pareDataFormNet() {
 
         rlv_tie.setLayoutManager(new LinearLayoutManager(HomePopularActivity.this));
-        MyAdapter adapter = new MyAdapter();
+        MyAdapter adapter = new MyAdapter(R.layout.item_tie,bean.getData());
         rlv_tie.setAdapter(adapter);
-        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
-        //每个条目的点击事件
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(HomePopularActivity.this, "点击了当前" + position + "条目", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //点击子控件的事件
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                SchoolContentBean schoolContentBean = bean.getData().get(position);
-                MethodUtil.zanAndshoucang(HomePopularActivity.this,(TextView)view,schoolContentBean);
-            }
-        });
     }
 
     public void initListener() {
@@ -146,59 +131,6 @@ public class HomePopularActivity extends BaseBackActivity {
 
     }
 
-
-    class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolder> {
-
-        public MyAdapter() {
-            super(R.layout.item_tie, bean.getData());
-        }
-
-        @Override
-        protected void convert(BaseViewHolder holder, SchoolContentBean item) {
-            holder.setText(R.id.tv_tie_nicheng, item.getNickName() + "")
-                    .setText(R.id.tv_tie_title, item.getTitle())
-                    .setText(R.id.tv_tie_data, item.getContentTextShort() + "")
-                    .setText(R.id.tv_zan,item.getZanCount()+"")
-                    .addOnClickListener(R.id.tv_zan)
-                    .addOnClickListener(R.id.tv_shoucang)
-                    .addOnClickListener(R.id.tv_pinglun);
-
-            TextView tv_zan = holder.getView(R.id.tv_zan);
-            TextView tv_shoucang = holder.getView(R.id.tv_shoucang);
-            TextView tv_pinglun = holder.getView(R.id.tv_pinglun);
-            setTextDrawableLeft(tv_zan, threeDrawable.getZan_no(), threeDrawable.getZan_yes(), item.getLaud());
-            setTextDrawableLeft(tv_pinglun, threeDrawable.getPinglun_no(), threeDrawable.getPinglun_yes(), item.getAnswer());
-            setTextDrawableLeft(tv_shoucang, threeDrawable.getShoucang_no(), threeDrawable.getShoucang_yes(), item.getShouchang());
-
-
-            //是否有图片
-            if (item.getContentType().equals("picture")) {
-                ImageView iv_tie = holder.getView(R.id.iv_tie);
-                iv_tie.setVisibility(View.VISIBLE);
-                Picasso.with(HomePopularActivity.this).load(item.getPhotoFlvPath()).into(iv_tie);
-            } else {
-                ImageView iv_tie = holder.getView(R.id.iv_tie);
-                iv_tie.setVisibility(View.GONE);
-            }
-            //是否为视频
-            if (item.getContentType().equals("flv")) {
-                JZVideoPlayerStandard jps = holder.getView(R.id.jps);
-                jps.setVisibility(View.VISIBLE);
-                jps.setUp(item.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
-            } else {
-                JZVideoPlayerStandard jps = holder.getView(R.id.jps);
-                jps.setVisibility(View.GONE);
-            }
-        }
-
-        private void setTextDrawableLeft(TextView textView, Drawable no, Drawable yes, String flag) {
-            if (flag.equals("yes"))
-                textView.setCompoundDrawables(yes, null, null, null);
-            else {
-                textView.setCompoundDrawables(no, null, null, null);
-            }
-        }
-    }
 
 
 

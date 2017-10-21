@@ -37,6 +37,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.squareup.picasso.Picasso;
@@ -72,7 +73,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public View initView() {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.fragment_home, null);
-
         return view;
     }
 
@@ -149,25 +149,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void pareDataFromNet() {
         adapter.setNewData(bean.getData());
         adapter.notifyDataSetChanged();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-                SchoolContentBean schoolContentBean = bean.getData().get(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", schoolContentBean.getOwnerContentId());
-                Intent intent = new Intent(mActivity, PostingActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                SchoolContentBean schoolContentBean = bean.getData().get(position);
-                MethodUtil.zanAndshoucang(mActivity, (TextView) view, schoolContentBean);
-            }
-        });
     }
 
     @Override

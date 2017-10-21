@@ -123,7 +123,7 @@ public class MethodUtil {
             case R.id.tv_shoucang: {
                 if (schoolContentBean.getShouchang().equals("yes")) {
                     OkGo.<String>post(WebAddress.shouchangdelect)
-                            .params("contentCode", schoolContentBean.getId())
+                            .params("id", schoolContentBean.getId())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
                             .execute(new StringCallback() {
                                 @Override
@@ -136,7 +136,7 @@ public class MethodUtil {
 
                 } else {
                     OkGo.<String>post(WebAddress.getshouchang)
-                            .params("contentCode", schoolContentBean.getId())
+                            .params("id", schoolContentBean.getId())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
                             .execute(new StringCallback() {
                                 @Override

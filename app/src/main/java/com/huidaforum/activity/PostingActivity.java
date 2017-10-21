@@ -3,8 +3,8 @@ package com.huidaforum.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,17 +15,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
-import com.huidaforum.bean.PostingBean;
 import com.huidaforum.bean.PostingCommentBean;
 import com.huidaforum.bean.SchoolContentBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StringUtil;
-import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -38,22 +35,17 @@ import butterknife.BindView;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
-import static android.R.attr.name;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static com.huidaforum.R.id.tv_posting_content;
-
 
 public class PostingActivity extends BaseActivity {
-    //帖子详情
-    @BindView(R.id.iv_posting_pic)
-    ImageView ivPostingPic;
-    @BindView(R.id.rl_posting_pic)
-    RelativeLayout rlPostingPic;
+    @BindView(R.id.ib_posting_share)
+    ImageButton ibPostingShare;
+    @BindView(R.id.ll_posting_iorv)
+    LinearLayout llPostingIorv;
     @BindView(R.id.tv_posting_title)
     TextView tvPostingTitle;
     @BindView(R.id.rl_posting_title)
     RelativeLayout rlPostingTitle;
-    @BindView(tv_posting_content)
+    @BindView(R.id.tv_posting_content)
     TextView tvPostingContent;
     @BindView(R.id.iv_posting_fabulous)
     ImageView ivPostingFabulous;
@@ -69,17 +61,13 @@ public class PostingActivity extends BaseActivity {
     LinearLayout llPost;
     @BindView(R.id.rl_pinglun)
     RelativeLayout rlPinglun;
-    @BindView(R.id.ib_posting_share)
-    ImageButton ibPostingShare;
     @BindView(R.id.rv_posting)
     RecyclerView rvPosting;
+    //帖子详情
 
-    @BindView(R.id.jps)
-    JZVideoPlayerStandard jps;
 
     private List<PostingCommentBean> postingBeanList;
     private PostingAdapter postingAdapter;
-    private ThreeDrawable threeDrawable;
 
 
     @Override
@@ -94,46 +82,41 @@ public class PostingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        threeDrawable = ((MyApplication) getApplication()).threeDrawable;
+
     }
-//帖子详情
+
+    //帖子详情
     @Override
     public void initData() {
-
         Bundle bundle = getIntent().getExtras();
         String id = bundle.getString("id");
         OkGo.<String>post(WebAddress.listForCountDetailInfo)
                 .tag(this)
                 .params("token", SpUtil.getString(StaticValue.TOKEN, PostingActivity.this))
-                .params("devType", "phone")
                 .params("id", id)
                 .execute(new StringCallback() {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         BaseBean<SchoolContentBean> baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<SchoolContentBean>>() {
                         }.getType());
-                        if (baseBean.isSuccess()) {
+                        if (baseBean.isSuccess() && baseBean.getData() != null) {
                             SchoolContentBean postingBean = baseBean.getData();
-                            //是否为视频
-                            if (postingBean==null) return;
-                            if ("flv".equals(postingBean.getContentType())) {
-
-                                jps.setVisibility(View.VISIBLE);
-                                ivPostingPic.setVisibility(View.GONE);
-                                jps.setUp(postingBean.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
-
-                            } else {
-                                jps.setVisibility(View.GONE);
-                                ivPostingPic.setVisibility(View.VISIBLE);
-                                Picasso.with(PostingActivity.this).load(postingBean.getPhotoFlvPath()).fit()
-                                        .into(ivPostingPic);
-
+                            if(postingBean.getContentPics()!=null && postingBean.getContentPics().size()!=0){
+                                List<SchoolContentBean.ContentPicsBean> contentPics = postingBean.getContentPics();
+                                for(int i =0;i<contentPics.size();i++){
+                                    ImageView imageView = new ImageView(PostingActivity.this);
+                                    Picasso.with(PostingActivity.this).load(contentPics.get(i).getPhotoFlvPath()).fit().into(imageView);
+                                    llPostingIorv.addView(imageView);
+                                }
                             }
-
+                            if(postingBean.getContentType()!=null && postingBean.getContentType().equals("flv")){
+                                JZVideoPlayerStandard jzVideoPlayerStandard = new JZVideoPlayerStandard(PostingActivity.this);
+                                jzVideoPlayerStandard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500));
+                                jzVideoPlayerStandard.setUp(postingBean.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
+                                llPostingIorv.addView(jzVideoPlayerStandard);
+                            }
                             tvPostingTitle.setText(postingBean.getTitle());
                             tvPostingContent.setText(postingBean.getContentText());
-
-
                         }
                     }
                 });
@@ -191,13 +174,13 @@ public class PostingActivity extends BaseActivity {
             LinearLayout llPingLun = helper.getView(R.id.ll_pinglun);
 
             for (PostingCommentBean.ChildrenBean c : children) {
-                if (view==null){
+                if (view == null) {
                     view = View.inflate(PostingActivity.this, R.layout.pinglun_children_item, null);
-                    name= (TextView) view.findViewById(R.id.children_name);
-                    content= (TextView) view.findViewById(R.id.children_content);
+                    name = (TextView) view.findViewById(R.id.children_name);
+                    content = (TextView) view.findViewById(R.id.children_content);
                 }
                 name.setText(c.getNickName());
-                content.setText(":"+c.getOwnerText());
+                content.setText(":" + c.getOwnerText());
                 llPingLun.addView(view);
             }
 

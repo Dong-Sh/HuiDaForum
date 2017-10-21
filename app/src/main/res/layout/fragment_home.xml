@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/donghua"></pl.droidsonroids.gif.GifImageView>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_home"
             android:layout_width="match_parent"
@@ -16,14 +23,15 @@
 
         </android.support.v7.widget.RecyclerView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-     <android.support.design.widget.FloatingActionButton
-         app:elevation="8dp"
-         android:layout_marginBottom="20dp"
-         android:layout_marginRight="20dp"
-         android:src="@drawable/up"
-         android:scaleType="centerCrop"
-         android:id="@+id/fab_home"
-         android:layout_gravity="bottom|end"
-         android:layout_width="50dp"
-         android:layout_height="50dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_home"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/up"
+        app:elevation="8dp" />
 </android.support.design.widget.CoordinatorLayout>

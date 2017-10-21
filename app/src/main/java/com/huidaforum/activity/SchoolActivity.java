@@ -91,23 +91,6 @@ public class SchoolActivity extends BaseBackActivity {
         MyAdapter schoolRecylerViewAdapter = new MyAdapter(R.layout.item_tie, baseBean.getData());
         rpvSetAdapter();
         rlvCommunity.setAdapter(schoolRecylerViewAdapter);
-        schoolRecylerViewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                SchoolContentBean schoolContentBean = baseBean.getData().get(i);
-                MethodUtil.zanAndshoucang(SchoolActivity.this, (TextView) view, schoolContentBean);
-            }
-        });
-        schoolRecylerViewAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SchoolContentBean schoolContentBean = baseBean.getData().get(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", schoolContentBean.getOwnerContentId());
-                Intent intent = new Intent(SchoolActivity.this, PostingActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
         Log.d(TAG, "setRecyclerViewData: 加载成功");
     }

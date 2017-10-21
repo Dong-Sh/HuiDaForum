@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         style="@style/topbar_bg"
         app:layout_heightPercent="14%w">
@@ -23,6 +24,7 @@
             android:layout_marginRight="15dp"
             android:background="@mipmap/share" />
     </RelativeLayout>
+
     <com.huidaforum.view.MyScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,30 +34,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/rl_posting_pic"
+            <LinearLayout
+                android:id="@+id/ll_posting_iorv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                app:layout_heightPercent="40%w">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_posting_pic"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp" />
-                <cn.jzvd.JZVideoPlayerStandard
-                    android:id="@+id/jps"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"/>
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_posting_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rl_posting_pic"
+                android:layout_below="@id/ll_posting_iorv"
                 android:padding="10dp">
 
                 <ImageView
@@ -228,7 +219,6 @@
         </RelativeLayout>
 
     </com.huidaforum.view.MyScrollView>
-
 
 
 </com.zhy.android.percent.support.PercentLinearLayout>
