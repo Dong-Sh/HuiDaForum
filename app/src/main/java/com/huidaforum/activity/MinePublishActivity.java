@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -68,30 +70,31 @@ public class MinePublishActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         String body = response.body();
+                        Log.e("jdr",body+"");
                         BaseBean<List<MinePublishBean>> minePublishBean = gson.fromJson(body,
                                 new TypeToken<BaseBean<List<MinePublishBean>>>() {
                                 }.getType());
                         if (minePublishBean.isSuccess()) {
                             data = minePublishBean.getData();
                             parseData(data);
-
                         }
                     }
                 });
 
     }
 
-    private void parseData(List<MinePublishBean> data) {
-        if (data.size() != 0) {
-            rvMinePublish.setVisibility(View.VISIBLE);
-            llPublishEmpty.setVisibility(View.INVISIBLE);
-            rvMinePublish.setLayoutManager(new LinearLayoutManager(this));
-            minePublishAdapter = new MinePublishAdapter(R.layout.mine_publish_item, data);
-            rvMinePublish.setAdapter(minePublishAdapter);
-        } else {
+    private void parseData(final List<MinePublishBean> data) {
+        if (data.size() == 0) {
+
             rvMinePublish.setVisibility(View.INVISIBLE);
             llPublishEmpty.setVisibility(View.VISIBLE);
+            return;
         }
+        llPublishEmpty.setVisibility(View.GONE);
+        rvMinePublish.setVisibility(View.VISIBLE);
+        rvMinePublish.setLayoutManager(new LinearLayoutManager(this));
+        minePublishAdapter = new MinePublishAdapter(R.layout.mine_publish_item, data);
+        rvMinePublish.setAdapter(minePublishAdapter);
     }
 
     @Override
@@ -114,6 +117,7 @@ public class MinePublishActivity extends BaseActivity {
                 helper.getView(R.id.publish_item_delete).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Toast.makeText(mContext, "响应了", Toast.LENGTH_SHORT).show();
                         DeleteItem(helper.getAdapterPosition(),item);
                     }
                 });
@@ -123,7 +127,8 @@ public class MinePublishActivity extends BaseActivity {
 
             helper.setText(R.id.tv_publish_item_title, item.getTitle().toString());
             helper.setText(R.id.tv_publish_item_time, item.getCreateTime());
-            helper.setText(R.id.tv_publish_item_hot, item.getLookCount()+"阅读");
+            helper.setText(R.id.tv_publish_item_hot, item.getLookCount ()+"阅读");
+            Log.e("jdr",item.getTitle().toString()+item.getCreateTime()+item.getLookCount()+"阅读");
 
             //是否有图片
             if (item.getContentType().equals("picture")) {
@@ -156,9 +161,11 @@ public class MinePublishActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         String body = response.body();
+                        Log.e("jdr","的沟通过对方更好地方"+body);
                         BaseBean<Object> minePublishBean = gson.fromJson(body,
                                 new TypeToken<BaseBean<Object>>() {
                                 }.getType());
+                        Log.e("jdr","登录是否成功"+minePublishBean.isSuccess());
                         if (minePublishBean.isSuccess()) {
                             if (data!=null&&data.size()!=0){
                                 data.remove(adapterPosition);
@@ -169,7 +176,14 @@ public class MinePublishActivity extends BaseActivity {
                                     llPublishEmpty.setVisibility(View.VISIBLE);
                                 }
                             }
+                        }else{
+                            Toast.makeText(MinePublishActivity.this, "删除失败，请稍后重试"+minePublishBean.getErrMsg(), Toast.LENGTH_SHORT).show();
                         }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        Toast.makeText(MinePublishActivity.this, "网络连接失败，请刷新后重试", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -185,7 +199,8 @@ public class MinePublishActivity extends BaseActivity {
     public void processClick(View v) {
         if (v == tvPublishEdit){
             editFlag = !editFlag;
-            if (minePublishAdapter!=null)
+            tvPublishEdit.setText(editFlag?"完成":"编辑");
+            if (minePublishAdapter!=null && data.size()!=0)
             minePublishAdapter.notifyDataSetChanged();
         }
     }

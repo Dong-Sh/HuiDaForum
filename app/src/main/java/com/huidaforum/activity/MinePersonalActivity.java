@@ -35,6 +35,7 @@ import com.huidaforum.bean.MinePersonalBean;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.WebAddress;
+import com.huidaforum.view.CustomDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -43,6 +44,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -108,6 +111,7 @@ public class MinePersonalActivity extends BaseActivity {
     private static final int CHOOSE_BIG_PICTURE = 0;
     private static final int CHOOSE_COOP = 3;
     private Bitmap photo;
+    private CustomDialog dialog1;
 
     @Override
     public int getLayoutId() {
@@ -159,7 +163,14 @@ public class MinePersonalActivity extends BaseActivity {
             tvPersonSex.setText("请设置性别");
         }
         if (!TextUtils.isEmpty(minePersonalData.getBirthday())) {
-            tvPersonBirthday.setText(minePersonalData.getBirthday());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String format = "";
+            try {
+                format = simpleDateFormat.format(simpleDateFormat.parse(minePersonalData.getBirthday()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            tvPersonBirthday.setText(format);
         }else {
             tvPersonBirthday.setText("请设置出生日期");
         }
@@ -295,7 +306,8 @@ public class MinePersonalActivity extends BaseActivity {
                 String school = schoolName.getText().toString().trim();
                 TextView tv_person_schoolname = (TextView) findViewById(R.id.tv_person_schoolname);
                 if (!school.toString().isEmpty()) {
-                    tv_person_schoolname.setText(school);
+                    //tv_person_schoolname.setText(school);
+                    PostDataToNet("school",school,tv_person_schoolname);
                 }
             }
         });
@@ -335,7 +347,8 @@ public class MinePersonalActivity extends BaseActivity {
                 String date = year + "-" + (month >= 9 ? month + 1 : "0" + (month + 1)) + "-" + (day > 9 ? day : "0" + day);
                 //Toast.makeText(MinePersonalActivity.this, "birth" + date, Toast.LENGTH_SHORT).show();
                 if (!date.toString().isEmpty()) {
-                    birth.setText(date);
+                   // birth.setText(date);
+                    PostDataToNet("birthday",date,birth);
                 }
                 alertDialog.dismiss();
             }
@@ -355,9 +368,10 @@ public class MinePersonalActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String personEmail = email.getText().toString().trim();
-                TextView tv_personal_nikename = (TextView) findViewById(R.id.tv_person_email);
+                TextView tv_person_email = (TextView) findViewById(R.id.tv_person_email);
                 if (!personEmail.toString().isEmpty()) {
-                    tv_personal_nikename.setText(personEmail);
+                    //tv_personal_nikename.setText(personEmail);
+                    PostDataToNet("emailRenzheng",personEmail,tv_person_email);
                 }
 
             }
@@ -381,7 +395,6 @@ public class MinePersonalActivity extends BaseActivity {
         dialog = new AlertDialog.Builder(MinePersonalActivity.this);
         dialog.setTitle("请选择性别");
         final String[] sex = {"男", "女"};
-        Log.e("jdr",""+sexFlag);
         dialog.setSingleChoiceItems(sex, sexFlag, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -392,10 +405,10 @@ public class MinePersonalActivity extends BaseActivity {
         dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(MinePersonalActivity.this, "性别为：" + s, Toast.LENGTH_SHORT).show();
                 TextView sex = (TextView) findViewById(R.id.tv_person_sex);
-                if (!s.toString().isEmpty()) {
-                    sex.setText(s);
+                if (!TextUtils.isEmpty(s)) {
+                    //sex.setText(s);
+                    PostDataToNet("sex",s,sex);
                 }
             }
         });
@@ -422,7 +435,8 @@ public class MinePersonalActivity extends BaseActivity {
                 String name = username.getText().toString().trim();
                 TextView tv_personal_nikename = (TextView) findViewById(R.id.tv_personal_nikename);
                 if (!name.toString().isEmpty()) {
-                    tv_personal_nikename.setText(name);
+                    //tv_personal_nikename.setText(name);
+                    PostDataToNet("nickName",name,tv_personal_nikename);
                 }
             }
         });
@@ -440,6 +454,45 @@ public class MinePersonalActivity extends BaseActivity {
         });
         dialog.show();
     }
+
+    private void PostDataToNet(final String key, final String value, final TextView textView) {
+        dialog1 = new CustomDialog(this, R.style.CustomDialog);
+        dialog1.show();
+        OkGo.<String>post(WebAddress.updateYwUserDetailInfo)
+                .params("devType", "phone")
+                .params("token", SpUtil.getString(StaticValue.TOKEN, this))
+                .params(key,value)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        String body = response.body();
+                        String s = body.replaceAll("\\\\", "//");
+                        BaseBean<Object> beanData = gson.fromJson(s,
+                                new TypeToken<BaseBean<Object>>() {
+                                }.getType());
+                        if(beanData.isSuccess()){
+                            dialog1.dismiss();
+                            textView.setText(value);
+                            Toast.makeText(MinePersonalActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                        }else{
+                            dialog1.dismiss();
+                            Toast.makeText(MinePersonalActivity.this, "修改失败，"+beanData.getErrMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                        if(key.equals("nickName")){
+                            Log.e("jdr","保存本地昵称");
+                            SpUtil.putString(StaticValue.nickName,value,MinePersonalActivity.this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        dialog1.dismiss();
+                        Toast.makeText(MinePersonalActivity.this, "网络连接失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     public void startPhotoZoom(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
@@ -460,10 +513,12 @@ public class MinePersonalActivity extends BaseActivity {
         switch (requestCode){
             case CHOOSE_BIG_PICTURE:
                 if (data!=null)
+                    //打开图片剪切界面
                 startPhotoZoom(data.getData());
                 break;
             case CHOOSE_COOP:
                 if(data != null){
+                    //设置剪切后的图片为图像
                     setPicToView(data);
                 }
                 break;
@@ -515,7 +570,6 @@ public class MinePersonalActivity extends BaseActivity {
         Bundle extras = data.getExtras();
         if (extras != null) {
             photo = extras.getParcelable("data");
-            ivMinePersonalPic.setImageBitmap(photo);
             File file = new File(WebAddress.IconPath);
             if (!file.exists()){
                 file.mkdirs();
@@ -539,6 +593,41 @@ public class MinePersonalActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
+            postHeadPhone(new File(fileName),photo);
+            //ivMinePersonalPic.setImageBitmap(photo);
         }
+    }
+
+    private void postHeadPhone(final File file, final Bitmap photo) {
+        final CustomDialog customDialog = new CustomDialog(this, R.style.CustomDialog);
+        customDialog.show();
+        OkGo.<String>post(WebAddress.updateYwUserDetailInfo)
+                .isMultipart(true)
+                .params("token",SpUtil.getString(StaticValue.TOKEN,this))
+                .params("devType","phone")
+                .params("file",file)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Log.e("jdr","头像上传结果："+response.body().toString());
+                        Gson gson = new Gson();
+                        BaseBean bean = gson.fromJson(response.body().toString(), new
+                                TypeToken<BaseBean<Object>>() {
+                                }.getType());
+                        if(bean.isSuccess()){
+                            ivMinePersonalPic.setImageBitmap(photo);
+                            SpUtil.putString(StaticValue.HeadPhoto,Uri.fromFile(file).toString(),MinePersonalActivity.this);
+                            customDialog.dismiss();
+                        }else{
+                            Toast.makeText(MinePersonalActivity.this, "上传头像失败，"+bean.getErrMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        Toast.makeText(MinePersonalActivity.this, "网络连接失败，请刷新后重试", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 }

@@ -141,6 +141,8 @@ public class WelcomActivity extends BaseActivity {
                                         UserBean userBean = beanBaseBean.getData();
 
                                         SpUtil.putString(StaticValue.TOKEN, userBean.getToken(), WelcomActivity.this);
+                                        SpUtil.putString(StaticValue.HeadPhoto,userBean.getHeadPhoto(),WelcomActivity.this);
+                                        SpUtil.putString(StaticValue.nickName,userBean.getNickName(),WelcomActivity.this);
 
                                         flag = 1;
 

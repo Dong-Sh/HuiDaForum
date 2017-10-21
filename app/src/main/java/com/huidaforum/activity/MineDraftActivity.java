@@ -121,23 +121,37 @@ public class MineDraftActivity extends BaseActivity {
         draptAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //删除
-                deleData(mineDraftBean.getData().get(position));
-                mineDraftBean.getData().remove(position);
-                if(mineDraftBean.getData().size()==0){
-                    llDraftEmpty.setVisibility(View.VISIBLE);
-                    frDraft.setVisibility(View.INVISIBLE);
-                    return;
-                }
-                adapter.notifyDataSetChanged();
+               switch (view.getId()){
+                   case R.id.iv_item_draft_dele:
+                   case R.id.tv_item_draft_dele:
+                       //删除
+                       deleData(mineDraftBean.getData().get(position));
+                       mineDraftBean.getData().remove(position);
+                       if(mineDraftBean.getData().size()==0){
+                           llDraftEmpty.setVisibility(View.VISIBLE);
+                           frDraft.setVisibility(View.INVISIBLE);
+                           return;
+                       }
+                       adapter.notifyDataSetChanged();
+                       break;
+                   case R.id.tv_item_draft_resend:
+                       break;
+               }
             }
         });
     }
 
     @Override
     public void initListener() {
-        tvDraftEdit.setOnClickListener(this);
-
+        tvDraftEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editFlag = !editFlag;
+                tvDraftEdit.setText(editFlag?"完成":"编辑");
+                if(draptAdapter!=null && mineDraftBean.getData().size()!=0)
+                    draptAdapter.notifyDataSetChanged();
+            }
+        });
     }
     //删除条目的方法
     private void deleData(MineDraftBean mineDraftBean) {
@@ -172,12 +186,6 @@ public class MineDraftActivity extends BaseActivity {
     @Override
     public void processClick(View v) {
         switch (v.getId()){
-            case R.id.tv_publish_edit:
-                editFlag = !editFlag;
-                tvDraftEdit.setText(editFlag?"完成":"编辑");
-                if(draptAdapter!=null && mineDraftBean.getData().size()!=0)
-                    draptAdapter.notifyDataSetChanged();
-                break;
         }
     }
 
@@ -206,7 +214,8 @@ public class MineDraftActivity extends BaseActivity {
                         .error(R.mipmap.ic_launcher)
                         .fit()
                         .into((ImageView) helper.getView(R.id.iv_item_draft_pic));
-                helper.addOnClickListener(R.id.tv_item_draft_resend);
+                helper.getView(R.id.tv_item_draft_resend).setBackgroundResource(R.drawable.resend_shape);
+                helper.addOnClickListener(R.id.tv_item_draft_resend) ;
                 helper.addOnClickListener(R.id.tv_item_draft_dele);
             }
         }

@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -96,6 +97,7 @@ public class MineCollectActivity extends BaseActivity {
                         Gson gson = new Gson();
                         String body = response.body();
                         String s = body.replaceAll("\\\\", "//");
+                        Log.e("jdr","我的收藏"+s);
                         BaseBean<List<MineCollectBean>> mineCollectBean = gson.fromJson(s,
                                             new TypeToken<BaseBean<List<MineCollectBean>>>(){}.getType());
                         if(mineCollectBean.isSuccess()) {
