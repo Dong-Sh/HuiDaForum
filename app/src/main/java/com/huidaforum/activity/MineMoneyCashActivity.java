@@ -174,7 +174,7 @@ public class MineMoneyCashActivity extends BaseActivity {
                         BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
                         }.getType());
                         if (baseBean.isSuccess()) {
-                            Toast.makeText(MineMoneyCashActivity.this, "提现申请以提交", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MineMoneyCashActivity.this, "提现申请已提交", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Toast.makeText(MineMoneyCashActivity.this, baseBean.getFieldError().getValue(), Toast.LENGTH_SHORT).show();
