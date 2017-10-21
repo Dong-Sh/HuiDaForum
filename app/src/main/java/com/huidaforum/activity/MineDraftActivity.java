@@ -42,12 +42,12 @@ import butterknife.BindView;
  */
 
 public class MineDraftActivity extends BaseActivity {
-    @BindView(R.id.tv_publish_edit)
-    TextView tvPublishEdit;
-    @BindView(R.id.ll_publish_empty)
-    LinearLayout llPublishEmpty;
-    @BindView(R.id.rv_mine_publish)
-    RecyclerView rvMinePublish;
+    @BindView(R.id.tv_draft_edit)
+    TextView tvDraftEdit;
+    @BindView(R.id.ll_draft_empty)
+    LinearLayout llDraftEmpty;
+    @BindView(R.id.rv_mine_draft)
+    RecyclerView rvMineDraft    ;
     @BindView(R.id.sw_draft_content)
     SwipeRefreshLayout swDraftContent;
     @BindView(R.id.fr_draft)
@@ -93,18 +93,20 @@ public class MineDraftActivity extends BaseActivity {
     private void parseData(List<MineDraftBean> data) {
         //如果没有数据 就显示暂无草稿
         if(data.size()==0){
-            llPublishEmpty.setVisibility(View.VISIBLE);
+            llDraftEmpty.setVisibility(View.VISIBLE);
             frDraft.setVisibility(View.INVISIBLE);
             return;
         }
-        llPublishEmpty.setVisibility(View.INVISIBLE);
+        llDraftEmpty.setVisibility(View.INVISIBLE);
         frDraft.setVisibility(View.VISIBLE);
-        rvMinePublish.setLayoutManager(new LinearLayoutManager(this));
-        rvMinePublish.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
+        rvMineDraft.setLayoutManager(new LinearLayoutManager(this));
+        rvMineDraft.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
         draptAdapter = new DraptAdapter(R.layout.item_draft, data);
-        rvMinePublish.setAdapter(draptAdapter);
-        rvMinePublish.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        rvMineDraft.setAdapter(draptAdapter);
+        rvMineDraft.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        //下拉刷新
         swDraftContent.setColorSchemeColors(Color.RED);
+
         swDraftContent.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -116,19 +118,14 @@ public class MineDraftActivity extends BaseActivity {
                 }, 2000);
             }
         });
-    }
-
-    @Override
-    public void initListener() {
-        tvPublishEdit.setOnClickListener(this);
-        if(draptAdapter!=null)
         draptAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //删除
                 deleData(mineDraftBean.getData().get(position));
                 mineDraftBean.getData().remove(position);
                 if(mineDraftBean.getData().size()==0){
-                    llPublishEmpty.setVisibility(View.VISIBLE);
+                    llDraftEmpty.setVisibility(View.VISIBLE);
                     frDraft.setVisibility(View.INVISIBLE);
                     return;
                 }
@@ -137,6 +134,12 @@ public class MineDraftActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void initListener() {
+        tvDraftEdit.setOnClickListener(this);
+
+    }
+    //删除条目的方法
     private void deleData(MineDraftBean mineDraftBean) {
         OkGo.<String>post(WebAddress.deleteContentByUser)
                 .params("devType","phone")
@@ -171,7 +174,7 @@ public class MineDraftActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.tv_publish_edit:
                 editFlag = !editFlag;
-                tvPublishEdit.setText(editFlag?"完成":"编辑");
+                tvDraftEdit.setText(editFlag?"完成":"编辑");
                 if(draptAdapter!=null && mineDraftBean.getData().size()!=0)
                     draptAdapter.notifyDataSetChanged();
                 break;

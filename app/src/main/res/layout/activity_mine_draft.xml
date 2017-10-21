@@ -16,7 +16,7 @@
         <Button
             style="@style/topbar_back"/>
         <TextView
-            android:id="@+id/tv_publish_edit"
+            android:id="@+id/tv_draft_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="编辑"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:id="@+id/ll_publish_empty"
+            android:id="@+id/ll_draft_empty"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,12 +61,10 @@
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_mine_publish"
+                    android:id="@+id/rv_mine_draft"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
             </android.support.v4.widget.SwipeRefreshLayout>
         </FrameLayout>
-
-
     </RelativeLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>

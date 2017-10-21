@@ -18,7 +18,7 @@
         android:id="@+id/et_forward_talk"
         android:padding="10dp"
         android:gravity="top"
-        android:textSize="13sp"
+        android:textSize="15sp"
         android:hint="说说你的分享心得吧..."
         android:background="@android:color/transparent"
         app:layout_heightPercent = "39%w"

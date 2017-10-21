@@ -15,6 +15,8 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 /**
  * Created by xiaojiu on 2017/10/19.
+ * 单个条目的滑动
+ * 解决各条目之间的事件冲突问题
  */
 public class SwipeItemLayout extends ViewGroup {
     enum Mode{

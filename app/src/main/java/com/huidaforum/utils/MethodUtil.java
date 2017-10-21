@@ -3,12 +3,10 @@ package com.huidaforum.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -211,9 +209,28 @@ public class MethodUtil {
         switch (view.getId()) {
             case R.id.tv_zan: {
                 if (schoolContentBean.getLaud().equals("yes")) {
-                    Toast.makeText(context, "你已经赞过了", Toast.LENGTH_SHORT).show();
+                    view.setCompoundDrawables(threeDrawable.getZan_no(), null, null, null);
+                    schoolContentBean.setLaud("no");
+                    /*OkGo.<String>post(WebAddress.lauddelect)
+                            .params("ownerContentId", schoolContentBean.getId())
+                            .params("token", SpUtil.getString(StaticValue.TOKEN, context))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new Gson();
+                                    BaseBean baseBean = gson.fromJson(response.body(), BaseBean.class);
+                                    if (baseBean.isSuccess()) {
+                                        view.setCompoundDrawables(threeDrawable.getZan_no(), null, null, null);
+                                        schoolContentBean.setLaud("no");
+                                        int count = Integer.parseInt(((TextView) view).getText().toString()) - 1;
+                                        view.setText(count + "");
+                                    }
+                                }
+                            });*/
                 } else {
-                    OkGo.<String>post(WebAddress.getzan)
+                    view.setCompoundDrawables(threeDrawable.getZan_yes(), null, null, null);
+                    schoolContentBean.setLaud("yes");
+                    /*OkGo.<String>post(WebAddress.getzan)
                             .params("ownerContentId", schoolContentBean.getId())
                             .params("token", SpUtil.getString(StaticValue.TOKEN, context))
                             .execute(new StringCallback() {
@@ -228,7 +245,7 @@ public class MethodUtil {
                                         view.setText(count + "");
                                     }
                                 }
-                            });
+                            });*/
                 }
                 break;
             }
