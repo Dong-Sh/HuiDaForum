@@ -127,6 +127,7 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
             <EditText
+                android:textSize="15sp"
                 android:id="@+id/et_money_cash_name"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -151,6 +152,7 @@
                 android:textColor="@color/black"
                 android:textSize="15sp" />
             <EditText
+                android:textSize="15sp"
                 android:phoneNumber="true"
                 android:id="@+id/et_money_cash_phone"
                 android:layout_width="0dp"
@@ -177,6 +179,7 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:textSize="15sp"
                 android:id="@+id/et_money_cash_zhanghao"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -188,11 +191,7 @@
                 android:textColor="@android:color/holo_blue_dark" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:text="提现手续费0.1%" />
+
     </LinearLayout>
     <LinearLayout
         android:background="@color/txbg"
@@ -224,6 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:textSize="15sp"
                 android:id="@+id/et_money_cash_num"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -257,6 +257,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全部提现"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="提现手续费0.1%" />
         </LinearLayout>
 
     </LinearLayout>

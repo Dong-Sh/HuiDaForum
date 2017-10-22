@@ -7,14 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +19,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -49,8 +46,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static com.huidaforum.R.color.t;
 import static com.huidaforum.R.id.release_send;
 import static com.huidaforum.utils.WebAddress.saveContent;
 import static com.huidaforum.utils.WebAddress.saveContentDraft;
@@ -71,11 +66,13 @@ public class ReleaseActivity extends BaseActivity {
     EditText etText;
     @BindView(R.id.ib_bofang)
     ImageButton ibBofang;
+    @BindView(R.id.tv_release)
+    TextView tvRelease;
     private ArrayList<String> mPicList = new ArrayList<>();
     private GridViewAdapter gridViewAdapter;
-    private ArrayList<File> files=null;
+    private ArrayList<File> files = null;
     private String url;
-    private boolean isback=true;//是否可以退出  TRUE=可以退出  FALSE=不可以退出
+    private boolean isback = true;//是否可以退出  TRUE=可以退出  FALSE=不可以退出
 
     @Override
     public int getLayoutId() {
@@ -104,7 +101,7 @@ public class ReleaseActivity extends BaseActivity {
                 ibBofang.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ReleaseActivity.this,FullscreenActivity.class);
+                        Intent intent = new Intent(ReleaseActivity.this, FullscreenActivity.class);
                         intent.putExtra("url", url);
                         startActivity(intent);
                     }
@@ -145,35 +142,37 @@ public class ReleaseActivity extends BaseActivity {
     }
 
     private void send() {
-        releaseSend.setEnabled(false);
         String title = etTitle.getText().toString().trim();
         String text = etText.getText().toString().trim();
-        if (TextUtils.isEmpty(title)||TextUtils.isEmpty(text)){
-            Toast.makeText(this,"标题或正文不能为空", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(text)) {
+            Toast.makeText(this, "标题或正文不能为空", Toast.LENGTH_SHORT).show();
             return;
+        } else {
+            isback = false;
+            tvRelease.setVisibility(View.VISIBLE);
+            releaseSend.setVisibility(View.GONE);
         }
         urlToFile();
-        isback=false;
         OkGo.<String>post(saveContent).tag(this)
-                .params("devType","phone")
+                .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, this))
-                .params("contentState","publish")
-                .params("title",title)
-                .params("contentText",text)
-                .addFileParams("file",files)
+                .params("contentState", "publish")
+                .params("title", title)
+                .params("contentText", text)
+                .addFileParams("file", files)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {//网络连接成功
                         Gson gson = new Gson();
                         BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
                         }.getType());
-                        if (baseBean.isSuccess()){
+                        if (baseBean.isSuccess()) {
                             Toast.makeText(ReleaseActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                             finish();
-                        }else {
+                        } else {
                             Toast.makeText(ReleaseActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
                             releaseSend.setEnabled(true);
-                            isback=true;
+                            isback = true;
                         }
                     }
                 });
@@ -182,12 +181,12 @@ public class ReleaseActivity extends BaseActivity {
 
     private void urlToFile() {
         files = new ArrayList<>();
-        if (mPicList.size()==0){
-            if (!TextUtils.isEmpty(url)){
+        if (mPicList.size() == 0) {
+            if (!TextUtils.isEmpty(url)) {
                 files.add(new File(url));
             }
-        }else {
-            for (String picUrl:mPicList ) {
+        } else {
+            for (String picUrl : mPicList) {
                 files.add(new File(picUrl));
             }
         }
@@ -197,14 +196,15 @@ public class ReleaseActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!isback){
+        if (!isback) {
             Toast.makeText(this, "正在发布文章或保存至草稿箱无法退出", Toast.LENGTH_SHORT).show();
             return;
         }
     }
 
     private void back() {
-        if (!isback){
+
+        if (!isback) {
             Toast.makeText(this, "正在发布文章或保存至草稿箱无法退出", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -220,33 +220,37 @@ public class ReleaseActivity extends BaseActivity {
                 }).setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                isback = false;
                 String title = etTitle.getText().toString().trim();
                 String text = etText.getText().toString().trim();
-                if (TextUtils.isEmpty(title)||TextUtils.isEmpty(text)){
-                    Toast.makeText(ReleaseActivity.this,"标题或正文不能为空", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(text)) {
+                    Toast.makeText(ReleaseActivity.this, "标题或正文不能为空", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    isback = false;
+                    tvRelease.setText("正在保存中");
+                    tvRelease.setVisibility(View.VISIBLE);
+                    releaseSend.setVisibility(View.GONE);
                 }
                 urlToFile();
                 OkGo.<String>post(saveContentDraft).tag(this)
-                        .params("devType","phone")
+                        .params("devType", "phone")
                         .params("token", SpUtil.getString(StaticValue.TOKEN, ReleaseActivity.this))
-                        .params("contentState","draft")
-                        .params("title",title)
-                        .params("contentText",text)
-                        .addFileParams("file",files)
+                        .params("contentState", "draft")
+                        .params("title", title)
+                        .params("contentText", text)
+                        .addFileParams("file", files)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {//网络连接成功
                                 Gson gson = new Gson();
                                 BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
                                 }.getType());
-                                if (baseBean.isSuccess()){
+                                if (baseBean.isSuccess()) {
                                     Toast.makeText(ReleaseActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                                     finish();
-                                }else {
+                                } else {
                                     Toast.makeText(ReleaseActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
-                                    isback=true;
+                                    isback = true;
                                 }
                             }
                         });
@@ -270,7 +274,7 @@ public class ReleaseActivity extends BaseActivity {
             }
 
         }
-        if (requestCode == 10 &&resultCode == 11) {
+        if (requestCode == 10 && resultCode == 11) {
             ArrayList<String> list = data.getStringArrayListExtra("list");
             mPicList.clear();
             mPicList.addAll(list);
@@ -278,12 +282,6 @@ public class ReleaseActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -295,7 +293,7 @@ public class ReleaseActivity extends BaseActivity {
 
     private void takePhoto() {
         gvPhoto.setVisibility(View.VISIBLE);
-        if (gridViewAdapter==null){
+        if (gridViewAdapter == null) {
             gridViewAdapter = new GridViewAdapter(ReleaseActivity.this, mPicList);
             gvPhoto.setAdapter(gridViewAdapter);
         }
@@ -329,7 +327,7 @@ public class ReleaseActivity extends BaseActivity {
         });
 
     }
-    
+
     private void seeLargeImage(int position) {
         Intent intent = new Intent(ReleaseActivity.this, PlusImageActivity.class);
         intent.putStringArrayListExtra("list", mPicList);

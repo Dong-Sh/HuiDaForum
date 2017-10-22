@@ -1,64 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.android.percent.support.PercentLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         style="@style/topbar_bg"
         app:layout_heightPercent="14%w">
+
         <Button
             android:id="@+id/release_back"
-            style="@style/topbar_back"/>
+            style="@style/topbar_back" />
+
         <TextView
             style="@style/topbar_textcolor"
             android:text="发布" />
+
         <Button
-            android:textColor="#fff"
-            android:textSize="17sp"
-            android:background="@android:color/transparent"
+            android:id="@+id/release_send"
+            android:layout_width="wrap_content"
+            android:layout_height="20sp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:id="@+id/release_send"
+            android:background="@android:color/transparent"
             android:text="发送"
-            android:layout_width="wrap_content"
-            android:layout_height="20sp" />
-    </RelativeLayout>
-    <LinearLayout
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:textColor="#fff" />
+
         <TextView
-            android:textColor="@color/black"
-            android:text="标题："
-            android:textSize="20sp"
+            android:id="@+id/tv_release"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="正在发布"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="标题："
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/et_title"
-            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/release_edittext_shape"
+            android:gravity="top"
             android:hint="标题叫什么呢？"
             android:lines="1"
-            android:layout_width="match_parent"
-            android:gravity="top"
-            android:layout_height="wrap_content" />
+            android:padding="10dp" />
     </LinearLayout>
+
     <LinearLayout
-        app:layout_heightPercent="60%w"
-        android:padding="10dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_heightPercent="60%w">
+
         <TextView
-            android:textColor="@color/black"
-            android:text="正文："
-            android:textSize="20sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="正文："
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/et_text"
@@ -70,47 +89,51 @@
             android:lines="8"
             android:padding="10dp" />
     </LinearLayout>
+
     <GridView
-        android:gravity="center_horizontal"
-        android:visibility="gone"
-        android:columnWidth="90dp"
-        android:numColumns="auto_fit"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
         android:id="@+id/gv_photo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </GridView>
+        android:layout_height="wrap_content"
+        android:columnWidth="90dp"
+        android:gravity="center_horizontal"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp"
+        android:visibility="gone"></GridView>
+
     <ImageButton
-        android:visibility="gone"
         android:id="@+id/ib_bofang"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@null"
         android:scaleType="centerCrop"
         android:src="@mipmap/bofang"
-        android:background="@null"
-        app:layout_marginPercent="3%w"
-        app:layout_heightPercent="30%w"
-        app:layout_widthPercent="30%w"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-    <LinearLayout
         android:visibility="gone"
-        android:paddingLeft="15dp"
-        android:layout_marginTop="5dp"
-        app:layout_heightPercent="20%w"
+        app:layout_heightPercent="30%w"
+        app:layout_marginPercent="3%w"
+        app:layout_widthPercent="30%w" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:visibility="gone"
+        app:layout_heightPercent="20%w">
+
         <ImageButton
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/release_add"/>
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/release_add" />
+
         <TextView
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加照片 长按删除"/>
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:text="添加照片 长按删除"
+            android:textSize="20sp" />
     </LinearLayout>
 </com.zhy.android.percent.support.PercentLinearLayout>
