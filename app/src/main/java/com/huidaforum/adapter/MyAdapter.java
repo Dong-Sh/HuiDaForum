@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huidaforum.R;
@@ -72,7 +73,7 @@ public class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolde
                 .addOnClickListener(R.id.tv_pinglun)
                 .addOnClickListener(R.id.tv_guanzhu);
         CircleImageView civ_photo = holder.getView(R.id.civ_photo);
-        Picasso.with(mContext).load(StringUtil.getReviseResponseBody(item.getHeadPhoto())).fit().into(civ_photo);
+       // Picasso.with(mContext).load(StringUtil.getReviseResponseBody(item.getHeadPhoto())).fit().into(civ_photo);
         TextView tv_zan = holder.getView(R.id.tv_zan);
         tv_zan.setText(item.getZanCount() + "");
 
@@ -96,7 +97,7 @@ public class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolde
             if (item.getContentType().equals("picture")) {
                 ImageView iv_tie = holder.getView(R.id.iv_tie);
                 iv_tie.setVisibility(View.VISIBLE);
-                Picasso.with(mContext).load(item.getPhotoFlvPath()).into(iv_tie);
+                Glide.with(mContext).load(item.getPhotoFlvPath()).into(iv_tie);
             } else {
                 ImageView iv_tie = holder.getView(R.id.iv_tie);
                 iv_tie.setVisibility(View.GONE);

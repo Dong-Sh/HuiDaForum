@@ -13,7 +13,9 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/donghua"></pl.droidsonroids.gif.GifImageView>
+            android:src="@mipmap/donghua">
+
+        </pl.droidsonroids.gif.GifImageView>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_home"

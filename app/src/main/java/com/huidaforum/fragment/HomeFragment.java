@@ -11,44 +11,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.huidaforum.MyApplication;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
-import com.huidaforum.activity.PostingActivity;
 import com.huidaforum.adapter.MyAdapter;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
 import com.huidaforum.bean.SchoolContentBean;
-import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StringUtil;
-import com.huidaforum.utils.ThreeDrawable;
 import com.huidaforum.utils.WebAddress;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * 主页中首页页面
@@ -67,7 +59,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Button bt_infomation;
     private Button bt_selection;
     private View view;
-    private BaseBean<List<SchoolContentBean>> bean;
+    private List<SchoolContentBean> bean = new ArrayList<>();
     private MyAdapter adapter;
 
     @Override
@@ -104,7 +96,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
 
-        initNetData(false);
+        initNetData(false,0);
         if (rlvHome.getAdapter() != null) {
             adapter = (MyAdapter) rlvHome.getAdapter();
         } else {
@@ -115,24 +107,34 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         rlvHome.setLayoutManager(new LinearLayoutManager(mActivity));
     }
 
-    private void initNetData(final boolean flag) {
+    private void initNetData(final boolean flag, final int start) {
+        Log.e(TAG, "initNetData: start--------------------------"+start );
         OkGo.<String>post(WebAddress.listAllContents)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
+                .params("limit",1)
+                .params("start",start)
                 .execute(new StringCallback() {
-
                     public void onSuccess(Response<String> response) {
-                        bean = new Gson().fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
-
+                        BaseBean<List<SchoolContentBean>> beanflag  = new Gson().fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
                         }.getType());
-                        if (bean.isSuccess()) {
-                            pareDataFromNet();
+                        if (beanflag.isSuccess()) {
+                            if (beanflag.getData()!=null && beanflag.getData().size()>0){
+                                bean.add(start,(SchoolContentBean) beanflag.getData().get(0));
+                                pareDataFromNet();
+                            }
                         } else {
-                            Toast.makeText(mActivity, bean.getErrMsg(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mActivity, beanflag.getErrMsg(), Toast.LENGTH_SHORT).show();
                         }
 
                         if (flag) {
                             srlHome.finishRefresh();
+                        }
+                        if(start!=0&&flag){
+                            adapter.addData(bean);
+
+                            adapter.notifyDataSetChanged();
+                            srlHome.finishLoadmore();
                         }
 
                     }
@@ -147,7 +149,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void pareDataFromNet() {
-        adapter.setNewData(bean.getData());
+        Log.e(TAG, "pareDataFromNet: bean-----"+bean );
+        Log.e(TAG, "pareDataFromNet: bean.size()-----"+bean.size() );
+        adapter.setNewData(bean);
         adapter.notifyDataSetChanged();
     }
 
@@ -183,7 +187,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         srlHome.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                initNetData(true);
+                initNetData(true, 0);
+            }
+        });
+        srlHome.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                MyAdapter adapter = (MyAdapter) rlvHome.getAdapter();
+                Log.e(TAG, "onLoadmore: adapter.getItemCount()-1------"+(adapter.getItemCount()-1) );
+                initNetData(true,adapter.getItemCount()-1);
             }
         });
     }

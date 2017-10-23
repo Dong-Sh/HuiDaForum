@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.huidaforum.R;
 import com.huidaforum.activity.MineCollectActivity;
 import com.huidaforum.activity.MineCommentActivity;
@@ -99,7 +100,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         } else {
             tvAlivedays.setText("活跃天数" + 0 + "天");
         }
-        Picasso.with(mActivity).load(headPhoto).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(ivMinePic);
+        Glide.with(mActivity).load(headPhoto).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(ivMinePic);
 
     }
 

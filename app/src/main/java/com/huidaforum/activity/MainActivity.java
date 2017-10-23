@@ -237,6 +237,7 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                 Camerapermission();
             }
         });
+        
     }
 
     private void textpermission() {
@@ -385,6 +386,9 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
                             .theme(R.style.Matisse_Dracula)
                             .imageEngine(new PicassoEngine()) // 使用的图片加载引擎
                             .forResult(201);
+                    break;
+                case 103://视频
+
                     break;
 
             }
