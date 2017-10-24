@@ -100,7 +100,7 @@ public class MineCommentActivity extends BaseActivity {
                         case R.id.tv_shoucang:
                             MethodUtil.dzandsc(MineCommentActivity.this,(TextView)view,bean);
                             break;
-                        case R.id.rl_comment_zhuanfa:
+                        case R.id.tv:
                             Intent intent = new Intent(MineCommentActivity.this, ForwardContentActivity.class);
                             intent.putExtra("id",bean.getId());
                             startActivity(intent);

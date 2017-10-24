@@ -133,7 +133,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="5dp"
-                    android:layout_toRightOf="@id/iv_comment_fabulous"
                     android:textSize="15sp"
                     android:text="赞"/>
             </RelativeLayout>

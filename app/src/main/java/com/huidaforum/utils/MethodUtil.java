@@ -3,7 +3,9 @@ package com.huidaforum.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,6 +120,7 @@ public class MethodUtil {
             }
             case R.id.tv_pinglun: {
                 Toast.makeText(context, "tv_pinglun", Toast.LENGTH_SHORT).show();
+
                 break;
             }
             case R.id.tv_shoucang: {
@@ -152,38 +155,35 @@ public class MethodUtil {
             }
             case R.id.tv_guanzhu: {
                 if (schoolContentBean.getGhuanzhu().equals("yes")) {
-                    View inflate = LayoutInflater.from(context).inflate(R.layout.my_dialog, null);
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                            .setView(inflate);
+                            .setTitle("确定取消关注？")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    OkGo.<String>post(WebAddress.guanzhudelect)
+                                            .params("guanzhuUserId", schoolContentBean.getYwUserId())
+                                            .params("token", SpUtil.getString(StaticValue.TOKEN, context))
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+                                                    view.setText("关注");
+                                                    view.setTextColor(Color.BLACK);
+                                                    view.setBackgroundResource(R.drawable.guanzhu_shape);
+                                                    Toast.makeText(context, "取消关注成功", Toast.LENGTH_SHORT).show();
+                                                    schoolContentBean.setGhuanzhu("no");
+                                                }
+                                            });
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
                     final AlertDialog dialog = builder.create();
-                    inflate.findViewById(R.id.tv_mydialog_no).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                    inflate.findViewById(R.id.tv_mydialog_yes).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            OkGo.<String>post(WebAddress.guanzhudelect)
-                                    .params("guanzhuUserId", schoolContentBean.getYwUserId())
-                                    .params("token", SpUtil.getString(StaticValue.TOKEN, context))
-                                    .execute(new StringCallback() {
-                                        @Override
-                                        public void onSuccess(Response<String> response) {
-                                            view.setText("关注");
-                                            view.setBackgroundResource(R.drawable.guanzhu_shape);
-                                            Toast.makeText(context, "取消关注成功", Toast.LENGTH_SHORT).show();
-                                            schoolContentBean.setGhuanzhu("no");
-                                        }
-                                    });
-                            dialog.dismiss();
-                        }
-                    });
                     dialog.show();
-                    schoolContentBean.setShouchang("no");
-
                 } else {
                     OkGo.<String>post(WebAddress.getguanzhu)
                             .params("ywUserId", schoolContentBean.getYwUserId())
@@ -192,6 +192,7 @@ public class MethodUtil {
                                 @Override
                                 public void onSuccess(Response<String> response) {
                                     view.setText("已关注");
+                                    view.setTextColor(Color.RED);
                                     view.setBackgroundResource(R.drawable.guanzhu_shape);
                                     Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
                                     schoolContentBean.setGhuanzhu("yes");

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolder> {
+    private PopupWindow popupWindow;
 
     public MyAdapter(Integer layout, List<SchoolContentBean> beanList) {
         super(layout, beanList);
@@ -41,7 +43,7 @@ public class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolde
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int position) {
                 SchoolContentBean schoolContentBean = getData().get(position);
                 Bundle bundle = new Bundle();
-                Log.d(TAG, "onItemClick: "+schoolContentBean);
+                Log.d(TAG, "onItemClick: " + schoolContentBean);
                 bundle.putString("id", schoolContentBean.getId());
                 Intent intent = new Intent(mContext, PostingActivity.class);
                 intent.putExtras(bundle);
@@ -53,6 +55,10 @@ public class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolde
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 SchoolContentBean schoolContentBean = getData().get(i);
                 MethodUtil.zanAndshoucang(mContext, (TextView) view, schoolContentBean);
+                if (view.getId() == R.id.tv_guanzhu) {
+                    mLayoutInflater.inflate(R.layout.ping_popu, null);
+                    popupWindow = new PopupWindow();
+                }
             }
         });
     }
@@ -76,6 +82,12 @@ public class MyAdapter extends BaseQuickAdapter<SchoolContentBean, BaseViewHolde
        // Picasso.with(mContext).load(StringUtil.getReviseResponseBody(item.getHeadPhoto())).fit().into(civ_photo);
         TextView tv_zan = holder.getView(R.id.tv_zan);
         tv_zan.setText(item.getZanCount() + "");
+        ImageView iv_guanfang = holder.getView(R.id.iv_guanfang);
+        if (item.getOfficialFlag().equals("yes")) {
+            iv_guanfang.setVisibility(View.VISIBLE);
+        } else {
+            iv_guanfang.setVisibility(View.INVISIBLE);
+        }
 
         ((TextView) holder.getView(R.id.tv_guanzhu)).setBackgroundResource(R.drawable.guanzhu_shape);
 

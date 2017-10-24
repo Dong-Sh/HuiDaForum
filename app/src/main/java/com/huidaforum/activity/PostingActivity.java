@@ -20,6 +20,7 @@ import com.huidaforum.base.BaseActivity;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.bean.PostingCommentBean;
 import com.huidaforum.bean.SchoolContentBean;
+import com.huidaforum.utils.MethodUtil;
 import com.huidaforum.utils.SpUtil;
 import com.huidaforum.utils.StaticValue;
 import com.huidaforum.utils.StringUtil;
@@ -47,12 +48,12 @@ public class PostingActivity extends BaseActivity {
     RelativeLayout rlPostingTitle;
     @BindView(R.id.tv_posting_content)
     TextView tvPostingContent;
-    @BindView(R.id.iv_posting_fabulous)
-    ImageView ivPostingFabulous;
-    @BindView(R.id.iv_posting_collect)
-    ImageView ivPostingCollect;
-    @BindView(R.id.iv_comment_fabulous)
-    ImageView ivCommentFabulous;
+    @BindView(R.id.tv_zan)
+    TextView tvZan;
+    @BindView(R.id.tv_shoucang)
+    TextView tvShoucang;
+    @BindView(R.id.tv_pinglun)
+    TextView tvPinglun;
     @BindView(R.id.ll_jiaohu)
     LinearLayout llJiaohu;
     @BindView(R.id.ib_post_reward)
@@ -63,11 +64,13 @@ public class PostingActivity extends BaseActivity {
     RelativeLayout rlPinglun;
     @BindView(R.id.rv_posting)
     RecyclerView rvPosting;
+
     //帖子详情
 
 
     private List<PostingCommentBean> postingBeanList;
     private PostingAdapter postingAdapter;
+    private BaseBean<SchoolContentBean> baseBean;
 
 
     @Override
@@ -97,26 +100,34 @@ public class PostingActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        BaseBean<SchoolContentBean> baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<SchoolContentBean>>() {
+                        baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<SchoolContentBean>>() {
                         }.getType());
                         if (baseBean.isSuccess() && baseBean.getData() != null) {
                             SchoolContentBean postingBean = baseBean.getData();
-                            if(postingBean.getContentPics()!=null && postingBean.getContentPics().size()!=0){
+                            if (postingBean.getContentPics() != null && postingBean.getContentPics().size() != 0) {
                                 List<SchoolContentBean.ContentPicsBean> contentPics = postingBean.getContentPics();
-                                for(int i =0;i<contentPics.size();i++){
+                                for (int i = 0; i < contentPics.size(); i++) {
                                     ImageView imageView = new ImageView(PostingActivity.this);
-                                    Picasso.with(PostingActivity.this).load(contentPics.get(i).getPhotoFlvPath()).fit().into(imageView);
+                                    imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500));
+                                    Picasso.with(PostingActivity.this).load(StringUtil.getReviseResponseBody(contentPics.get(i)
+                                            .getPhotoFlvPath()))
+                                            .centerCrop().into(imageView);
                                     llPostingIorv.addView(imageView);
                                 }
                             }
-                            if(postingBean.getContentType()!=null && postingBean.getContentType().equals("flv")){
+                            if (postingBean.getContentType() != null && postingBean.getContentType().equals("flv")) {
                                 JZVideoPlayerStandard jzVideoPlayerStandard = new JZVideoPlayerStandard(PostingActivity.this);
-                                jzVideoPlayerStandard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,500));
+                                jzVideoPlayerStandard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 500));
                                 jzVideoPlayerStandard.setUp(postingBean.getPhotoFlvPath(), JZVideoPlayer.SCREEN_LAYOUT_LIST, "");
                                 llPostingIorv.addView(jzVideoPlayerStandard);
                             }
+
                             tvPostingTitle.setText(postingBean.getTitle());
                             tvPostingContent.setText(postingBean.getContentText());
+                            MethodUtil.setTextDrawableLeft(PostingActivity.this, tvZan, StaticValue.ZAN, postingBean.getLaud());
+                            MethodUtil.setTextDrawableLeft(PostingActivity.this, tvShoucang, StaticValue.SHOWCANG, postingBean.getShouchang());
+                            MethodUtil.setTextDrawableLeft(PostingActivity.this, tvPinglun, StaticValue.PINGLUN, "no");
+
                         }
                     }
                 });
@@ -145,12 +156,14 @@ public class PostingActivity extends BaseActivity {
 
     @Override
     public void initListener() {
-
+        tvZan.setOnClickListener(this);
+        tvPinglun.setOnClickListener(this);
+        tvShoucang.setOnClickListener(this);
     }
 
     @Override
     public void processClick(View v) {
-
+        MethodUtil.zanAndshoucang(this,(TextView)v,baseBean.getData());
     }
 
     public class PostingAdapter extends BaseQuickAdapter<PostingCommentBean, BaseViewHolder> {
