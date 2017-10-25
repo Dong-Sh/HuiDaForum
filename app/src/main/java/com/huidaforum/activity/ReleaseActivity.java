@@ -89,7 +89,7 @@ public class ReleaseActivity extends BaseActivity {
         String photo = getIntent().getStringExtra("photo");//视频的图片
         int style = getIntent().getIntExtra("style", 0);
         switch (style) {
-            case 1://拍摄的为图片 url
+            case 1://拍摄的为图片 urlz
                 mPicList.add(url);
                 takePhoto();
                 break;
@@ -115,6 +115,9 @@ public class ReleaseActivity extends BaseActivity {
                     mPicList.add(path);
                 }
                 takePhoto();
+                break;
+            case 5:
+
                 break;
         }
     }
@@ -173,6 +176,9 @@ public class ReleaseActivity extends BaseActivity {
                             Toast.makeText(ReleaseActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
                             releaseSend.setEnabled(true);
                             isback = true;
+                            tvRelease.setText("正在发布中");
+                            tvRelease.setVisibility(View.GONE);
+                            releaseSend.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -251,6 +257,9 @@ public class ReleaseActivity extends BaseActivity {
                                 } else {
                                     Toast.makeText(ReleaseActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
                                     isback = true;
+                                    tvRelease.setText("正在发布中");
+                                    tvRelease.setVisibility(View.GONE);
+                                    releaseSend.setVisibility(View.VISIBLE);
                                 }
                             }
                         });

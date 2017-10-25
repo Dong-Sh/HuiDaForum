@@ -144,7 +144,12 @@ public class ReplyActivity extends BaseActivity {
         protected void convert(BaseViewHolder helper, ReplyBean item) {//填充item数据
             //图片框数据 ， 暂时无头像
 
-            Picasso.with(ReplyActivity.this).load(item.getHeadPhoto()).fit().transform(new CircleTransform()).placeholder(R.mipmap.ic_launcher).into((ImageView) helper.getView(R.id.iv_reply_pic));
+            Picasso.with(ReplyActivity.this)
+                    .load(item.getHeadPhoto())
+                    .fit()
+                    .transform(new CircleTransform())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into((ImageView) helper.getView(R.id.iv_reply_pic));
             helper.setText(R.id.tv_reply_name,item.getNickName())
                     .setText(R.id.tv_reply_time,item.getCreateTime())
                     .setText(R.id.tv_reply_content,item.getOwnerText())

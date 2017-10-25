@@ -157,6 +157,7 @@ public class CommentActivity extends BaseActivity {
                 Picasso.with(CommentActivity.this)
                         .load(item.getHeadPhoto())
                         .fit()
+                        .placeholder(R.mipmap.ic_launcher)
                         .transform(new CircleTransform())
                         .into((ImageView) helper.getView(R.id.photoFlvPath));
             }

@@ -130,6 +130,7 @@ public class AwardActivity extends BaseActivity {
          Picasso.with(AwardActivity.this)
                  .load(item.getHeadPhoto())
                  .fit()
+                 .placeholder(R.mipmap.ic_launcher)
                  .memoryPolicy(NO_CACHE, NO_STORE)
                  .placeholder(R.mipmap.ic_launcher)
                  .transform(new CircleTransform())

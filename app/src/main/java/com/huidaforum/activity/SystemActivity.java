@@ -130,6 +130,7 @@ public class SystemActivity extends BaseActivity {
                     .load(item.getHeadPhoto())
                     .transform(new CircleTransform())
                     .fit()
+                    .placeholder(R.mipmap.ic_launcher)
                     .into((ImageView) helper.getView(R.id.iv_system_pic));
         }
     }
