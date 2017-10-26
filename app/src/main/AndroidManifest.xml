@@ -62,7 +62,9 @@
             android:name=".activity.HomePopularActivity"
             android:theme="@style/BackTheme" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity">
+
+        </activity>
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.WelcomActivity">
             <intent-filter>
@@ -79,6 +81,7 @@
         <activity android:name=".activity.FullscreenActivity" />
         <activity android:name=".activity.ForwardContentActivity" />
         <activity android:name=".activity.MineMoneyCashActivity"></activity>
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

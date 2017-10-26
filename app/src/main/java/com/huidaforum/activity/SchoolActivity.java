@@ -77,9 +77,6 @@ public class SchoolActivity extends BaseBackActivity {
                         Gson gson = new Gson();
                         baseBean = gson.fromJson(response.body(), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
                         }.getType());
-
-                        Log.d(TAG, "abc " + baseBean.getData().get(1).toString());
-
                         setRecyclerViewData();
                     }
                 });

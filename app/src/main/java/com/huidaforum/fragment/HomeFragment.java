@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huidaforum.R;
 import com.huidaforum.activity.HomePopularActivity;
+import com.huidaforum.activity.SearchActivity;
 import com.huidaforum.adapter.MyAdapter;
 import com.huidaforum.base.BaseBean;
 import com.huidaforum.base.BaseFragment;
@@ -34,7 +35,6 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +61,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private View view;
     private List<SchoolContentBean> bean = new ArrayList<>();
     private MyAdapter adapter;
+    private BaseBean<List<SchoolContentBean>> beanflag;
 
     @Override
     public View initView() {
@@ -77,13 +78,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mActivity, "跳转到搜索页面", Toast.LENGTH_SHORT).show();
+               startActivity(new Intent(mActivity, SearchActivity.class));
             }
         });
         ib_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mActivity, "跳转到搜索页面", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(mActivity, SearchActivity.class));
             }
         });
         fabHome.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +96,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         bt_popular = (Button) view.findViewById(R.id.bt_popular);
         bt_infomation = (Button) view.findViewById(R.id.bt_infomation);
         bt_selection = (Button) view.findViewById(R.id.bt_selection);
-
         initNetData(false,0);
         if (rlvHome.getAdapter() != null) {
             adapter = (MyAdapter) rlvHome.getAdapter();
@@ -108,19 +108,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initNetData(final boolean flag, final int start) {
-        Log.e(TAG, "initNetData: start--------------------------"+start );
+
         OkGo.<String>post(WebAddress.listAllContents)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, mActivity))
-                .params("limit",1)
+                .params("limit",5)
                 .params("start",start)
                 .execute(new StringCallback() {
                     public void onSuccess(Response<String> response) {
-                        BaseBean<List<SchoolContentBean>> beanflag  = new Gson().fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
+                        beanflag = new Gson().fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean<List<SchoolContentBean>>>() {
                         }.getType());
                         if (beanflag.isSuccess()) {
                             if (beanflag.getData()!=null && beanflag.getData().size()>0){
-                                bean.add(start,(SchoolContentBean) beanflag.getData().get(0));
+                                bean.add(start, (SchoolContentBean) beanflag.getData().get(0));
                                 pareDataFromNet();
                             }
                         } else {
@@ -131,8 +131,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             srlHome.finishRefresh();
                         }
                         if(start!=0&&flag){
-                            adapter.addData(bean);
-
+                            adapter.addData(start,bean);
                             adapter.notifyDataSetChanged();
                             srlHome.finishLoadmore();
                         }
@@ -149,9 +148,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void pareDataFromNet() {
-        Log.e(TAG, "pareDataFromNet: bean-----"+bean );
-        Log.e(TAG, "pareDataFromNet: bean.size()-----"+bean.size() );
-        adapter.setNewData(bean);
+        adapter.setNewData(beanflag.getData());
         adapter.notifyDataSetChanged();
     }
 

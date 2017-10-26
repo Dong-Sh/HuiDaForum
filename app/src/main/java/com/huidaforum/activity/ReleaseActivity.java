@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -66,8 +67,6 @@ public class ReleaseActivity extends BaseActivity {
     EditText etText;
     @BindView(R.id.ib_bofang)
     ImageButton ibBofang;
-    @BindView(R.id.tv_release)
-    TextView tvRelease;
     private ArrayList<String> mPicList = new ArrayList<>();
     private GridViewAdapter gridViewAdapter;
     private ArrayList<File> files = null;
@@ -152,10 +151,13 @@ public class ReleaseActivity extends BaseActivity {
             return;
         } else {
             isback = false;
-            tvRelease.setVisibility(View.VISIBLE);
-            releaseSend.setVisibility(View.GONE);
         }
         urlToFile();
+        final LoadingDailog dailog = new LoadingDailog.Builder(ReleaseActivity.this)
+                .setMessage("正在发布")
+                .setCancelable(true)
+                .setCancelOutside(false).create();
+        dailog.show();
         OkGo.<String>post(saveContent).tag(this)
                 .params("devType", "phone")
                 .params("token", SpUtil.getString(StaticValue.TOKEN, this))
@@ -170,9 +172,12 @@ public class ReleaseActivity extends BaseActivity {
                         BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
                         }.getType());
                         if (baseBean.isSuccess()) {
+
+                            dailog.dismiss();
                             Toast.makeText(ReleaseActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
+                            dailog.dismiss();
                             Toast.makeText(ReleaseActivity.this, "发布失败", Toast.LENGTH_SHORT).show();
                             releaseSend.setEnabled(true);
                             isback = true;
@@ -225,7 +230,7 @@ public class ReleaseActivity extends BaseActivity {
                     }
                 }).setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(final DialogInterface dialog, int which) {
                 String title = etTitle.getText().toString().trim();
                 String text = etText.getText().toString().trim();
                 if (TextUtils.isEmpty(title) || TextUtils.isEmpty(text)) {
@@ -233,11 +238,14 @@ public class ReleaseActivity extends BaseActivity {
                     return;
                 } else {
                     isback = false;
-                    tvRelease.setText("正在保存中");
-                    tvRelease.setVisibility(View.VISIBLE);
-                    releaseSend.setVisibility(View.GONE);
                 }
                 urlToFile();
+                final LoadingDailog dailog = new LoadingDailog.Builder(ReleaseActivity.this)
+                        .setMessage("正在保存。。。")
+                        .setCancelable(true)
+                        .setCancelOutside(true).create();
+                 dailog.show();
+
                 OkGo.<String>post(saveContentDraft).tag(this)
                         .params("devType", "phone")
                         .params("token", SpUtil.getString(StaticValue.TOKEN, ReleaseActivity.this))
@@ -252,9 +260,11 @@ public class ReleaseActivity extends BaseActivity {
                                 BaseBean baseBean = gson.fromJson(StringUtil.getReviseResponseBody(response.body()), new TypeToken<BaseBean>() {
                                 }.getType());
                                 if (baseBean.isSuccess()) {
+                                    dailog.dismiss();
                                     Toast.makeText(ReleaseActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else {
+                                    dailog.dismiss();
                                     Toast.makeText(ReleaseActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
                                     isback = true;
                                     tvRelease.setText("正在发布中");

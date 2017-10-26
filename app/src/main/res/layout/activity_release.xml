@@ -18,26 +18,16 @@
             android:text="发布" />
 
         <Button
+            android:textSize="17sp"
             android:id="@+id/release_send"
             android:layout_width="wrap_content"
-            android:layout_height="20sp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
             android:text="发送"
             android:textColor="#fff" />
 
-        <TextView
-            android:id="@+id/tv_release"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="正在发布"
-            android:textColor="#fff"
-            android:textSize="17sp"
-            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout

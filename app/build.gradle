@@ -50,4 +50,6 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'com.github.gittjy:LoadingDialog:1.0.2'
+    compile 'com.github.chaychan:PowerfulViewLibrary:1.2.1'
 }
